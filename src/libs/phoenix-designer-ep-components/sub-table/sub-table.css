@@ -1,0 +1,22 @@
+/**
+ * 子表组件样式（EP 适配）。
+ * 基础表格样式与 phoenix-designer dist/style.css 的全局 .phoenix-sub-table 一致，
+ * 这里补充 EP 特有处理：行内子组件的表单项标签隐藏（naive 版为 .n-form-item-label）。
+ */
+.phoenix-sub-table .phoenix-sub-table-row .el-form-item__label {
+  display: none;
+}
+
+.phoenix-sub-table .phoenix-sub-table-row .el-form-item {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.phoenix-sub-table .phoenix-sub-table-row .phoenix-sub-table-body > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.phoenix-sub-table .phoenix-sub-table-actions .el-button + .el-button {
+  margin-left: 2px;
+}

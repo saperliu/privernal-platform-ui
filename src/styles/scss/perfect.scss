@@ -1,0 +1,117 @@
+/* 针对 Webkit 浏览器 */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* 针对 Firefox 浏览器 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+.list-top-font {
+  color: #a8abb2;
+  font-size: 12px;
+}
+.cus-list-title {
+  font-weight: var(--n-title-font-weight);
+  transition: color 0.3s var(--n-bezier);
+  flex: 1;
+  min-width: 0;
+  color: var(--n-title-text-color);
+  font-size: var(--n-title-font-size);
+}
+
+// 控制字段的隐藏或显示时使用。
+.field-hidden {
+  display: none !important;
+}
+.field-show {
+  display: grid;
+}
+// 解决“操作”那一列的表头与内容不对齐的问题
+.table-action-title {
+  .n-data-table-th__title {
+    padding-left: 10px;
+  }
+}
+
+//重置控件禁用时的样式
+::v-deep(.n-form-item-blank) {
+  .n-input.n-input--disabled {
+    //background-color: var(--n-color);
+  }
+  .n-input.n-input--disabled .n-input__input-el,
+  .n-input.n-input--disabled .n-input__textarea-el {
+    color: var(--n-text-color);
+  }
+  .n-input.n-input--disabled .n-input__border {
+    border: 0px solid rgb(224, 224, 230);
+  }
+  // 隐藏placeholder,在控件禁用的时候
+  .n-input.n-input--disabled .n-input__placeholder {
+    //display: none;
+  }
+  // 隐藏后缀图标, 日期控件
+  .n-input.n-input--disabled .n-input__suffix,
+  .n-input.n-input--disabled .n-input__prefix {
+    display: none;
+  }
+
+  //选择控件的边框
+  .n-select .n-base-selection--disabled .n-base-selection__border,
+  .n-select .n-base-selection--disabled .n-base-selection__state-border {
+    border: 0px solid rgb(224, 224, 230);
+  }
+  .n-base-selection.n-base-selection--disabled {
+    .n-base-selection__border,
+    .n-base-selection__state-border {
+      border: 0px solid rgb(224, 224, 230);
+    }
+  }
+
+  // 选择控件的输入框的颜色
+  .n-base-selection.n-base-selection--disabled .n-base-selection-label .n-base-selection-input {
+    color: var(--n-text-color);
+    //background-color: var(--n-color);
+  }
+  .n-base-selection.n-base-selection--disabled .n-base-suffix .n-base-suffix__arrow {
+    display: none;
+  }
+  // 选择控件的后缀的小图标
+  .n-select .n-base-selection--disabled .n-base-suffix {
+    display: none;
+  }
+  // 选择控件的输入框的上下边框
+  .n-base-selection.n-base-selection--disabled .n-base-selection-label {
+    //background-color: var(--n-color);
+  }
+  // 选择控件的输入框的文本颜色
+  .n-base-selection.n-base-selection--disabled .n-base-selection-label .n-base-selection-label__render-label {
+    color: var(--n-text-color);
+  }
+
+  //单选控件的文本颜色
+  .n-radio.n-radio--disabled .n-radio__label {
+    color: var(--n-text-color);
+  }
+}
+
+// 增加行内可以点击的列的文字样式
+.table-cell-clickable {
+  color: #165dff;
+  cursor: pointer;
+}

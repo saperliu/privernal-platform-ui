@@ -1,0 +1,10 @@
+export declare const Prefix = "Warm-";
+export declare const TokenName: string;
+export declare const FrameworkName: string;
+export declare function getToken(key: any): string;
+export declare function getTokenName(): string;
+export declare function remove(key: any): void;
+export declare function setToken(key: any, value: any): void;
+export declare function setTokenName(value: any): void;
+export declare function setFramework(value: any): void;
+export declare function getFramework(): string;

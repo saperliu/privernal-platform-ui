@@ -1,0 +1,10 @@
+export declare function saveJson(data: any, onlyNodeSkip?: boolean): Promise<any>;
+export declare function queryDef(id?: string | number): Promise<any>;
+export declare function queryFlowChart(id: string | number): Promise<any>;
+export declare function handlerType(): Promise<any>;
+export declare function handlerResult(query?: Record<string, any>): Promise<any>;
+export declare function handlerFeedback(query?: Record<string, any>): Promise<any>;
+export declare function handlerDict(): Promise<any>;
+export declare function publishedList(): Promise<any>;
+export declare function nodeExt(): Promise<any>;
+export declare function listenerList(): Promise<any>;

@@ -1,0 +1,4509 @@
+{
+  "MIT": [
+    {
+      "name": "@alova/mock",
+      "versions": ["2.0.20"],
+      "paths": ["node_modules/.pnpm/@alova+mock@2.0.20_alova@3.5.1/node_modules/@alova/mock"],
+      "license": "MIT",
+      "author": "Scott Hu",
+      "homepage": "https://github.com/alovajs/mock",
+      "description": "mock request adapter for alova.js"
+    },
+    {
+      "name": "@alova/shared",
+      "versions": ["1.3.2"],
+      "paths": ["node_modules/.pnpm/@alova+shared@1.3.2/node_modules/@alova/shared"],
+      "license": "MIT",
+      "author": "Scott Hu",
+      "homepage": "https://alova.js.org"
+    },
+    {
+      "name": "@antv/algorithm",
+      "versions": ["0.1.26"],
+      "paths": ["node_modules/.pnpm/@antv+algorithm@0.1.26/node_modules/@antv/algorithm"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://g6.antv.vision",
+      "description": "graph algorithm"
+    },
+    {
+      "name": "@antv/component",
+      "versions": ["2.1.11"],
+      "paths": ["node_modules/.pnpm/@antv+component@2.1.11/node_modules/@antv/component"],
+      "license": "MIT",
+      "author": "AntV",
+      "homepage": "https://github.com/antvis/component#readme",
+      "description": "Visualization components for AntV, based on G."
+    },
+    {
+      "name": "@antv/coord",
+      "versions": ["0.4.7"],
+      "paths": ["node_modules/.pnpm/@antv+coord@0.4.7/node_modules/@antv/coord"],
+      "license": "MIT",
+      "author": "AntV",
+      "homepage": "https://github.com/antvis/coord#readme",
+      "description": "Toolkit for mapping elements of sets into geometric objects."
+    },
+    {
+      "name": "@antv/data-set",
+      "versions": ["0.11.8"],
+      "paths": ["node_modules/.pnpm/@antv+data-set@0.11.8/node_modules/@antv/data-set"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/data-set",
+      "description": "data set with state management"
+    },
+    {
+      "name": "@antv/event-emitter",
+      "versions": ["0.1.3"],
+      "paths": ["node_modules/.pnpm/@antv+event-emitter@0.1.3/node_modules/@antv/event-emitter"],
+      "license": "MIT",
+      "homepage": "https://github.com/antvis/event-emitter#readme",
+      "description": "event emitter for antvis."
+    },
+    {
+      "name": "@antv/expr",
+      "versions": ["1.0.2"],
+      "paths": ["node_modules/.pnpm/@antv+expr@1.0.2/node_modules/@antv/expr"],
+      "license": "MIT",
+      "homepage": "https://github.com/antvis/expr#readme",
+      "description": "A secure, high-performance expression evaluator for dynamic chart rendering"
+    },
+    {
+      "name": "@antv/g",
+      "versions": ["6.1.28"],
+      "paths": ["node_modules/.pnpm/@antv+g@6.1.28/node_modules/@antv/g"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A core module for rendering engine implements DOM API."
+    },
+    {
+      "name": "@antv/g-camera-api",
+      "versions": ["2.0.41"],
+      "paths": ["node_modules/.pnpm/@antv+g-camera-api@2.0.41/node_modules/@antv/g-camera-api"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A simple implementation of Camera API."
+    },
+    {
+      "name": "@antv/g-canvas",
+      "versions": ["2.0.48"],
+      "paths": ["node_modules/.pnpm/@antv+g-canvas@2.0.48/node_modules/@antv/g-canvas"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A renderer implemented by Canvas 2D API"
+    },
+    {
+      "name": "@antv/g-dom-mutation-observer-api",
+      "versions": ["2.0.38"],
+      "paths": [
+        "node_modules/.pnpm/@antv+g-dom-mutation-observer-api@2.0.38/node_modules/@antv/g-dom-mutation-observer-api"
+      ],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A simple implementation of DOM MutationObserver API."
+    },
+    {
+      "name": "@antv/g-lite",
+      "versions": ["2.3.2"],
+      "paths": ["node_modules/.pnpm/@antv+g-lite@2.3.2/node_modules/@antv/g-lite"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A core module for rendering engine implements DOM API."
+    },
+    {
+      "name": "@antv/g-math",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/@antv+g-math@3.0.1/node_modules/@antv/g-math"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "Geometry util"
+    },
+    {
+      "name": "@antv/g-plugin-canvas-path-generator",
+      "versions": ["2.1.22"],
+      "paths": [
+        "node_modules/.pnpm/@antv+g-plugin-canvas-path-generator@2.1.22/node_modules/@antv/g-plugin-canvas-path-generator"
+      ],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A G plugin of path generator with Canvas2D API"
+    },
+    {
+      "name": "@antv/g-plugin-canvas-picker",
+      "versions": ["2.1.27"],
+      "paths": ["node_modules/.pnpm/@antv+g-plugin-canvas-picker@2.1.27/node_modules/@antv/g-plugin-canvas-picker"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A G plugin for picking in canvas"
+    },
+    {
+      "name": "@antv/g-plugin-canvas-renderer",
+      "versions": ["2.3.3"],
+      "paths": ["node_modules/.pnpm/@antv+g-plugin-canvas-renderer@2.3.3/node_modules/@antv/g-plugin-canvas-renderer"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A G plugin of renderer implementation with Canvas2D API"
+    },
+    {
+      "name": "@antv/g-plugin-dom-interaction",
+      "versions": ["2.1.27"],
+      "paths": ["node_modules/.pnpm/@antv+g-plugin-dom-interaction@2.1.27/node_modules/@antv/g-plugin-dom-interaction"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A G plugin"
+    },
+    {
+      "name": "@antv/g-plugin-dragndrop",
+      "versions": ["2.0.38"],
+      "paths": ["node_modules/.pnpm/@antv+g-plugin-dragndrop@2.0.38/node_modules/@antv/g-plugin-dragndrop"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A G plugin for Drag n Drop implemented with PointerEvents"
+    },
+    {
+      "name": "@antv/g-plugin-html-renderer",
+      "versions": ["2.1.27"],
+      "paths": ["node_modules/.pnpm/@antv+g-plugin-html-renderer@2.1.27/node_modules/@antv/g-plugin-html-renderer"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A G plugin for rendering HTML"
+    },
+    {
+      "name": "@antv/g-plugin-image-loader",
+      "versions": ["2.1.26"],
+      "paths": ["node_modules/.pnpm/@antv+g-plugin-image-loader@2.1.26/node_modules/@antv/g-plugin-image-loader"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A G plugin for loading image"
+    },
+    {
+      "name": "@antv/g-web-animations-api",
+      "versions": ["2.1.28"],
+      "paths": ["node_modules/.pnpm/@antv+g-web-animations-api@2.1.28/node_modules/@antv/g-web-animations-api"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/g#readme",
+      "description": "A simple implementation of Web Animations API."
+    },
+    {
+      "name": "@antv/g2",
+      "versions": ["5.4.8"],
+      "paths": ["node_modules/.pnpm/@antv+g2@5.4.8/node_modules/@antv/g2"],
+      "license": "MIT",
+      "author": "AntV",
+      "homepage": "https://github.com/antvis/g2#readme",
+      "description": "the Grammar of Graphics in Javascript"
+    },
+    {
+      "name": "@antv/g6",
+      "versions": ["5.1.0"],
+      "paths": ["node_modules/.pnpm/@antv+g6@5.1.0/node_modules/@antv/g6"],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://g6.antv.antgroup.com/",
+      "description": "A Graph Visualization Framework in JavaScript"
+    },
+    {
+      "name": "@antv/graphlib",
+      "versions": ["2.0.4"],
+      "paths": ["node_modules/.pnpm/@antv+graphlib@2.0.4/node_modules/@antv/graphlib"],
+      "license": "MIT",
+      "homepage": "https://github.com/antvis/graphlib"
+    },
+    {
+      "name": "@antv/hierarchy",
+      "versions": ["0.6.14", "0.7.1"],
+      "paths": [
+        "node_modules/.pnpm/@antv+hierarchy@0.6.14/node_modules/@antv/hierarchy",
+        "node_modules/.pnpm/@antv+hierarchy@0.7.1/node_modules/@antv/hierarchy"
+      ],
+      "license": "MIT",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/hierarchy",
+      "description": "layout algorithms for visualizing hierarchical data"
+    },
+    {
+      "name": "@antv/layout",
+      "versions": ["2.0.0"],
+      "paths": ["node_modules/.pnpm/@antv+layout@2.0.0/node_modules/@antv/layout"],
+      "license": "MIT",
+      "author": "antv",
+      "homepage": "https://github.com/antvis/layout",
+      "description": "graph layout algorithm"
+    },
+    {
+      "name": "@antv/scale",
+      "versions": ["0.4.16", "0.5.2"],
+      "paths": [
+        "node_modules/.pnpm/@antv+scale@0.4.16/node_modules/@antv/scale",
+        "node_modules/.pnpm/@antv+scale@0.5.2/node_modules/@antv/scale"
+      ],
+      "license": "MIT",
+      "author": "AntV",
+      "homepage": "https://github.com/antvis/scale#readme",
+      "description": "Toolkit for mapping abstract data into visual representation."
+    },
+    {
+      "name": "@antv/util",
+      "versions": ["3.3.11"],
+      "paths": ["node_modules/.pnpm/@antv+util@3.3.11/node_modules/@antv/util"],
+      "license": "MIT",
+      "homepage": "https://github.com/antvis/util#readme"
+    },
+    {
+      "name": "@babel/generator",
+      "versions": ["7.29.1"],
+      "paths": ["node_modules/.pnpm/@babel+generator@7.29.1/node_modules/@babel/generator"],
+      "license": "MIT",
+      "author": "The Babel Team",
+      "homepage": "https://babel.dev/docs/en/next/babel-generator",
+      "description": "Turns an AST into code."
+    },
+    {
+      "name": "@babel/helper-string-parser",
+      "versions": ["7.27.1"],
+      "paths": ["node_modules/.pnpm/@babel+helper-string-parser@7.27.1/node_modules/@babel/helper-string-parser"],
+      "license": "MIT",
+      "author": "The Babel Team",
+      "homepage": "https://babel.dev/docs/en/next/babel-helper-string-parser",
+      "description": "A utility package to parse strings"
+    },
+    {
+      "name": "@babel/helper-validator-identifier",
+      "versions": ["7.28.5"],
+      "paths": [
+        "node_modules/.pnpm/@babel+helper-validator-identifier@7.28.5/node_modules/@babel/helper-validator-identifier"
+      ],
+      "license": "MIT",
+      "author": "The Babel Team",
+      "homepage": "https://github.com/babel/babel#readme",
+      "description": "Validate identifier/keywords name"
+    },
+    {
+      "name": "@babel/parser",
+      "versions": ["7.28.5", "7.29.2"],
+      "paths": [
+        "node_modules/.pnpm/@babel+parser@7.28.5/node_modules/@babel/parser",
+        "node_modules/.pnpm/@babel+parser@7.29.2/node_modules/@babel/parser"
+      ],
+      "license": "MIT",
+      "author": "The Babel Team",
+      "homepage": "https://babel.dev/docs/en/next/babel-parser",
+      "description": "A JavaScript parser"
+    },
+    {
+      "name": "@babel/runtime",
+      "versions": ["7.28.3"],
+      "paths": ["node_modules/.pnpm/@babel+runtime@7.28.3/node_modules/@babel/runtime"],
+      "license": "MIT",
+      "author": "The Babel Team",
+      "homepage": "https://babel.dev/docs/en/next/babel-runtime",
+      "description": "babel's modular runtime helpers"
+    },
+    {
+      "name": "@babel/runtime-corejs3",
+      "versions": ["7.28.3"],
+      "paths": ["node_modules/.pnpm/@babel+runtime-corejs3@7.28.3/node_modules/@babel/runtime-corejs3"],
+      "license": "MIT",
+      "author": "The Babel Team",
+      "homepage": "https://github.com/babel/babel#readme",
+      "description": "babel's modular runtime helpers with core-js@3 polyfilling"
+    },
+    {
+      "name": "@babel/types",
+      "versions": ["7.28.5", "7.29.0"],
+      "paths": [
+        "node_modules/.pnpm/@babel+types@7.28.5/node_modules/@babel/types",
+        "node_modules/.pnpm/@babel+types@7.29.0/node_modules/@babel/types"
+      ],
+      "license": "MIT",
+      "author": "The Babel Team",
+      "homepage": "https://babel.dev/docs/en/next/babel-types",
+      "description": "Babel Types is a Lodash-esque utility library for AST nodes"
+    },
+    {
+      "name": "@better-scroll/core",
+      "versions": ["2.5.1"],
+      "paths": ["node_modules/.pnpm/@better-scroll+core@2.5.1/node_modules/@better-scroll/core"],
+      "license": "MIT",
+      "author": "jizhi",
+      "homepage": "https://github.com/ustbhuangyi/better-scroll",
+      "description": "Minimalistic core scrolling for BetterScroll, it is pure and tiny"
+    },
+    {
+      "name": "@better-scroll/shared-utils",
+      "versions": ["2.5.1"],
+      "paths": ["node_modules/.pnpm/@better-scroll+shared-utils@2.5.1/node_modules/@better-scroll/shared-utils"],
+      "license": "MIT",
+      "author": "jizhi",
+      "homepage": "https://github.com/ustbhuangyi/better-scroll",
+      "description": "shared-utils for BetterScroll"
+    },
+    {
+      "name": "@ctrl/tinycolor",
+      "versions": ["4.2.0"],
+      "paths": ["node_modules/.pnpm/@ctrl+tinycolor@4.2.0/node_modules/@ctrl/tinycolor"],
+      "license": "MIT",
+      "author": "Scott Cooper",
+      "homepage": "https://tinycolor.vercel.app",
+      "description": "Fast, small color manipulation and conversion for JavaScript"
+    },
+    {
+      "name": "@element-plus/icons-vue",
+      "versions": ["2.3.2"],
+      "paths": [
+        "node_modules/.pnpm/@element-plus+icons-vue@2.3.2_vue@3.5.31_typescript@5.9.3_/node_modules/@element-plus/icons-vue"
+      ],
+      "license": "MIT",
+      "homepage": "https://element-plus.org/",
+      "description": "Vue components of Element Plus Icons collection."
+    },
+    {
+      "name": "@floating-ui/core",
+      "versions": ["1.7.3"],
+      "paths": ["node_modules/.pnpm/@floating-ui+core@1.7.3/node_modules/@floating-ui/core"],
+      "license": "MIT",
+      "author": "atomiks",
+      "homepage": "https://floating-ui.com",
+      "description": "Positioning library for floating elements: tooltips, popovers, dropdowns, and more"
+    },
+    {
+      "name": "@floating-ui/dom",
+      "versions": ["1.7.4"],
+      "paths": ["node_modules/.pnpm/@floating-ui+dom@1.7.4/node_modules/@floating-ui/dom"],
+      "license": "MIT",
+      "author": "atomiks",
+      "homepage": "https://floating-ui.com",
+      "description": "Floating UI for the web"
+    },
+    {
+      "name": "@floating-ui/utils",
+      "versions": ["0.2.10"],
+      "paths": ["node_modules/.pnpm/@floating-ui+utils@0.2.10/node_modules/@floating-ui/utils"],
+      "license": "MIT",
+      "author": "atomiks",
+      "homepage": "https://floating-ui.com",
+      "description": "Utilities for Floating UI"
+    },
+    {
+      "name": "@iconify/types",
+      "versions": ["2.0.0"],
+      "paths": ["node_modules/.pnpm/@iconify+types@2.0.0/node_modules/@iconify/types"],
+      "license": "MIT",
+      "author": "Vjacheslav Trushkin",
+      "homepage": "https://github.com/iconify/iconify",
+      "description": "Types for Iconify data"
+    },
+    {
+      "name": "@iconify/vue",
+      "versions": ["5.0.0"],
+      "paths": ["node_modules/.pnpm/@iconify+vue@5.0.0_vue@3.5.31_typescript@5.9.3_/node_modules/@iconify/vue"],
+      "license": "MIT",
+      "author": "Vjacheslav Trushkin",
+      "homepage": "https://iconify.design/",
+      "description": "Iconify icon component for Vue 3."
+    },
+    {
+      "name": "@intlify/core-base",
+      "versions": ["11.3.0"],
+      "paths": ["node_modules/.pnpm/@intlify+core-base@11.3.0/node_modules/@intlify/core-base"],
+      "license": "MIT",
+      "author": "kazuya kawaguchi",
+      "homepage": "https://github.com/intlify/vue-i18n/tree/master/packages/core-base#readme",
+      "description": "@intlify/core-base"
+    },
+    {
+      "name": "@intlify/devtools-types",
+      "versions": ["11.3.0"],
+      "paths": ["node_modules/.pnpm/@intlify+devtools-types@11.3.0/node_modules/@intlify/devtools-types"],
+      "license": "MIT",
+      "author": "kazuya kawaguchi",
+      "homepage": "https://github.com/intlify/vue-i18n/tree/master/packages/devtools-types#readme",
+      "description": "@intlify/devtools-types"
+    },
+    {
+      "name": "@intlify/message-compiler",
+      "versions": ["11.3.0"],
+      "paths": ["node_modules/.pnpm/@intlify+message-compiler@11.3.0/node_modules/@intlify/message-compiler"],
+      "license": "MIT",
+      "author": "kazuya kawaguchi",
+      "homepage": "https://github.com/intlify/vue-i18n/tree/master/packages/message-compiler#readme",
+      "description": "@intlify/message-compiler"
+    },
+    {
+      "name": "@intlify/shared",
+      "versions": ["11.3.0"],
+      "paths": ["node_modules/.pnpm/@intlify+shared@11.3.0/node_modules/@intlify/shared"],
+      "license": "MIT",
+      "author": "kazuya kawaguchi",
+      "homepage": "https://github.com/intlify/vue-i18n/tree/master/packages/shared#readme",
+      "description": "@intlify/shared"
+    },
+    {
+      "name": "@jridgewell/gen-mapping",
+      "versions": ["0.3.13"],
+      "paths": ["node_modules/.pnpm/@jridgewell+gen-mapping@0.3.13/node_modules/@jridgewell/gen-mapping"],
+      "license": "MIT",
+      "author": "Justin Ridgewell",
+      "homepage": "https://github.com/jridgewell/sourcemaps/tree/main/packages/gen-mapping",
+      "description": "Generate source maps"
+    },
+    {
+      "name": "@jridgewell/remapping",
+      "versions": ["2.3.5"],
+      "paths": ["node_modules/.pnpm/@jridgewell+remapping@2.3.5/node_modules/@jridgewell/remapping"],
+      "license": "MIT",
+      "author": "Justin Ridgewell",
+      "homepage": "https://github.com/jridgewell/sourcemaps/tree/main/packages/remapping",
+      "description": "Remap sequential sourcemaps through transformations to point at the original source code"
+    },
+    {
+      "name": "@jridgewell/resolve-uri",
+      "versions": ["3.1.2"],
+      "paths": ["node_modules/.pnpm/@jridgewell+resolve-uri@3.1.2/node_modules/@jridgewell/resolve-uri"],
+      "license": "MIT",
+      "author": "Justin Ridgewell",
+      "homepage": "https://github.com/jridgewell/resolve-uri#readme",
+      "description": "Resolve a URI relative to an optional base URI"
+    },
+    {
+      "name": "@jridgewell/sourcemap-codec",
+      "versions": ["1.5.5"],
+      "paths": ["node_modules/.pnpm/@jridgewell+sourcemap-codec@1.5.5/node_modules/@jridgewell/sourcemap-codec"],
+      "license": "MIT",
+      "author": "Justin Ridgewell",
+      "homepage": "https://github.com/jridgewell/sourcemaps/tree/main/packages/sourcemap-codec",
+      "description": "Encode/decode sourcemap mappings"
+    },
+    {
+      "name": "@jridgewell/trace-mapping",
+      "versions": ["0.3.30"],
+      "paths": ["node_modules/.pnpm/@jridgewell+trace-mapping@0.3.30/node_modules/@jridgewell/trace-mapping"],
+      "license": "MIT",
+      "author": "Justin Ridgewell",
+      "homepage": "https://github.com/jridgewell/sourcemaps/tree/main/packages/trace-mapping",
+      "description": "Trace the original position through a source map"
+    },
+    {
+      "name": "@socket.io/component-emitter",
+      "versions": ["3.1.2"],
+      "paths": ["node_modules/.pnpm/@socket.io+component-emitter@3.1.2/node_modules/@socket.io/component-emitter"],
+      "license": "MIT",
+      "homepage": "https://github.com/socketio/emitter#readme",
+      "description": "Event emitter"
+    },
+    {
+      "name": "@sxzz/popperjs-es",
+      "versions": ["2.11.7"],
+      "paths": ["node_modules/.pnpm/@sxzz+popperjs-es@2.11.7/node_modules/@sxzz/popperjs-es"],
+      "license": "MIT",
+      "author": "Federico Zivolo",
+      "homepage": "https://github.com/popperjs/popper-core#readme",
+      "description": "Tooltip and Popover Positioning Engine"
+    },
+    {
+      "name": "@transloadit/prettier-bytes",
+      "versions": ["0.0.7"],
+      "paths": ["node_modules/.pnpm/@transloadit+prettier-bytes@0.0.7/node_modules/@transloadit/prettier-bytes"],
+      "license": "MIT",
+      "homepage": "https://github.com/transloadit/monolib#readme"
+    },
+    {
+      "name": "@turf/boolean-clockwise",
+      "versions": ["6.5.0"],
+      "paths": ["node_modules/.pnpm/@turf+boolean-clockwise@6.5.0/node_modules/@turf/boolean-clockwise"],
+      "license": "MIT",
+      "author": "Turf Authors",
+      "homepage": "https://github.com/Turfjs/turf",
+      "description": "turf boolean-clockwise module"
+    },
+    {
+      "name": "@turf/clone",
+      "versions": ["6.5.0"],
+      "paths": ["node_modules/.pnpm/@turf+clone@6.5.0/node_modules/@turf/clone"],
+      "license": "MIT",
+      "author": "Turf Authors",
+      "homepage": "https://github.com/Turfjs/turf",
+      "description": "turf clone module"
+    },
+    {
+      "name": "@turf/flatten",
+      "versions": ["6.5.0"],
+      "paths": ["node_modules/.pnpm/@turf+flatten@6.5.0/node_modules/@turf/flatten"],
+      "license": "MIT",
+      "author": "Turf Authors",
+      "homepage": "https://github.com/Turfjs/turf",
+      "description": "turf flatten module"
+    },
+    {
+      "name": "@turf/helpers",
+      "versions": ["6.5.0"],
+      "paths": ["node_modules/.pnpm/@turf+helpers@6.5.0/node_modules/@turf/helpers"],
+      "license": "MIT",
+      "author": "Turf Authors",
+      "homepage": "https://github.com/Turfjs/turf",
+      "description": "turf helpers module"
+    },
+    {
+      "name": "@turf/invariant",
+      "versions": ["6.5.0"],
+      "paths": ["node_modules/.pnpm/@turf+invariant@6.5.0/node_modules/@turf/invariant"],
+      "license": "MIT",
+      "author": "Turf Authors",
+      "homepage": "https://github.com/Turfjs/turf",
+      "description": "turf invariant module"
+    },
+    {
+      "name": "@turf/meta",
+      "versions": ["3.14.0", "6.5.0"],
+      "paths": [
+        "node_modules/.pnpm/@turf+meta@3.14.0/node_modules/@turf/meta",
+        "node_modules/.pnpm/@turf+meta@6.5.0/node_modules/@turf/meta"
+      ],
+      "license": "MIT",
+      "author": "Turf Authors",
+      "homepage": "https://github.com/Turfjs/turf",
+      "description": "turf meta module"
+    },
+    {
+      "name": "@turf/rewind",
+      "versions": ["6.5.0"],
+      "paths": ["node_modules/.pnpm/@turf+rewind@6.5.0/node_modules/@turf/rewind"],
+      "license": "MIT",
+      "author": "Turf Authors",
+      "homepage": "https://github.com/Turfjs/turf",
+      "description": "turf rewind module"
+    },
+    {
+      "name": "@types/d3-array",
+      "versions": ["3.2.1"],
+      "paths": ["node_modules/.pnpm/@types+d3-array@3.2.1/node_modules/@types/d3-array"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-array",
+      "description": "TypeScript definitions for d3-array"
+    },
+    {
+      "name": "@types/d3-color",
+      "versions": ["3.1.3"],
+      "paths": ["node_modules/.pnpm/@types+d3-color@3.1.3/node_modules/@types/d3-color"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-color",
+      "description": "TypeScript definitions for d3-color"
+    },
+    {
+      "name": "@types/d3-dispatch",
+      "versions": ["3.0.7"],
+      "paths": ["node_modules/.pnpm/@types+d3-dispatch@3.0.7/node_modules/@types/d3-dispatch"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-dispatch",
+      "description": "TypeScript definitions for d3-dispatch"
+    },
+    {
+      "name": "@types/d3-dsv",
+      "versions": ["3.0.7"],
+      "paths": ["node_modules/.pnpm/@types+d3-dsv@3.0.7/node_modules/@types/d3-dsv"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-dsv",
+      "description": "TypeScript definitions for d3-dsv"
+    },
+    {
+      "name": "@types/d3-ease",
+      "versions": ["3.0.2"],
+      "paths": ["node_modules/.pnpm/@types+d3-ease@3.0.2/node_modules/@types/d3-ease"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-ease",
+      "description": "TypeScript definitions for d3-ease"
+    },
+    {
+      "name": "@types/d3-fetch",
+      "versions": ["3.0.7"],
+      "paths": ["node_modules/.pnpm/@types+d3-fetch@3.0.7/node_modules/@types/d3-fetch"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-fetch",
+      "description": "TypeScript definitions for d3-fetch"
+    },
+    {
+      "name": "@types/d3-force",
+      "versions": ["3.0.10"],
+      "paths": ["node_modules/.pnpm/@types+d3-force@3.0.10/node_modules/@types/d3-force"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-force",
+      "description": "TypeScript definitions for d3-force"
+    },
+    {
+      "name": "@types/d3-format",
+      "versions": ["3.0.4"],
+      "paths": ["node_modules/.pnpm/@types+d3-format@3.0.4/node_modules/@types/d3-format"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-format",
+      "description": "TypeScript definitions for d3-format"
+    },
+    {
+      "name": "@types/d3-geo",
+      "versions": ["3.1.0"],
+      "paths": ["node_modules/.pnpm/@types+d3-geo@3.1.0/node_modules/@types/d3-geo"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-geo",
+      "description": "TypeScript definitions for d3-geo"
+    },
+    {
+      "name": "@types/d3-hierarchy",
+      "versions": ["3.1.7"],
+      "paths": ["node_modules/.pnpm/@types+d3-hierarchy@3.1.7/node_modules/@types/d3-hierarchy"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-hierarchy",
+      "description": "TypeScript definitions for d3-hierarchy"
+    },
+    {
+      "name": "@types/d3-interpolate",
+      "versions": ["3.0.4"],
+      "paths": ["node_modules/.pnpm/@types+d3-interpolate@3.0.4/node_modules/@types/d3-interpolate"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-interpolate",
+      "description": "TypeScript definitions for d3-interpolate"
+    },
+    {
+      "name": "@types/d3-path",
+      "versions": ["3.1.1"],
+      "paths": ["node_modules/.pnpm/@types+d3-path@3.1.1/node_modules/@types/d3-path"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-path",
+      "description": "TypeScript definitions for d3-path"
+    },
+    {
+      "name": "@types/d3-quadtree",
+      "versions": ["3.0.6"],
+      "paths": ["node_modules/.pnpm/@types+d3-quadtree@3.0.6/node_modules/@types/d3-quadtree"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-quadtree",
+      "description": "TypeScript definitions for d3-quadtree"
+    },
+    {
+      "name": "@types/d3-random",
+      "versions": ["3.0.3"],
+      "paths": ["node_modules/.pnpm/@types+d3-random@3.0.3/node_modules/@types/d3-random"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-random",
+      "description": "TypeScript definitions for d3-random"
+    },
+    {
+      "name": "@types/d3-scale",
+      "versions": ["4.0.9"],
+      "paths": ["node_modules/.pnpm/@types+d3-scale@4.0.9/node_modules/@types/d3-scale"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-scale",
+      "description": "TypeScript definitions for d3-scale"
+    },
+    {
+      "name": "@types/d3-scale-chromatic",
+      "versions": ["3.1.0"],
+      "paths": ["node_modules/.pnpm/@types+d3-scale-chromatic@3.1.0/node_modules/@types/d3-scale-chromatic"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-scale-chromatic",
+      "description": "TypeScript definitions for d3-scale-chromatic"
+    },
+    {
+      "name": "@types/d3-shape",
+      "versions": ["3.1.7"],
+      "paths": ["node_modules/.pnpm/@types+d3-shape@3.1.7/node_modules/@types/d3-shape"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-shape",
+      "description": "TypeScript definitions for d3-shape"
+    },
+    {
+      "name": "@types/d3-time",
+      "versions": ["3.0.4"],
+      "paths": ["node_modules/.pnpm/@types+d3-time@3.0.4/node_modules/@types/d3-time"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-time",
+      "description": "TypeScript definitions for d3-time"
+    },
+    {
+      "name": "@types/d3-timer",
+      "versions": ["3.0.2"],
+      "paths": ["node_modules/.pnpm/@types+d3-timer@3.0.2/node_modules/@types/d3-timer"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/d3-timer",
+      "description": "TypeScript definitions for d3-timer"
+    },
+    {
+      "name": "@types/event-emitter",
+      "versions": ["0.3.5"],
+      "paths": ["node_modules/.pnpm/@types+event-emitter@0.3.5/node_modules/@types/event-emitter"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/event-emitter",
+      "description": "TypeScript definitions for event-emitter"
+    },
+    {
+      "name": "@types/geojson",
+      "versions": ["7946.0.16"],
+      "paths": ["node_modules/.pnpm/@types+geojson@7946.0.16/node_modules/@types/geojson"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/geojson",
+      "description": "TypeScript definitions for geojson"
+    },
+    {
+      "name": "@types/lodash",
+      "versions": ["4.17.20"],
+      "paths": ["node_modules/.pnpm/@types+lodash@4.17.20/node_modules/@types/lodash"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/lodash",
+      "description": "TypeScript definitions for lodash"
+    },
+    {
+      "name": "@types/lodash-es",
+      "versions": ["4.17.12"],
+      "paths": ["node_modules/.pnpm/@types+lodash-es@4.17.12/node_modules/@types/lodash-es"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/lodash-es",
+      "description": "TypeScript definitions for lodash-es"
+    },
+    {
+      "name": "@types/sortablejs",
+      "versions": ["1.15.8"],
+      "paths": ["node_modules/.pnpm/@types+sortablejs@1.15.8/node_modules/@types/sortablejs"],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/sortablejs",
+      "description": "TypeScript definitions for sortablejs"
+    },
+    {
+      "name": "@types/web-bluetooth",
+      "versions": ["0.0.20", "0.0.21"],
+      "paths": [
+        "node_modules/.pnpm/@types+web-bluetooth@0.0.20/node_modules/@types/web-bluetooth",
+        "node_modules/.pnpm/@types+web-bluetooth@0.0.21/node_modules/@types/web-bluetooth"
+      ],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/web-bluetooth",
+      "description": "TypeScript definitions for web-bluetooth"
+    },
+    {
+      "name": "@uppy/companion-client",
+      "versions": ["2.2.2"],
+      "paths": ["node_modules/.pnpm/@uppy+companion-client@2.2.2/node_modules/@uppy/companion-client"],
+      "license": "MIT",
+      "homepage": "https://uppy.io",
+      "description": "Client library for communication with Companion. Intended for use in Uppy plugins."
+    },
+    {
+      "name": "@uppy/core",
+      "versions": ["2.3.4"],
+      "paths": ["node_modules/.pnpm/@uppy+core@2.3.4/node_modules/@uppy/core"],
+      "license": "MIT",
+      "homepage": "https://uppy.io",
+      "description": "Core module for the extensible JavaScript file upload widget with support for drag&drop, resumable uploads, previews, restrictions, file processing/encoding, remote providers like Instagram, Dropbox, Google Drive, S3 and more :dog:"
+    },
+    {
+      "name": "@uppy/store-default",
+      "versions": ["2.1.1"],
+      "paths": ["node_modules/.pnpm/@uppy+store-default@2.1.1/node_modules/@uppy/store-default"],
+      "license": "MIT",
+      "homepage": "https://uppy.io",
+      "description": "The default simple object-based store for Uppy."
+    },
+    {
+      "name": "@uppy/utils",
+      "versions": ["4.1.3"],
+      "paths": ["node_modules/.pnpm/@uppy+utils@4.1.3/node_modules/@uppy/utils"],
+      "license": "MIT",
+      "homepage": "https://uppy.io",
+      "description": "Shared utility functions for Uppy Core and plugins maintained by the Uppy team."
+    },
+    {
+      "name": "@uppy/xhr-upload",
+      "versions": ["2.1.3"],
+      "paths": ["node_modules/.pnpm/@uppy+xhr-upload@2.1.3_@uppy+core@2.3.4/node_modules/@uppy/xhr-upload"],
+      "license": "MIT",
+      "homepage": "https://uppy.io",
+      "description": "Plain and simple classic HTML multipart form uploads with Uppy, as well as uploads using the HTTP PUT method."
+    },
+    {
+      "name": "@vicons/antd",
+      "versions": ["0.12.0"],
+      "paths": ["node_modules/.pnpm/@vicons+antd@0.12.0/node_modules/@vicons/antd"],
+      "license": "MIT",
+      "author": "07akioni",
+      "description": "Vue3 SVG icon components integrated from [`ant-design-icons`](https://github.com/ant-design/ant-design-icons)"
+    },
+    {
+      "name": "@vicons/ionicons5",
+      "versions": ["0.12.0"],
+      "paths": ["node_modules/.pnpm/@vicons+ionicons5@0.12.0/node_modules/@vicons/ionicons5"],
+      "license": "MIT",
+      "author": "07akioni",
+      "description": "Vue3 SVG icon components integrated from [`ionicons5`](https://ionicons.com/)"
+    },
+    {
+      "name": "@visactor/vchart",
+      "versions": ["2.0.20"],
+      "paths": ["node_modules/.pnpm/@visactor+vchart@2.0.20/node_modules/@visactor/vchart"],
+      "license": "MIT",
+      "author": "VisActor",
+      "homepage": "https://www.visactor.io/vchart",
+      "description": "charts lib based @visactor/VGrammar"
+    },
+    {
+      "name": "@visactor/vchart-theme",
+      "versions": ["1.12.3"],
+      "paths": [
+        "node_modules/.pnpm/@visactor+vchart-theme@1.12.3_@visactor+vchart@2.0.20/node_modules/@visactor/vchart-theme"
+      ],
+      "license": "MIT",
+      "author": "VisActor",
+      "homepage": "https://www.visactor.io",
+      "description": "Extended themes for VChart"
+    },
+    {
+      "name": "@visactor/vdataset",
+      "versions": ["1.0.21", "1.0.23"],
+      "paths": [
+        "node_modules/.pnpm/@visactor+vdataset@1.0.21/node_modules/@visactor/vdataset",
+        "node_modules/.pnpm/@visactor+vdataset@1.0.23/node_modules/@visactor/vdataset"
+      ],
+      "license": "MIT",
+      "author": "VisActor",
+      "description": "data processing tool"
+    },
+    {
+      "name": "@visactor/vlayouts",
+      "versions": ["1.0.23"],
+      "paths": ["node_modules/.pnpm/@visactor+vlayouts@1.0.23/node_modules/@visactor/vlayouts"],
+      "license": "MIT",
+      "author": "VisActor",
+      "description": "util"
+    },
+    {
+      "name": "@visactor/vrender-animate",
+      "versions": ["1.0.44"],
+      "paths": ["node_modules/.pnpm/@visactor+vrender-animate@1.0.44/node_modules/@visactor/vrender-animate"],
+      "license": "MIT",
+      "author": "VisActor",
+      "homepage": "https://github.com/VisActor/VRender#readme",
+      "description": ""
+    },
+    {
+      "name": "@visactor/vrender-components",
+      "versions": ["1.0.44"],
+      "paths": ["node_modules/.pnpm/@visactor+vrender-components@1.0.44/node_modules/@visactor/vrender-components"],
+      "license": "MIT",
+      "author": "VisActor",
+      "homepage": "https://github.com/VisActor/VRender#readme",
+      "description": "components library for dp visualization"
+    },
+    {
+      "name": "@visactor/vrender-core",
+      "versions": ["1.0.44"],
+      "paths": ["node_modules/.pnpm/@visactor+vrender-core@1.0.44/node_modules/@visactor/vrender-core"],
+      "license": "MIT",
+      "author": "VisActor",
+      "homepage": "https://github.com/VisActor/VRender#readme",
+      "description": ""
+    },
+    {
+      "name": "@visactor/vrender-kits",
+      "versions": ["1.0.44"],
+      "paths": ["node_modules/.pnpm/@visactor+vrender-kits@1.0.44/node_modules/@visactor/vrender-kits"],
+      "license": "MIT",
+      "author": "VisActor",
+      "homepage": "https://github.com/VisActor/VRender#readme",
+      "description": ""
+    },
+    {
+      "name": "@visactor/vscale",
+      "versions": ["1.0.21", "1.0.23"],
+      "paths": [
+        "node_modules/.pnpm/@visactor+vscale@1.0.21/node_modules/@visactor/vscale",
+        "node_modules/.pnpm/@visactor+vscale@1.0.23/node_modules/@visactor/vscale"
+      ],
+      "license": "MIT",
+      "author": "VisActor",
+      "description": "Scales for visual encoding, used in VGrammar, VTable"
+    },
+    {
+      "name": "@visactor/vtable",
+      "versions": ["1.25.0"],
+      "paths": ["node_modules/.pnpm/@visactor+vtable@1.25.0/node_modules/@visactor/vtable"],
+      "license": "MIT",
+      "author": "VisActor",
+      "homepage": "https://visactor.io/vtable",
+      "description": "canvas table width high performance"
+    },
+    {
+      "name": "@visactor/vtable-editors",
+      "versions": ["1.25.0"],
+      "paths": ["node_modules/.pnpm/@visactor+vtable-editors@1.25.0/node_modules/@visactor/vtable-editors"],
+      "license": "MIT",
+      "author": "VisActor",
+      "homepage": "https://www.visactor.io",
+      "description": ""
+    },
+    {
+      "name": "@visactor/vtable-gantt",
+      "versions": ["1.25.0"],
+      "paths": ["node_modules/.pnpm/@visactor+vtable-gantt@1.25.0/node_modules/@visactor/vtable-gantt"],
+      "license": "MIT",
+      "author": "VisActor",
+      "homepage": "https://visactor.io/vtable",
+      "description": "canvas table width high performance"
+    },
+    {
+      "name": "@visactor/vue-vtable",
+      "versions": ["1.25.0"],
+      "paths": ["node_modules/.pnpm/@visactor+vue-vtable@1.25.0/node_modules/@visactor/vue-vtable"],
+      "license": "MIT",
+      "author": "VisActor",
+      "description": "The vue version of VTable"
+    },
+    {
+      "name": "@visactor/vutils",
+      "versions": ["1.0.21", "1.0.23"],
+      "paths": [
+        "node_modules/.pnpm/@visactor+vutils@1.0.21/node_modules/@visactor/vutils",
+        "node_modules/.pnpm/@visactor+vutils@1.0.23/node_modules/@visactor/vutils"
+      ],
+      "license": "MIT",
+      "author": "VisActor",
+      "description": "util"
+    },
+    {
+      "name": "@visactor/vutils-extension",
+      "versions": ["2.0.13", "2.0.20"],
+      "paths": [
+        "node_modules/.pnpm/@visactor+vutils-extension@2.0.13/node_modules/@visactor/vutils-extension",
+        "node_modules/.pnpm/@visactor+vutils-extension@2.0.20/node_modules/@visactor/vutils-extension"
+      ],
+      "license": "MIT",
+      "author": "VisActor",
+      "homepage": "https://www.visactor.io",
+      "description": "The extension module for VUtil from VisActor"
+    },
+    {
+      "name": "@vue-macros/common",
+      "versions": ["3.1.2"],
+      "paths": [
+        "node_modules/.pnpm/@vue-macros+common@3.1.2_vue@3.5.31_typescript@5.9.3_/node_modules/@vue-macros/common"
+      ],
+      "license": "MIT",
+      "author": "Kevin Deng",
+      "homepage": "https://vue-macros.dev",
+      "description": "common feature from Vue Macros."
+    },
+    {
+      "name": "@vue/compiler-core",
+      "versions": ["3.5.26", "3.5.31"],
+      "paths": [
+        "node_modules/.pnpm/@vue+compiler-core@3.5.26/node_modules/@vue/compiler-core",
+        "node_modules/.pnpm/@vue+compiler-core@3.5.31/node_modules/@vue/compiler-core"
+      ],
+      "license": "MIT",
+      "author": "Evan You",
+      "homepage": "https://github.com/vuejs/core/tree/main/packages/compiler-core#readme",
+      "description": "@vue/compiler-core"
+    },
+    {
+      "name": "@vue/compiler-dom",
+      "versions": ["3.5.26", "3.5.31"],
+      "paths": [
+        "node_modules/.pnpm/@vue+compiler-dom@3.5.26/node_modules/@vue/compiler-dom",
+        "node_modules/.pnpm/@vue+compiler-dom@3.5.31/node_modules/@vue/compiler-dom"
+      ],
+      "license": "MIT",
+      "author": "Evan You",
+      "homepage": "https://github.com/vuejs/core/tree/main/packages/compiler-dom#readme",
+      "description": "@vue/compiler-dom"
+    },
+    {
+      "name": "@vue/compiler-sfc",
+      "versions": ["3.5.26", "3.5.31"],
+      "paths": [
+        "node_modules/.pnpm/@vue+compiler-sfc@3.5.26/node_modules/@vue/compiler-sfc",
+        "node_modules/.pnpm/@vue+compiler-sfc@3.5.31/node_modules/@vue/compiler-sfc"
+      ],
+      "license": "MIT",
+      "author": "Evan You",
+      "homepage": "https://github.com/vuejs/core/tree/main/packages/compiler-sfc#readme",
+      "description": "@vue/compiler-sfc"
+    },
+    {
+      "name": "@vue/compiler-ssr",
+      "versions": ["3.5.26", "3.5.31"],
+      "paths": [
+        "node_modules/.pnpm/@vue+compiler-ssr@3.5.26/node_modules/@vue/compiler-ssr",
+        "node_modules/.pnpm/@vue+compiler-ssr@3.5.31/node_modules/@vue/compiler-ssr"
+      ],
+      "license": "MIT",
+      "author": "Evan You",
+      "homepage": "https://github.com/vuejs/core/tree/main/packages/compiler-ssr#readme",
+      "description": "@vue/compiler-ssr"
+    },
+    {
+      "name": "@vue/devtools-api",
+      "versions": ["6.6.4", "7.7.7", "8.1.1"],
+      "paths": [
+        "node_modules/.pnpm/@vue+devtools-api@6.6.4/node_modules/@vue/devtools-api",
+        "node_modules/.pnpm/@vue+devtools-api@7.7.7/node_modules/@vue/devtools-api",
+        "node_modules/.pnpm/@vue+devtools-api@8.1.1/node_modules/@vue/devtools-api"
+      ],
+      "license": "MIT",
+      "author": "webfansplz",
+      "homepage": "https://github.com/vuejs/devtools#readme"
+    },
+    {
+      "name": "@vue/devtools-kit",
+      "versions": ["7.7.7", "8.1.1"],
+      "paths": [
+        "node_modules/.pnpm/@vue+devtools-kit@7.7.7/node_modules/@vue/devtools-kit",
+        "node_modules/.pnpm/@vue+devtools-kit@8.1.1/node_modules/@vue/devtools-kit"
+      ],
+      "license": "MIT",
+      "author": "webfansplz",
+      "homepage": "https://github.com/vuejs/devtools#readme"
+    },
+    {
+      "name": "@vue/devtools-shared",
+      "versions": ["7.7.7", "8.1.1"],
+      "paths": [
+        "node_modules/.pnpm/@vue+devtools-shared@7.7.7/node_modules/@vue/devtools-shared",
+        "node_modules/.pnpm/@vue+devtools-shared@8.1.1/node_modules/@vue/devtools-shared"
+      ],
+      "license": "MIT",
+      "author": "webfansplz",
+      "homepage": "https://github.com/vuejs/devtools#readme"
+    },
+    {
+      "name": "@vue/reactivity",
+      "versions": ["3.5.31"],
+      "paths": ["node_modules/.pnpm/@vue+reactivity@3.5.31/node_modules/@vue/reactivity"],
+      "license": "MIT",
+      "author": "Evan You",
+      "homepage": "https://github.com/vuejs/core/tree/main/packages/reactivity#readme",
+      "description": "@vue/reactivity"
+    },
+    {
+      "name": "@vue/runtime-core",
+      "versions": ["3.5.31"],
+      "paths": ["node_modules/.pnpm/@vue+runtime-core@3.5.31/node_modules/@vue/runtime-core"],
+      "license": "MIT",
+      "author": "Evan You",
+      "homepage": "https://github.com/vuejs/core/tree/main/packages/runtime-core#readme",
+      "description": "@vue/runtime-core"
+    },
+    {
+      "name": "@vue/runtime-dom",
+      "versions": ["3.5.31"],
+      "paths": ["node_modules/.pnpm/@vue+runtime-dom@3.5.31/node_modules/@vue/runtime-dom"],
+      "license": "MIT",
+      "author": "Evan You",
+      "homepage": "https://github.com/vuejs/core/tree/main/packages/runtime-dom#readme",
+      "description": "@vue/runtime-dom"
+    },
+    {
+      "name": "@vue/server-renderer",
+      "versions": ["3.5.31"],
+      "paths": [
+        "node_modules/.pnpm/@vue+server-renderer@3.5.31_vue@3.5.31_typescript@5.9.3_/node_modules/@vue/server-renderer"
+      ],
+      "license": "MIT",
+      "author": "Evan You",
+      "homepage": "https://github.com/vuejs/core/tree/main/packages/server-renderer#readme",
+      "description": "@vue/server-renderer"
+    },
+    {
+      "name": "@vue/shared",
+      "versions": ["3.5.26", "3.5.31"],
+      "paths": [
+        "node_modules/.pnpm/@vue+shared@3.5.26/node_modules/@vue/shared",
+        "node_modules/.pnpm/@vue+shared@3.5.31/node_modules/@vue/shared"
+      ],
+      "license": "MIT",
+      "author": "Evan You",
+      "homepage": "https://github.com/vuejs/core/tree/main/packages/shared#readme",
+      "description": "internal utils shared across @vue packages"
+    },
+    {
+      "name": "@vueuse/components",
+      "versions": ["14.2.1"],
+      "paths": [
+        "node_modules/.pnpm/@vueuse+components@14.2.1_vue@3.5.31_typescript@5.9.3_/node_modules/@vueuse/components"
+      ],
+      "license": "MIT",
+      "author": "Jacob Clevenger",
+      "homepage": "https://github.com/vueuse/vueuse/tree/main/packages/components#readme",
+      "description": "Renderless components for VueUse"
+    },
+    {
+      "name": "@vueuse/core",
+      "versions": ["12.0.0", "14.2.1"],
+      "paths": [
+        "node_modules/.pnpm/@vueuse+core@12.0.0_typescript@5.9.3/node_modules/@vueuse/core",
+        "node_modules/.pnpm/@vueuse+core@14.2.1_vue@3.5.31_typescript@5.9.3_/node_modules/@vueuse/core"
+      ],
+      "license": "MIT",
+      "author": "Anthony Fu",
+      "homepage": "https://github.com/vueuse/vueuse#readme",
+      "description": "Collection of essential Vue Composition Utilities"
+    },
+    {
+      "name": "@vueuse/metadata",
+      "versions": ["12.0.0", "14.2.1"],
+      "paths": [
+        "node_modules/.pnpm/@vueuse+metadata@12.0.0/node_modules/@vueuse/metadata",
+        "node_modules/.pnpm/@vueuse+metadata@14.2.1/node_modules/@vueuse/metadata"
+      ],
+      "license": "MIT",
+      "author": "Anthony Fu",
+      "homepage": "https://github.com/vueuse/vueuse/tree/main/packages/metadata#readme",
+      "description": "Metadata for VueUse functions"
+    },
+    {
+      "name": "@vueuse/shared",
+      "versions": ["12.0.0", "14.2.1"],
+      "paths": [
+        "node_modules/.pnpm/@vueuse+shared@12.0.0_typescript@5.9.3/node_modules/@vueuse/shared",
+        "node_modules/.pnpm/@vueuse+shared@14.2.1_vue@3.5.31_typescript@5.9.3_/node_modules/@vueuse/shared"
+      ],
+      "license": "MIT",
+      "author": "Anthony Fu",
+      "homepage": "https://github.com/vueuse/vueuse/tree/main/packages/shared#readme"
+    },
+    {
+      "name": "@wangeditor/basic-modules",
+      "versions": ["1.1.7"],
+      "paths": [
+        "node_modules/.pnpm/@wangeditor+basic-modules@1.1.7_@wangeditor+core@1.1.19_@uppy+core@2.3.4_@uppy+xhr-uplo_7a2e884163c15e90ba22a75cb95f464e/node_modules/@wangeditor/basic-modules"
+      ],
+      "license": "MIT",
+      "author": "wangfupeng1988",
+      "homepage": "https://github.com/wangeditor-team/wangEditor#readme",
+      "description": "wangEditor basic modules"
+    },
+    {
+      "name": "@wangeditor/code-highlight",
+      "versions": ["1.0.3"],
+      "paths": [
+        "node_modules/.pnpm/@wangeditor+code-highlight@1.0.3_@wangeditor+core@1.1.19_@uppy+core@2.3.4_@uppy+xhr-upl_6e8ce84c054863f27f8760912239f186/node_modules/@wangeditor/code-highlight"
+      ],
+      "license": "MIT",
+      "author": "wangfupeng1988",
+      "homepage": "https://github.com/wangeditor-team/wangEditor#readme",
+      "description": "wangEditor code-highlight module"
+    },
+    {
+      "name": "@wangeditor/core",
+      "versions": ["1.1.19"],
+      "paths": [
+        "node_modules/.pnpm/@wangeditor+core@1.1.19_@uppy+core@2.3.4_@uppy+xhr-upload@2.1.3_@uppy+core@2.3.4__dom7@_23e9014612ce63c2802cb6884e8945d8/node_modules/@wangeditor/core"
+      ],
+      "license": "MIT",
+      "author": "wangfupeng1988",
+      "homepage": "https://github.com/wangeditor-team/wangEditor#readme",
+      "description": "wangEditor core"
+    },
+    {
+      "name": "@wangeditor/editor",
+      "versions": ["5.1.23"],
+      "paths": ["node_modules/.pnpm/@wangeditor+editor@5.1.23/node_modules/@wangeditor/editor"],
+      "license": "MIT",
+      "author": "wangfupeng1988",
+      "homepage": "https://www.wangeditor.com/",
+      "description": "Web rich text editor, Web 富文本编辑器"
+    },
+    {
+      "name": "@wangeditor/editor-for-vue",
+      "versions": ["5.1.12"],
+      "paths": [
+        "node_modules/.pnpm/@wangeditor+editor-for-vue@5.1.12_@wangeditor+editor@5.1.23_vue@3.5.31_typescript@5.9.3_/node_modules/@wangeditor/editor-for-vue"
+      ],
+      "license": "MIT",
+      "author": "liuqh0609",
+      "homepage": "http://www.wangeditor.com/",
+      "description": "wangEditor component for vue@next"
+    },
+    {
+      "name": "@wangeditor/list-module",
+      "versions": ["1.0.5"],
+      "paths": [
+        "node_modules/.pnpm/@wangeditor+list-module@1.0.5_@wangeditor+core@1.1.19_@uppy+core@2.3.4_@uppy+xhr-upload_23941157934ec48af061288d209d5075/node_modules/@wangeditor/list-module"
+      ],
+      "license": "MIT",
+      "author": "wangfupeng1988",
+      "homepage": "https://github.com/wangeditor-team/wangEditor#readme",
+      "description": "wangEditor list module"
+    },
+    {
+      "name": "@wangeditor/table-module",
+      "versions": ["1.1.4"],
+      "paths": [
+        "node_modules/.pnpm/@wangeditor+table-module@1.1.4_@wangeditor+core@1.1.19_@uppy+core@2.3.4_@uppy+xhr-uploa_e2bb76f96a69ceb68b49011f8d8924c2/node_modules/@wangeditor/table-module"
+      ],
+      "license": "MIT",
+      "author": "wangfupeng1988",
+      "homepage": "https://github.com/wangeditor-team/wangEditor#readme",
+      "description": "wangEditor table module"
+    },
+    {
+      "name": "@wangeditor/upload-image-module",
+      "versions": ["1.0.2"],
+      "paths": [
+        "node_modules/.pnpm/@wangeditor+upload-image-module@1.0.2_@uppy+core@2.3.4_@uppy+xhr-upload@2.1.3_@uppy+cor_5d4ab31b36e17f18ca3605a91818fef0/node_modules/@wangeditor/upload-image-module"
+      ],
+      "license": "MIT",
+      "author": "wangfupeng1988",
+      "homepage": "https://github.com/wangeditor-team/wangEditor#readme",
+      "description": "wangEditor upload-image module"
+    },
+    {
+      "name": "@wangeditor/video-module",
+      "versions": ["1.1.4"],
+      "paths": [
+        "node_modules/.pnpm/@wangeditor+video-module@1.1.4_@uppy+core@2.3.4_@uppy+xhr-upload@2.1.3_@uppy+core@2.3.4_a27f176d99779a0b4ab3b953ccd5daf8/node_modules/@wangeditor/video-module"
+      ],
+      "license": "MIT",
+      "author": "wangfupeng1988",
+      "homepage": "https://github.com/wangeditor-team/wangEditor#readme",
+      "description": "wangEditor video module"
+    },
+    {
+      "name": "abs-svg-path",
+      "versions": ["0.1.1"],
+      "paths": ["node_modules/.pnpm/abs-svg-path@0.1.1/node_modules/abs-svg-path"],
+      "license": "MIT",
+      "author": "Jake Rosoman",
+      "homepage": "https://github.com/jkroso/abs-svg-path#readme",
+      "description": "redefine an svg path with absolute coordinates"
+    },
+    {
+      "name": "acorn",
+      "versions": ["8.15.0"],
+      "paths": ["node_modules/.pnpm/acorn@8.15.0/node_modules/acorn"],
+      "license": "MIT",
+      "homepage": "https://github.com/acornjs/acorn",
+      "description": "ECMAScript parser"
+    },
+    {
+      "name": "alova",
+      "versions": ["3.5.1"],
+      "paths": ["node_modules/.pnpm/alova@3.5.1/node_modules/alova"],
+      "license": "MIT",
+      "author": "Scott Hu",
+      "homepage": "https://alova.js.org",
+      "description": "The Request Toolkit For Ultimate Efficiency"
+    },
+    {
+      "name": "ansi-regex",
+      "versions": ["5.0.1"],
+      "paths": ["node_modules/.pnpm/ansi-regex@5.0.1/node_modules/ansi-regex"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/chalk/ansi-regex#readme",
+      "description": "Regular expression for matching ANSI escape codes"
+    },
+    {
+      "name": "ansi-styles",
+      "versions": ["4.3.0"],
+      "paths": ["node_modules/.pnpm/ansi-styles@4.3.0/node_modules/ansi-styles"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/chalk/ansi-styles#readme",
+      "description": "ANSI escape codes for styling strings in the terminal"
+    },
+    {
+      "name": "ast-kit",
+      "versions": ["2.2.0"],
+      "paths": ["node_modules/.pnpm/ast-kit@2.2.0/node_modules/ast-kit"],
+      "license": "MIT",
+      "author": "Kevin Deng",
+      "homepage": "https://github.com/sxzz/ast-kit#readme",
+      "description": "A toolkit for easy Babel AST generation and manipulation."
+    },
+    {
+      "name": "ast-walker-scope",
+      "versions": ["0.8.3"],
+      "paths": ["node_modules/.pnpm/ast-walker-scope@0.8.3/node_modules/ast-walker-scope"],
+      "license": "MIT",
+      "author": "Kevin Deng",
+      "homepage": "https://github.com/sxzz/ast-walker-scope#readme",
+      "description": "Traverse Babel AST with scope information."
+    },
+    {
+      "name": "async-validator",
+      "versions": ["4.2.5"],
+      "paths": ["node_modules/.pnpm/async-validator@4.2.5/node_modules/async-validator"],
+      "license": "MIT",
+      "homepage": "https://github.com/yiminghe/async-validator",
+      "description": "validate form asynchronous"
+    },
+    {
+      "name": "asynckit",
+      "versions": ["0.4.0"],
+      "paths": ["node_modules/.pnpm/asynckit@0.4.0/node_modules/asynckit"],
+      "license": "MIT",
+      "author": "Alex Indigo",
+      "homepage": "https://github.com/alexindigo/asynckit#readme",
+      "description": "Minimal async jobs utility library, with streams support"
+    },
+    {
+      "name": "axios",
+      "versions": ["1.14.0"],
+      "paths": ["node_modules/.pnpm/axios@1.14.0_debug@4.4.3_supports-color@7.2.0_/node_modules/axios"],
+      "license": "MIT",
+      "author": "Matt Zabriskie",
+      "homepage": "https://axios-http.com",
+      "description": "Promise based HTTP client for the browser and node.js"
+    },
+    {
+      "name": "birpc",
+      "versions": ["2.5.0", "2.9.0"],
+      "paths": [
+        "node_modules/.pnpm/birpc@2.5.0/node_modules/birpc",
+        "node_modules/.pnpm/birpc@2.9.0/node_modules/birpc"
+      ],
+      "license": "MIT",
+      "author": "Anthony Fu",
+      "homepage": "https://github.com/antfu-collective/birpc#readme",
+      "description": "Message based Two-way remote procedure call"
+    },
+    {
+      "name": "bubblesets-js",
+      "versions": ["2.3.4"],
+      "paths": ["node_modules/.pnpm/bubblesets-js@2.3.4/node_modules/bubblesets-js"],
+      "license": "MIT",
+      "author": "Samuel Gratzl",
+      "homepage": "https://github.com/upsetjs/bubblesets-js",
+      "description": "JavaScript implementation of bubble sets by Christopher Collins"
+    },
+    {
+      "name": "buffer-from",
+      "versions": ["1.1.2"],
+      "paths": ["node_modules/.pnpm/buffer-from@1.1.2/node_modules/buffer-from"],
+      "license": "MIT",
+      "homepage": "https://github.com/LinusU/buffer-from#readme"
+    },
+    {
+      "name": "call-bind-apply-helpers",
+      "versions": ["1.0.2"],
+      "paths": ["node_modules/.pnpm/call-bind-apply-helpers@1.0.2/node_modules/call-bind-apply-helpers"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/call-bind-apply-helpers#readme",
+      "description": "Helper functions around Function call/apply/bind, for use in `call-bind`"
+    },
+    {
+      "name": "call-bound",
+      "versions": ["1.0.4"],
+      "paths": ["node_modules/.pnpm/call-bound@1.0.4/node_modules/call-bound"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/call-bound#readme",
+      "description": "Robust call-bound JavaScript intrinsics, using `call-bind` and `get-intrinsic`."
+    },
+    {
+      "name": "camelcase",
+      "versions": ["5.3.1"],
+      "paths": ["node_modules/.pnpm/camelcase@5.3.1/node_modules/camelcase"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/camelcase#readme",
+      "description": "Convert a dash/dot/underscore/space separated string to camelCase or PascalCase: `foo-bar` → `fooBar`"
+    },
+    {
+      "name": "chokidar",
+      "versions": ["5.0.0"],
+      "paths": ["node_modules/.pnpm/chokidar@5.0.0/node_modules/chokidar"],
+      "license": "MIT",
+      "author": "Paul Miller",
+      "homepage": "https://github.com/paulmillr/chokidar",
+      "description": "Minimal and efficient cross-platform file watching library"
+    },
+    {
+      "name": "classnames",
+      "versions": ["2.5.1"],
+      "paths": ["node_modules/.pnpm/classnames@2.5.1/node_modules/classnames"],
+      "license": "MIT",
+      "author": "Jed Watson",
+      "homepage": "https://github.com/JedWatson/classnames#readme",
+      "description": "A simple utility for conditionally joining classNames together"
+    },
+    {
+      "name": "clipboard",
+      "versions": ["2.0.11"],
+      "paths": ["node_modules/.pnpm/clipboard@2.0.11/node_modules/clipboard"],
+      "license": "MIT",
+      "homepage": "https://clipboardjs.com",
+      "description": "Modern copy to clipboard. No Flash. Just 2kb"
+    },
+    {
+      "name": "color-convert",
+      "versions": ["2.0.1"],
+      "paths": ["node_modules/.pnpm/color-convert@2.0.1/node_modules/color-convert"],
+      "license": "MIT",
+      "author": "Heather Arthur",
+      "homepage": "https://github.com/Qix-/color-convert#readme",
+      "description": "Plain color conversion functions"
+    },
+    {
+      "name": "color-name",
+      "versions": ["1.1.4"],
+      "paths": ["node_modules/.pnpm/color-name@1.1.4/node_modules/color-name"],
+      "license": "MIT",
+      "author": "DY",
+      "homepage": "https://github.com/colorjs/color-name",
+      "description": "A list of color names and its values"
+    },
+    {
+      "name": "color-string",
+      "versions": ["1.9.1"],
+      "paths": ["node_modules/.pnpm/color-string@1.9.1/node_modules/color-string"],
+      "license": "MIT",
+      "author": "Heather Arthur",
+      "homepage": "https://github.com/Qix-/color-string#readme",
+      "description": "Parser and generator for CSS color strings"
+    },
+    {
+      "name": "colord",
+      "versions": ["2.9.3"],
+      "paths": ["node_modules/.pnpm/colord@2.9.3/node_modules/colord"],
+      "license": "MIT",
+      "author": "Vlad Shilov",
+      "homepage": "https://github.com/omgovich/colord#readme",
+      "description": "👑 A tiny yet powerful tool for high-performance color manipulations and conversions"
+    },
+    {
+      "name": "combined-stream",
+      "versions": ["1.0.8"],
+      "paths": ["node_modules/.pnpm/combined-stream@1.0.8/node_modules/combined-stream"],
+      "license": "MIT",
+      "author": "Felix Geisendörfer",
+      "homepage": "https://github.com/felixge/node-combined-stream",
+      "description": "A stream that emits multiple other streams one after another."
+    },
+    {
+      "name": "commander",
+      "versions": ["2.20.3", "7.2.0"],
+      "paths": [
+        "node_modules/.pnpm/commander@2.20.3/node_modules/commander",
+        "node_modules/.pnpm/commander@7.2.0/node_modules/commander"
+      ],
+      "license": "MIT",
+      "author": "TJ Holowaychuk",
+      "homepage": "https://github.com/tj/commander.js#readme",
+      "description": "the complete solution for node.js command-line programs"
+    },
+    {
+      "name": "compute-scroll-into-view",
+      "versions": ["1.0.20"],
+      "paths": ["node_modules/.pnpm/compute-scroll-into-view@1.0.20/node_modules/compute-scroll-into-view"],
+      "license": "MIT",
+      "author": "Cody Olsen",
+      "homepage": "https://scroll-into-view.dev",
+      "description": "The engine that powers scroll-into-view-if-needed"
+    },
+    {
+      "name": "concat-stream",
+      "versions": ["1.4.11", "2.0.0"],
+      "paths": [
+        "node_modules/.pnpm/concat-stream@1.4.11/node_modules/concat-stream",
+        "node_modules/.pnpm/concat-stream@2.0.0/node_modules/concat-stream"
+      ],
+      "license": "MIT",
+      "author": "Max Ogden",
+      "homepage": "https://github.com/maxogden/concat-stream#readme",
+      "description": "writable stream that concatenates strings or binary data and calls a callback with the result"
+    },
+    {
+      "name": "confbox",
+      "versions": ["0.1.8", "0.2.2"],
+      "paths": [
+        "node_modules/.pnpm/confbox@0.1.8/node_modules/confbox",
+        "node_modules/.pnpm/confbox@0.2.2/node_modules/confbox"
+      ],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/confbox#readme",
+      "description": "Compact YAML, TOML, JSONC, JSON5 and INI parser and serializer"
+    },
+    {
+      "name": "copy-anything",
+      "versions": ["3.0.5"],
+      "paths": ["node_modules/.pnpm/copy-anything@3.0.5/node_modules/copy-anything"],
+      "license": "MIT",
+      "author": "Luca Ban - Mesqueeb",
+      "homepage": "https://github.com/mesqueeb/copy-anything#readme",
+      "description": "An optimised way to copy'ing an object. A small and simple integration"
+    },
+    {
+      "name": "core-js",
+      "versions": ["3.45.1"],
+      "paths": ["node_modules/.pnpm/core-js@3.45.1/node_modules/core-js"],
+      "license": "MIT",
+      "author": "Denis Pushkarev",
+      "homepage": "https://github.com/zloirock/core-js#readme",
+      "description": "Standard library"
+    },
+    {
+      "name": "core-js-pure",
+      "versions": ["3.45.1"],
+      "paths": ["node_modules/.pnpm/core-js-pure@3.45.1/node_modules/core-js-pure"],
+      "license": "MIT",
+      "author": "Denis Pushkarev",
+      "homepage": "https://github.com/zloirock/core-js#readme",
+      "description": "Standard library"
+    },
+    {
+      "name": "core-util-is",
+      "versions": ["1.0.3"],
+      "paths": ["node_modules/.pnpm/core-util-is@1.0.3/node_modules/core-util-is"],
+      "license": "MIT",
+      "author": "Isaac Z. Schlueter",
+      "homepage": "https://github.com/isaacs/core-util-is#readme",
+      "description": "The `util.is*` functions introduced in Node v0.12."
+    },
+    {
+      "name": "crypto-js",
+      "versions": ["4.2.0"],
+      "paths": ["node_modules/.pnpm/crypto-js@4.2.0/node_modules/crypto-js"],
+      "license": "MIT",
+      "author": "Evan Vosberg",
+      "homepage": "http://github.com/brix/crypto-js",
+      "description": "JavaScript library of crypto standards."
+    },
+    {
+      "name": "cssfontparser",
+      "versions": ["1.2.1"],
+      "paths": ["node_modules/.pnpm/cssfontparser@1.2.1/node_modules/cssfontparser"],
+      "license": "MIT",
+      "author": "Elijah Insua",
+      "homepage": "https://github.com/tmpvar/cssfontparser#readme",
+      "description": "parse shorthand css font strings\""
+    },
+    {
+      "name": "csstype",
+      "versions": ["3.1.3", "3.2.3"],
+      "paths": [
+        "node_modules/.pnpm/csstype@3.1.3/node_modules/csstype",
+        "node_modules/.pnpm/csstype@3.2.3/node_modules/csstype"
+      ],
+      "license": "MIT",
+      "author": "Fredrik Nicol",
+      "homepage": "https://github.com/frenic/csstype#readme",
+      "description": "Strict TypeScript and Flow types for style based on MDN data"
+    },
+    {
+      "name": "d3-binarytree",
+      "versions": ["1.0.2"],
+      "paths": ["node_modules/.pnpm/d3-binarytree@1.0.2/node_modules/d3-binarytree"],
+      "license": "MIT",
+      "author": "Vasco Asturiano",
+      "homepage": "https://github.com/vasturiano/d3-binarytree",
+      "description": "One-dimensional recursive spatial subdivision."
+    },
+    {
+      "name": "d3-force-3d",
+      "versions": ["3.0.6"],
+      "paths": ["node_modules/.pnpm/d3-force-3d@3.0.6/node_modules/d3-force-3d"],
+      "license": "MIT",
+      "author": "Vasco Asturiano",
+      "homepage": "https://github.com/vasturiano/d3-force-3d",
+      "description": "Force-directed graph layout in 1D, 2D or 3D using velocity Verlet integration."
+    },
+    {
+      "name": "d3-octree",
+      "versions": ["1.1.0"],
+      "paths": ["node_modules/.pnpm/d3-octree@1.1.0/node_modules/d3-octree"],
+      "license": "MIT",
+      "author": "Vasco Asturiano",
+      "homepage": "https://github.com/vasturiano/d3-octree",
+      "description": "Three-dimensional recursive spatial subdivision."
+    },
+    {
+      "name": "dagre",
+      "versions": ["0.8.5"],
+      "paths": ["node_modules/.pnpm/dagre@0.8.5/node_modules/dagre"],
+      "license": "MIT",
+      "author": "Chris Pettitt",
+      "homepage": "https://github.com/dagrejs/dagre#readme",
+      "description": "Graph layout for JavaScript"
+    },
+    {
+      "name": "danmu.js",
+      "versions": ["1.2.1"],
+      "paths": ["node_modules/.pnpm/danmu.js@1.2.1/node_modules/danmu.js"],
+      "license": "MIT",
+      "author": "zhangxin.frontend@bytedance.com",
+      "homepage": "https://github.com/bytedance/danmu.js#readme",
+      "description": "HTML5 danmu (danmaku) plugin for any DOM element"
+    },
+    {
+      "name": "dayjs",
+      "versions": ["1.11.20"],
+      "paths": ["node_modules/.pnpm/dayjs@1.11.20/node_modules/dayjs"],
+      "license": "MIT",
+      "author": "iamkun",
+      "homepage": "https://day.js.org",
+      "description": "2KB immutable date time library alternative to Moment.js with the same modern API "
+    },
+    {
+      "name": "debug",
+      "versions": ["4.3.7", "4.4.3"],
+      "paths": [
+        "node_modules/.pnpm/debug@4.3.7_supports-color@7.2.0/node_modules/debug",
+        "node_modules/.pnpm/debug@4.4.3_supports-color@7.2.0/node_modules/debug"
+      ],
+      "license": "MIT",
+      "author": "Josh Junon",
+      "homepage": "https://github.com/debug-js/debug#readme",
+      "description": "Lightweight debugging utility for Node.js and the browser"
+    },
+    {
+      "name": "decamelize",
+      "versions": ["1.2.0"],
+      "paths": ["node_modules/.pnpm/decamelize@1.2.0/node_modules/decamelize"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/decamelize#readme",
+      "description": "Convert a camelized string into a lowercased one with a custom separator: unicornRainbow → unicorn_rainbow"
+    },
+    {
+      "name": "defu",
+      "versions": ["6.1.4"],
+      "paths": ["node_modules/.pnpm/defu@6.1.4/node_modules/defu"],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/defu#readme",
+      "description": "Recursively assign default properties. Lightweight and Fast!"
+    },
+    {
+      "name": "delayed-stream",
+      "versions": ["1.0.0"],
+      "paths": ["node_modules/.pnpm/delayed-stream@1.0.0/node_modules/delayed-stream"],
+      "license": "MIT",
+      "author": "Felix Geisendörfer",
+      "homepage": "https://github.com/felixge/node-delayed-stream",
+      "description": "Buffers events from a stream until you are ready to handle them."
+    },
+    {
+      "name": "delegate",
+      "versions": ["3.2.0"],
+      "paths": ["node_modules/.pnpm/delegate@3.2.0/node_modules/delegate"],
+      "license": "MIT",
+      "homepage": "https://github.com/zenorocha/delegate#readme",
+      "description": "Lightweight event delegation"
+    },
+    {
+      "name": "destr",
+      "versions": ["2.0.5"],
+      "paths": ["node_modules/.pnpm/destr@2.0.5/node_modules/destr"],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/destr#readme",
+      "description": "A faster, secure and convenient alternative for JSON.parse"
+    },
+    {
+      "name": "dijkstrajs",
+      "versions": ["1.0.3"],
+      "paths": ["node_modules/.pnpm/dijkstrajs@1.0.3/node_modules/dijkstrajs"],
+      "license": "MIT",
+      "homepage": "https://github.com/tcort/dijkstrajs",
+      "description": "A simple JavaScript implementation of Dijkstra's single-source shortest-paths algorithm."
+    },
+    {
+      "name": "dingtalk-jsapi",
+      "versions": ["3.2.9"],
+      "paths": ["node_modules/.pnpm/dingtalk-jsapi@3.2.9/node_modules/dingtalk-jsapi"],
+      "license": "MIT",
+      "author": "junlong.hjl",
+      "description": "钉钉 模块化 多端统一 API"
+    },
+    {
+      "name": "dom7",
+      "versions": ["3.0.0"],
+      "paths": ["node_modules/.pnpm/dom7@3.0.0/node_modules/dom7"],
+      "license": "MIT",
+      "author": "Vladimir Kharlampidi",
+      "homepage": "https://framework7.io/docs/dom7.html",
+      "description": "Minimalistic JavaScript library for DOM manipulation, with a jQuery-compatible API"
+    },
+    {
+      "name": "dunder-proto",
+      "versions": ["1.0.1"],
+      "paths": ["node_modules/.pnpm/dunder-proto@1.0.1/node_modules/dunder-proto"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/es-shims/dunder-proto#readme",
+      "description": "If available, the `Object.prototype.__proto__` accessor and mutator, call-bound"
+    },
+    {
+      "name": "element-plus",
+      "versions": ["2.13.6"],
+      "paths": [
+        "node_modules/.pnpm/element-plus@2.13.6_typescript@5.9.3_vue@3.5.31_typescript@5.9.3_/node_modules/element-plus"
+      ],
+      "license": "MIT",
+      "homepage": "https://element-plus.org/",
+      "description": "A Component Library for Vue 3"
+    },
+    {
+      "name": "emoji-regex",
+      "versions": ["8.0.0"],
+      "paths": ["node_modules/.pnpm/emoji-regex@8.0.0/node_modules/emoji-regex"],
+      "license": "MIT",
+      "author": "Mathias Bynens",
+      "homepage": "https://mths.be/emoji-regex",
+      "description": "A regular expression to match all Emoji-only symbols as per the Unicode Standard."
+    },
+    {
+      "name": "engine.io-client",
+      "versions": ["6.5.4"],
+      "paths": ["node_modules/.pnpm/engine.io-client@6.5.4_supports-color@7.2.0/node_modules/engine.io-client"],
+      "license": "MIT",
+      "homepage": "https://github.com/socketio/engine.io-client",
+      "description": "Client for the realtime Engine"
+    },
+    {
+      "name": "engine.io-parser",
+      "versions": ["5.2.3"],
+      "paths": ["node_modules/.pnpm/engine.io-parser@5.2.3/node_modules/engine.io-parser"],
+      "license": "MIT",
+      "homepage": "https://github.com/socketio/socket.io/tree/main/packages/engine.io-parser#readme",
+      "description": "Parser for the client for the realtime Engine"
+    },
+    {
+      "name": "es-define-property",
+      "versions": ["1.0.1"],
+      "paths": ["node_modules/.pnpm/es-define-property@1.0.1/node_modules/es-define-property"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/es-define-property#readme",
+      "description": "`Object.defineProperty`, but not IE 8's broken one."
+    },
+    {
+      "name": "es-errors",
+      "versions": ["1.3.0"],
+      "paths": ["node_modules/.pnpm/es-errors@1.3.0/node_modules/es-errors"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/es-errors#readme",
+      "description": "A simple cache for a few of the JS Error constructors."
+    },
+    {
+      "name": "es-object-atoms",
+      "versions": ["1.1.1"],
+      "paths": ["node_modules/.pnpm/es-object-atoms@1.1.1/node_modules/es-object-atoms"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/es-object-atoms#readme",
+      "description": "ES Object-related atoms: Object, ToObject, RequireObjectCoercible"
+    },
+    {
+      "name": "es-set-tostringtag",
+      "versions": ["2.1.0"],
+      "paths": ["node_modules/.pnpm/es-set-tostringtag@2.1.0/node_modules/es-set-tostringtag"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/es-shims/es-set-tostringtag#readme",
+      "description": "A helper to optimistically set Symbol.toStringTag, when possible."
+    },
+    {
+      "name": "es6-iterator",
+      "versions": ["2.0.3"],
+      "paths": ["node_modules/.pnpm/es6-iterator@2.0.3/node_modules/es6-iterator"],
+      "license": "MIT",
+      "author": "Mariusz Nowak",
+      "homepage": "https://github.com/medikoo/es6-iterator#readme",
+      "description": "Iterator abstraction based on ES6 specification"
+    },
+    {
+      "name": "estree-walker",
+      "versions": ["2.0.2"],
+      "paths": ["node_modules/.pnpm/estree-walker@2.0.2/node_modules/estree-walker"],
+      "license": "MIT",
+      "author": "Rich Harris",
+      "homepage": "https://github.com/Rich-Harris/estree-walker#readme",
+      "description": "Traverse an ESTree-compliant AST"
+    },
+    {
+      "name": "event-emitter",
+      "versions": ["0.3.5"],
+      "paths": ["node_modules/.pnpm/event-emitter@0.3.5/node_modules/event-emitter"],
+      "license": "MIT",
+      "author": "Mariusz Nowak",
+      "homepage": "https://github.com/medikoo/event-emitter#readme",
+      "description": "Environment agnostic event emitter"
+    },
+    {
+      "name": "eventemitter3",
+      "versions": ["4.0.7", "5.0.1"],
+      "paths": [
+        "node_modules/.pnpm/eventemitter3@4.0.7/node_modules/eventemitter3",
+        "node_modules/.pnpm/eventemitter3@5.0.1/node_modules/eventemitter3"
+      ],
+      "license": "MIT",
+      "author": "Arnout Kazemier",
+      "homepage": "https://github.com/primus/eventemitter3#readme",
+      "description": "EventEmitter3 focuses on performance while maintaining a Node.js AND browser compatible interface."
+    },
+    {
+      "name": "exsolve",
+      "versions": ["1.0.7"],
+      "paths": ["node_modules/.pnpm/exsolve@1.0.7/node_modules/exsolve"],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/exsolve#readme",
+      "description": "Module resolution utilities based on Node.js upstream implementation."
+    },
+    {
+      "name": "fast-deep-equal",
+      "versions": ["3.1.3"],
+      "paths": ["node_modules/.pnpm/fast-deep-equal@3.1.3/node_modules/fast-deep-equal"],
+      "license": "MIT",
+      "author": "Evgeny Poberezkin",
+      "homepage": "https://github.com/epoberezkin/fast-deep-equal#readme",
+      "description": "Fast deep equal"
+    },
+    {
+      "name": "fdir",
+      "versions": ["6.5.0"],
+      "paths": ["node_modules/.pnpm/fdir@6.5.0_picomatch@4.0.3/node_modules/fdir"],
+      "license": "MIT",
+      "author": "thecodrr",
+      "homepage": "https://github.com/thecodrr/fdir#readme",
+      "description": "The fastest directory crawler & globbing alternative to glob, fast-glob, & tiny-glob. Crawls 1m files in < 1s"
+    },
+    {
+      "name": "fecha",
+      "versions": ["4.2.3"],
+      "paths": ["node_modules/.pnpm/fecha@4.2.3/node_modules/fecha"],
+      "license": "MIT",
+      "author": "Taylor Hakes",
+      "homepage": "https://github.com/taylorhakes/fecha",
+      "description": "Date formatting and parsing"
+    },
+    {
+      "name": "find-up",
+      "versions": ["4.1.0"],
+      "paths": ["node_modules/.pnpm/find-up@4.1.0/node_modules/find-up"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/find-up#readme",
+      "description": "Find a file or directory by walking up parent directories"
+    },
+    {
+      "name": "flatpickr",
+      "versions": ["4.6.13"],
+      "paths": ["node_modules/.pnpm/flatpickr@4.6.13/node_modules/flatpickr"],
+      "license": "MIT",
+      "author": "Gregory",
+      "homepage": "https://flatpickr.js.org",
+      "description": "A lightweight, powerful javascript datetime picker"
+    },
+    {
+      "name": "flru",
+      "versions": ["1.0.2"],
+      "paths": ["node_modules/.pnpm/flru@1.0.2/node_modules/flru"],
+      "license": "MIT",
+      "author": "Luke Edwards",
+      "homepage": "https://github.com/lukeed/flru#readme",
+      "description": "A tiny (215B) and fast Least Recently Used (LRU) cache"
+    },
+    {
+      "name": "follow-redirects",
+      "versions": ["1.15.11"],
+      "paths": [
+        "node_modules/.pnpm/follow-redirects@1.15.11_debug@4.4.3_supports-color@7.2.0_/node_modules/follow-redirects"
+      ],
+      "license": "MIT",
+      "author": "Ruben Verborgh",
+      "homepage": "https://github.com/follow-redirects/follow-redirects",
+      "description": "HTTP and HTTPS modules that follow redirects."
+    },
+    {
+      "name": "form-data",
+      "versions": ["4.0.5"],
+      "paths": ["node_modules/.pnpm/form-data@4.0.5/node_modules/form-data"],
+      "license": "MIT",
+      "author": "Felix Geisendörfer",
+      "homepage": "https://github.com/form-data/form-data#readme",
+      "description": "A library to create readable \"multipart/form-data\" streams. Can be used to submit forms and file uploads to other web applications."
+    },
+    {
+      "name": "function-bind",
+      "versions": ["1.1.2"],
+      "paths": ["node_modules/.pnpm/function-bind@1.1.2/node_modules/function-bind"],
+      "license": "MIT",
+      "author": "Raynos",
+      "homepage": "https://github.com/Raynos/function-bind",
+      "description": "Implementation of Function.prototype.bind"
+    },
+    {
+      "name": "get-intrinsic",
+      "versions": ["1.3.0"],
+      "paths": ["node_modules/.pnpm/get-intrinsic@1.3.0/node_modules/get-intrinsic"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/get-intrinsic#readme",
+      "description": "Get and robustly cache all JS language-level intrinsics at first require time"
+    },
+    {
+      "name": "get-proto",
+      "versions": ["1.0.1"],
+      "paths": ["node_modules/.pnpm/get-proto@1.0.1/node_modules/get-proto"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/get-proto#readme",
+      "description": "Robustly get the [[Prototype]] of an object"
+    },
+    {
+      "name": "get-stdin",
+      "versions": ["6.0.0"],
+      "paths": ["node_modules/.pnpm/get-stdin@6.0.0/node_modules/get-stdin"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/get-stdin#readme",
+      "description": "Get stdin as a string or buffer"
+    },
+    {
+      "name": "gifuct-js",
+      "versions": ["2.1.2"],
+      "paths": ["node_modules/.pnpm/gifuct-js@2.1.2/node_modules/gifuct-js"],
+      "license": "MIT",
+      "author": "Matt Way",
+      "homepage": "https://github.com/matt-way/gifuct-js",
+      "description": "Easy to use efficient .GIF parsing in javascript"
+    },
+    {
+      "name": "gl-matrix",
+      "versions": ["3.4.4"],
+      "paths": ["node_modules/.pnpm/gl-matrix@3.4.4/node_modules/gl-matrix"],
+      "license": "MIT",
+      "homepage": "http://glmatrix.net",
+      "description": "Javascript Matrix and Vector library for High Performance WebGL apps"
+    },
+    {
+      "name": "good-listener",
+      "versions": ["1.2.2"],
+      "paths": ["node_modules/.pnpm/good-listener@1.2.2/node_modules/good-listener"],
+      "license": "MIT",
+      "homepage": "https://github.com/zenorocha/good-listener#readme",
+      "description": "A more versatile way of adding & removing event listeners"
+    },
+    {
+      "name": "gopd",
+      "versions": ["1.2.0"],
+      "paths": ["node_modules/.pnpm/gopd@1.2.0/node_modules/gopd"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/gopd#readme",
+      "description": "`Object.getOwnPropertyDescriptor`, but accounts for IE's broken implementation."
+    },
+    {
+      "name": "graphlib",
+      "versions": ["2.1.8"],
+      "paths": ["node_modules/.pnpm/graphlib@2.1.8/node_modules/graphlib"],
+      "license": "MIT",
+      "author": "Chris Pettitt",
+      "homepage": "https://github.com/dagrejs/graphlib#readme",
+      "description": "A directed and undirected multi-graph library"
+    },
+    {
+      "name": "hachure-fill",
+      "versions": ["0.5.2"],
+      "paths": ["node_modules/.pnpm/hachure-fill@0.5.2/node_modules/hachure-fill"],
+      "license": "MIT",
+      "author": "Preet Shihn",
+      "homepage": "https://github.com/pshihn/hachure-fill#readme",
+      "description": "Fill a polygon with lines "
+    },
+    {
+      "name": "has-symbols",
+      "versions": ["1.1.0"],
+      "paths": ["node_modules/.pnpm/has-symbols@1.1.0/node_modules/has-symbols"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/has-symbols#readme",
+      "description": "Determine if the JS environment has Symbol support. Supports spec, or shams."
+    },
+    {
+      "name": "has-tostringtag",
+      "versions": ["1.0.2"],
+      "paths": ["node_modules/.pnpm/has-tostringtag@1.0.2/node_modules/has-tostringtag"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/inspect-js/has-tostringtag#readme",
+      "description": "Determine if the JS environment has `Symbol.toStringTag` support. Supports spec, or shams."
+    },
+    {
+      "name": "hasown",
+      "versions": ["2.0.2"],
+      "paths": ["node_modules/.pnpm/hasown@2.0.2/node_modules/hasown"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/inspect-js/hasOwn#readme",
+      "description": "A robust, ES3 compatible, \"has own property\" predicate."
+    },
+    {
+      "name": "hookable",
+      "versions": ["5.5.3"],
+      "paths": ["node_modules/.pnpm/hookable@5.5.3/node_modules/hookable"],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/hookable#readme",
+      "description": "Awaitable hook system"
+    },
+    {
+      "name": "html-void-elements",
+      "versions": ["2.0.1"],
+      "paths": ["node_modules/.pnpm/html-void-elements@2.0.1/node_modules/html-void-elements"],
+      "license": "MIT",
+      "author": "Titus Wormer",
+      "homepage": "https://github.com/wooorm/html-void-elements#readme",
+      "description": "List of HTML void tag names"
+    },
+    {
+      "name": "i18next",
+      "versions": ["20.6.1"],
+      "paths": ["node_modules/.pnpm/i18next@20.6.1/node_modules/i18next"],
+      "license": "MIT",
+      "author": "Jan Mühlemann",
+      "homepage": "https://www.i18next.com",
+      "description": "i18next internationalization framework"
+    },
+    {
+      "name": "iconv-lite",
+      "versions": ["0.4.24", "0.6.3"],
+      "paths": [
+        "node_modules/.pnpm/iconv-lite@0.4.24/node_modules/iconv-lite",
+        "node_modules/.pnpm/iconv-lite@0.6.3/node_modules/iconv-lite"
+      ],
+      "license": "MIT",
+      "author": "Alexander Shtuchkin",
+      "homepage": "https://github.com/ashtuchkin/iconv-lite",
+      "description": "Convert character encodings in pure javascript."
+    },
+    {
+      "name": "immediate",
+      "versions": ["3.0.6"],
+      "paths": ["node_modules/.pnpm/immediate@3.0.6/node_modules/immediate"],
+      "license": "MIT",
+      "homepage": "https://github.com/calvinmetcalf/immediate#readme",
+      "description": "A cross browser microtask library"
+    },
+    {
+      "name": "immer",
+      "versions": ["9.0.21"],
+      "paths": ["node_modules/.pnpm/immer@9.0.21/node_modules/immer"],
+      "license": "MIT",
+      "author": "Michel Weststrate",
+      "homepage": "https://github.com/immerjs/immer#readme",
+      "description": "Create your next immutable state by mutating the current one"
+    },
+    {
+      "name": "is-any-array",
+      "versions": ["2.0.1"],
+      "paths": ["node_modules/.pnpm/is-any-array@2.0.1/node_modules/is-any-array"],
+      "license": "MIT",
+      "author": "Luc Patiny",
+      "homepage": "https://github.com/cheminfo-js/is-any-array#readme",
+      "description": "Check if a value is any kind of array"
+    },
+    {
+      "name": "is-arrayish",
+      "versions": ["0.3.2"],
+      "paths": ["node_modules/.pnpm/is-arrayish@0.3.2/node_modules/is-arrayish"],
+      "license": "MIT",
+      "author": "Qix",
+      "homepage": "https://github.com/qix-/node-is-arrayish#readme",
+      "description": "Determines if an object can be used as an array"
+    },
+    {
+      "name": "is-fullwidth-code-point",
+      "versions": ["3.0.0"],
+      "paths": ["node_modules/.pnpm/is-fullwidth-code-point@3.0.0/node_modules/is-fullwidth-code-point"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/is-fullwidth-code-point#readme",
+      "description": "Check if the character represented by a given Unicode code point is fullwidth"
+    },
+    {
+      "name": "is-hotkey",
+      "versions": ["0.2.0"],
+      "paths": ["node_modules/.pnpm/is-hotkey@0.2.0/node_modules/is-hotkey"],
+      "license": "MIT",
+      "homepage": "https://github.com/ianstormtaylor/is-hotkey#readme",
+      "description": "Check whether a browser event matches a hotkey."
+    },
+    {
+      "name": "is-plain-object",
+      "versions": ["5.1.0"],
+      "paths": ["node_modules/.pnpm/is-plain-object@5.1.0/node_modules/is-plain-object"],
+      "license": "MIT",
+      "author": "Jon Schlinkert",
+      "homepage": "https://github.com/jonschlinkert/is-plain-object",
+      "description": "Returns true if an object was created by the `Object` constructor, or Object.create(null)."
+    },
+    {
+      "name": "is-retry-allowed",
+      "versions": ["2.2.0"],
+      "paths": ["node_modules/.pnpm/is-retry-allowed@2.2.0/node_modules/is-retry-allowed"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/is-retry-allowed#readme",
+      "description": "Check whether a request can be retried based on the `error.code`"
+    },
+    {
+      "name": "is-url",
+      "versions": ["1.2.4"],
+      "paths": ["node_modules/.pnpm/is-url@1.2.4/node_modules/is-url"],
+      "license": "MIT",
+      "homepage": "https://github.com/segmentio/is-url#readme",
+      "description": "Check whether a string is a URL."
+    },
+    {
+      "name": "is-what",
+      "versions": ["4.1.16"],
+      "paths": ["node_modules/.pnpm/is-what@4.1.16/node_modules/is-what"],
+      "license": "MIT",
+      "author": "Luca Ban - Mesqueeb",
+      "homepage": "https://github.com/mesqueeb/is-what#readme",
+      "description": "JS type check (TypeScript supported) functions like `isPlainObject() isArray()` etc. A simple & small integration."
+    },
+    {
+      "name": "isarray",
+      "versions": ["0.0.1"],
+      "paths": ["node_modules/.pnpm/isarray@0.0.1/node_modules/isarray"],
+      "license": "MIT",
+      "author": "Julian Gruber",
+      "homepage": "https://github.com/juliangruber/isarray",
+      "description": "Array#isArray for older browsers"
+    },
+    {
+      "name": "jquery",
+      "versions": ["2.2.4"],
+      "paths": ["node_modules/.pnpm/jquery@2.2.4/node_modules/jquery"],
+      "license": "MIT",
+      "author": "jQuery Foundation and other contributors",
+      "homepage": "http://jquery.com",
+      "description": "JavaScript library for DOM operations"
+    },
+    {
+      "name": "jquery-mousewheel",
+      "versions": ["3.1.13"],
+      "paths": ["node_modules/.pnpm/jquery-mousewheel@3.1.13/node_modules/jquery-mousewheel"],
+      "license": "MIT",
+      "author": "jQuery Foundation and other contributors",
+      "homepage": "https://github.com/jquery/jquery-mousewheel",
+      "description": "A jQuery plugin that adds cross-browser mouse wheel support."
+    },
+    {
+      "name": "js-binary-schema-parser",
+      "versions": ["2.0.3"],
+      "paths": ["node_modules/.pnpm/js-binary-schema-parser@2.0.3/node_modules/js-binary-schema-parser"],
+      "license": "MIT",
+      "author": "Matt Way",
+      "homepage": "https://github.com/matt-way/jsBinarySchemaParser",
+      "description": "Parse binary files with a schema into nicely readable objects"
+    },
+    {
+      "name": "jsbarcode",
+      "versions": ["3.12.3"],
+      "paths": ["node_modules/.pnpm/jsbarcode@3.12.3/node_modules/jsbarcode"],
+      "license": "MIT",
+      "author": "Johan Lindell",
+      "homepage": "https://github.com/lindell/JsBarcode#readme",
+      "description": "JsBarcode is a customizable barcode generator with support for multiple barcode formats."
+    },
+    {
+      "name": "jsep",
+      "versions": ["1.4.0"],
+      "paths": ["node_modules/.pnpm/jsep@1.4.0/node_modules/jsep"],
+      "license": "MIT",
+      "author": "Stephen Oney",
+      "homepage": "https://ericsmekens.github.io/jsep/",
+      "description": "a tiny JavaScript expression parser"
+    },
+    {
+      "name": "jsesc",
+      "versions": ["3.1.0"],
+      "paths": ["node_modules/.pnpm/jsesc@3.1.0/node_modules/jsesc"],
+      "license": "MIT",
+      "author": "Mathias Bynens",
+      "homepage": "https://mths.be/jsesc",
+      "description": "Given some data, jsesc returns the shortest possible stringified & ASCII-safe representation of that data."
+    },
+    {
+      "name": "json5",
+      "versions": ["2.2.3"],
+      "paths": ["node_modules/.pnpm/json5@2.2.3/node_modules/json5"],
+      "license": "MIT",
+      "author": "Aseem Kishore",
+      "homepage": "http://json5.org/",
+      "description": "JSON for Humans"
+    },
+    {
+      "name": "klona",
+      "versions": ["2.0.6"],
+      "paths": ["node_modules/.pnpm/klona@2.0.6/node_modules/klona"],
+      "license": "MIT",
+      "author": "Luke Edwards",
+      "homepage": "https://github.com/lukeed/klona#readme",
+      "description": "A tiny (240B to 501B) and fast utility to \"deep clone\" Objects, Arrays, Dates, RegExps, and more!"
+    },
+    {
+      "name": "lie",
+      "versions": ["3.1.1"],
+      "paths": ["node_modules/.pnpm/lie@3.1.1/node_modules/lie"],
+      "license": "MIT",
+      "homepage": "https://github.com/calvinmetcalf/lie#readme",
+      "description": "A basic but performant promise implementation"
+    },
+    {
+      "name": "local-pkg",
+      "versions": ["1.1.2"],
+      "paths": ["node_modules/.pnpm/local-pkg@1.1.2/node_modules/local-pkg"],
+      "license": "MIT",
+      "author": "Anthony Fu",
+      "homepage": "https://github.com/antfu-collective/local-pkg#readme",
+      "description": "Get information on local packages."
+    },
+    {
+      "name": "locate-path",
+      "versions": ["5.0.0"],
+      "paths": ["node_modules/.pnpm/locate-path@5.0.0/node_modules/locate-path"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/locate-path#readme",
+      "description": "Get the first path that exists on disk of multiple paths"
+    },
+    {
+      "name": "lodash",
+      "versions": ["4.17.21", "4.17.23"],
+      "paths": [
+        "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash",
+        "node_modules/.pnpm/lodash@4.17.23/node_modules/lodash"
+      ],
+      "license": "MIT",
+      "author": "John-David Dalton",
+      "homepage": "https://lodash.com/",
+      "description": "Lodash modular utilities."
+    },
+    {
+      "name": "lodash-es",
+      "versions": ["4.17.21", "4.17.23"],
+      "paths": [
+        "node_modules/.pnpm/lodash-es@4.17.21/node_modules/lodash-es",
+        "node_modules/.pnpm/lodash-es@4.17.23/node_modules/lodash-es"
+      ],
+      "license": "MIT",
+      "author": "John-David Dalton",
+      "homepage": "https://lodash.com/custom-builds",
+      "description": "Lodash exported as ES modules."
+    },
+    {
+      "name": "lodash-unified",
+      "versions": ["1.0.3"],
+      "paths": [
+        "node_modules/.pnpm/lodash-unified@1.0.3_@types+lodash-es@4.17.12_lodash-es@4.17.23_lodash@4.17.23/node_modules/lodash-unified"
+      ],
+      "license": "MIT",
+      "author": "Jack Works",
+      "description": "A union entrypoint of lodash for both ESModule and Commonjs."
+    },
+    {
+      "name": "lodash.camelcase",
+      "versions": ["4.3.0"],
+      "paths": ["node_modules/.pnpm/lodash.camelcase@4.3.0/node_modules/lodash.camelcase"],
+      "license": "MIT",
+      "author": "John-David Dalton",
+      "homepage": "https://lodash.com/",
+      "description": "The lodash method `_.camelCase` exported as a module."
+    },
+    {
+      "name": "lodash.clonedeep",
+      "versions": ["4.5.0"],
+      "paths": ["node_modules/.pnpm/lodash.clonedeep@4.5.0/node_modules/lodash.clonedeep"],
+      "license": "MIT",
+      "author": "John-David Dalton",
+      "homepage": "https://lodash.com/",
+      "description": "The lodash method `_.cloneDeep` exported as a module."
+    },
+    {
+      "name": "lodash.debounce",
+      "versions": ["4.0.8"],
+      "paths": ["node_modules/.pnpm/lodash.debounce@4.0.8/node_modules/lodash.debounce"],
+      "license": "MIT",
+      "author": "John-David Dalton",
+      "homepage": "https://lodash.com/",
+      "description": "The lodash method `_.debounce` exported as a module."
+    },
+    {
+      "name": "lodash.foreach",
+      "versions": ["4.5.0"],
+      "paths": ["node_modules/.pnpm/lodash.foreach@4.5.0/node_modules/lodash.foreach"],
+      "license": "MIT",
+      "author": "John-David Dalton",
+      "homepage": "https://lodash.com/",
+      "description": "The lodash method `_.forEach` exported as a module."
+    },
+    {
+      "name": "lodash.isequal",
+      "versions": ["4.5.0"],
+      "paths": ["node_modules/.pnpm/lodash.isequal@4.5.0/node_modules/lodash.isequal"],
+      "license": "MIT",
+      "author": "John-David Dalton",
+      "homepage": "https://lodash.com/",
+      "description": "The Lodash method `_.isEqual` exported as a module."
+    },
+    {
+      "name": "lodash.throttle",
+      "versions": ["4.1.1"],
+      "paths": ["node_modules/.pnpm/lodash.throttle@4.1.1/node_modules/lodash.throttle"],
+      "license": "MIT",
+      "author": "John-David Dalton",
+      "homepage": "https://lodash.com/",
+      "description": "The lodash method `_.throttle` exported as a module."
+    },
+    {
+      "name": "lodash.toarray",
+      "versions": ["4.4.0"],
+      "paths": ["node_modules/.pnpm/lodash.toarray@4.4.0/node_modules/lodash.toarray"],
+      "license": "MIT",
+      "author": "John-David Dalton",
+      "homepage": "https://lodash.com/",
+      "description": "The lodash method `_.toArray` exported as a module."
+    },
+    {
+      "name": "lottie-web",
+      "versions": ["5.13.0"],
+      "paths": ["node_modules/.pnpm/lottie-web@5.13.0/node_modules/lottie-web"],
+      "license": "MIT",
+      "homepage": "https://github.com/airbnb/lottie-web#readme",
+      "description": "After Effects plugin for exporting animations to SVG + JavaScript or canvas + JavaScript"
+    },
+    {
+      "name": "luckysheet",
+      "versions": ["2.1.13"],
+      "paths": ["node_modules/.pnpm/luckysheet@2.1.13/node_modules/luckysheet"],
+      "license": "MIT"
+    },
+    {
+      "name": "magic-string",
+      "versions": ["0.30.21"],
+      "paths": ["node_modules/.pnpm/magic-string@0.30.21/node_modules/magic-string"],
+      "license": "MIT",
+      "author": "Rich Harris",
+      "homepage": "https://github.com/Rich-Harris/magic-string#readme",
+      "description": "Modify strings, generate sourcemaps"
+    },
+    {
+      "name": "magic-string-ast",
+      "versions": ["1.0.3"],
+      "paths": ["node_modules/.pnpm/magic-string-ast@1.0.3/node_modules/magic-string-ast"],
+      "license": "MIT",
+      "author": "Kevin Deng",
+      "homepage": "https://github.com/sxzz/magic-string-ast#readme",
+      "description": "magic-string with AST shortcut."
+    },
+    {
+      "name": "marked",
+      "versions": ["14.0.0"],
+      "paths": ["node_modules/.pnpm/marked@14.0.0/node_modules/marked"],
+      "license": "MIT",
+      "author": "Christopher Jeffrey",
+      "homepage": "https://marked.js.org",
+      "description": "A markdown parser built for speed"
+    },
+    {
+      "name": "math-intrinsics",
+      "versions": ["1.1.0"],
+      "paths": ["node_modules/.pnpm/math-intrinsics@1.1.0/node_modules/math-intrinsics"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/es-shims/math-intrinsics#readme",
+      "description": "ES Math-related intrinsics and helpers, robustly cached."
+    },
+    {
+      "name": "medium-editor",
+      "versions": ["5.23.3"],
+      "paths": ["node_modules/.pnpm/medium-editor@5.23.3/node_modules/medium-editor"],
+      "license": "MIT",
+      "author": "Davi Ferreira",
+      "homepage": "http://yabwe.github.io/medium-editor/",
+      "description": "Medium.com WYSIWYG editor clone."
+    },
+    {
+      "name": "memoize-one",
+      "versions": ["6.0.0"],
+      "paths": ["node_modules/.pnpm/memoize-one@6.0.0/node_modules/memoize-one"],
+      "license": "MIT",
+      "author": "Alex Reardon",
+      "homepage": "https://github.com/alexreardon/memoize-one#readme",
+      "description": "A memoization library which only remembers the latest invocation"
+    },
+    {
+      "name": "mime-db",
+      "versions": ["1.52.0"],
+      "paths": ["node_modules/.pnpm/mime-db@1.52.0/node_modules/mime-db"],
+      "license": "MIT",
+      "homepage": "https://github.com/jshttp/mime-db#readme",
+      "description": "Media Type Database"
+    },
+    {
+      "name": "mime-types",
+      "versions": ["2.1.35"],
+      "paths": ["node_modules/.pnpm/mime-types@2.1.35/node_modules/mime-types"],
+      "license": "MIT",
+      "homepage": "https://github.com/jshttp/mime-types#readme",
+      "description": "The ultimate javascript content-type utility."
+    },
+    {
+      "name": "minimist",
+      "versions": ["1.2.0", "1.2.6"],
+      "paths": [
+        "node_modules/.pnpm/minimist@1.2.0/node_modules/minimist",
+        "node_modules/.pnpm/minimist@1.2.6/node_modules/minimist"
+      ],
+      "license": "MIT",
+      "author": "James Halliday",
+      "homepage": "https://github.com/substack/minimist",
+      "description": "parse argument options"
+    },
+    {
+      "name": "mitt",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/mitt@3.0.1/node_modules/mitt"],
+      "license": "MIT",
+      "homepage": "https://github.com/developit/mitt",
+      "description": "Tiny 200b functional Event Emitter / pubsub."
+    },
+    {
+      "name": "ml-array-max",
+      "versions": ["1.2.4"],
+      "paths": ["node_modules/.pnpm/ml-array-max@1.2.4/node_modules/ml-array-max"],
+      "license": "MIT",
+      "author": "Michaël Zasso",
+      "homepage": "https://github.com/mljs/array/tree/master/packages/array-max#readme",
+      "description": "Get the maximum value in an array"
+    },
+    {
+      "name": "ml-array-min",
+      "versions": ["1.2.3"],
+      "paths": ["node_modules/.pnpm/ml-array-min@1.2.3/node_modules/ml-array-min"],
+      "license": "MIT",
+      "author": "Michaël Zasso",
+      "homepage": "https://github.com/mljs/array/tree/master/packages/array-min#readme",
+      "description": "Get the minimum value in an array"
+    },
+    {
+      "name": "ml-array-rescale",
+      "versions": ["1.3.7"],
+      "paths": ["node_modules/.pnpm/ml-array-rescale@1.3.7/node_modules/ml-array-rescale"],
+      "license": "MIT",
+      "author": "Michaël Zasso",
+      "homepage": "https://github.com/mljs/array/tree/master/packages/array-rescale#readme",
+      "description": "Rescale an array into a range"
+    },
+    {
+      "name": "ml-matrix",
+      "versions": ["6.12.1"],
+      "paths": ["node_modules/.pnpm/ml-matrix@6.12.1/node_modules/ml-matrix"],
+      "license": "MIT",
+      "author": "Michaël Zasso",
+      "homepage": "https://github.com/mljs/matrix",
+      "description": "Matrix manipulation and computation library"
+    },
+    {
+      "name": "mlly",
+      "versions": ["1.8.0"],
+      "paths": ["node_modules/.pnpm/mlly@1.8.0/node_modules/mlly"],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/mlly#readme",
+      "description": "Missing ECMAScript module utils for Node.js"
+    },
+    {
+      "name": "mobx",
+      "versions": ["5.15.7"],
+      "paths": ["node_modules/.pnpm/mobx@5.15.7/node_modules/mobx"],
+      "license": "MIT",
+      "author": "Michel Weststrate",
+      "homepage": "https://mobx.js.org/",
+      "description": "Simple, scalable state management."
+    },
+    {
+      "name": "mobx-preact",
+      "versions": ["3.0.0"],
+      "paths": ["node_modules/.pnpm/mobx-preact@3.0.0_mobx@5.15.7_preact@10.29.8/node_modules/mobx-preact"],
+      "license": "MIT",
+      "author": "Phil Mander",
+      "homepage": "https://github.com/philmander/mobx-preact#readme",
+      "description": "Mobx bindings specifically for Preact"
+    },
+    {
+      "name": "mobx-utils",
+      "versions": ["5.6.2"],
+      "paths": ["node_modules/.pnpm/mobx-utils@5.6.2_mobx@5.15.7/node_modules/mobx-utils"],
+      "license": "MIT",
+      "author": "Michel Weststrate",
+      "homepage": "https://github.com/mobxjs/mobx-utils#readme",
+      "description": "Utility functions and common patterns for MobX"
+    },
+    {
+      "name": "moment",
+      "versions": ["2.31.0"],
+      "paths": ["node_modules/.pnpm/moment@2.31.0/node_modules/moment"],
+      "license": "MIT",
+      "homepage": "https://momentjs.com",
+      "description": "Parse, validate, manipulate, and display dates"
+    },
+    {
+      "name": "monaco-editor",
+      "versions": ["0.56.0"],
+      "paths": ["node_modules/.pnpm/monaco-editor@0.56.0/node_modules/monaco-editor"],
+      "license": "MIT",
+      "author": "Microsoft Corporation",
+      "homepage": "https://github.com/microsoft/monaco-editor",
+      "description": "A browser based code editor"
+    },
+    {
+      "name": "ms",
+      "versions": ["2.1.3"],
+      "paths": ["node_modules/.pnpm/ms@2.1.3/node_modules/ms"],
+      "license": "MIT",
+      "homepage": "https://github.com/vercel/ms#readme",
+      "description": "Tiny millisecond conversion utility"
+    },
+    {
+      "name": "muggle-string",
+      "versions": ["0.4.1"],
+      "paths": ["node_modules/.pnpm/muggle-string@0.4.1/node_modules/muggle-string"],
+      "license": "MIT",
+      "homepage": "https://github.com/johnsoncodehk/muggle-string#readme"
+    },
+    {
+      "name": "namespace-emitter",
+      "versions": ["2.0.1"],
+      "paths": ["node_modules/.pnpm/namespace-emitter@2.0.1/node_modules/namespace-emitter"],
+      "license": "MIT",
+      "author": "sethvincent",
+      "homepage": "https://github.com/sethvincent/namespace-emitter#readme",
+      "description": "tiny event emitter with namespaces"
+    },
+    {
+      "name": "nanoid",
+      "versions": ["3.3.11", "5.1.7"],
+      "paths": [
+        "node_modules/.pnpm/nanoid@3.3.11/node_modules/nanoid",
+        "node_modules/.pnpm/nanoid@5.1.7/node_modules/nanoid"
+      ],
+      "license": "MIT",
+      "author": "Andrey Sitnik",
+      "homepage": "https://github.com/ai/nanoid#readme",
+      "description": "A tiny (118 bytes), secure URL-friendly unique string ID generator"
+    },
+    {
+      "name": "node-fetch-native",
+      "versions": ["1.6.7"],
+      "paths": ["node_modules/.pnpm/node-fetch-native@1.6.7/node_modules/node-fetch-native"],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/node-fetch-native#readme",
+      "description": "better fetch for Node.js. Works on any JavaScript runtime!"
+    },
+    {
+      "name": "nprogress",
+      "versions": ["0.2.0"],
+      "paths": ["node_modules/.pnpm/nprogress@0.2.0/node_modules/nprogress"],
+      "license": "MIT",
+      "author": "Rico Sta. Cruz",
+      "homepage": "https://github.com/rstacruz/nprogress#readme",
+      "description": "Simple slim progress bars"
+    },
+    {
+      "name": "numeral",
+      "versions": ["2.0.6"],
+      "paths": ["node_modules/.pnpm/numeral@2.0.6/node_modules/numeral"],
+      "license": "MIT",
+      "author": "Adam Draper",
+      "homepage": "http://numeraljs.com",
+      "description": "Format and manipulate numbers."
+    },
+    {
+      "name": "object-inspect",
+      "versions": ["1.13.4"],
+      "paths": ["node_modules/.pnpm/object-inspect@1.13.4/node_modules/object-inspect"],
+      "license": "MIT",
+      "author": "James Halliday",
+      "homepage": "https://github.com/inspect-js/object-inspect",
+      "description": "string representations of objects in node and the browser"
+    },
+    {
+      "name": "ofetch",
+      "versions": ["1.5.1"],
+      "paths": ["node_modules/.pnpm/ofetch@1.5.1/node_modules/ofetch"],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/ofetch#readme",
+      "description": "A better fetch API. Works on node, browser and workers."
+    },
+    {
+      "name": "p-limit",
+      "versions": ["2.3.0"],
+      "paths": ["node_modules/.pnpm/p-limit@2.3.0/node_modules/p-limit"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/p-limit#readme",
+      "description": "Run multiple promise-returning & async functions with limited concurrency"
+    },
+    {
+      "name": "p-locate",
+      "versions": ["4.1.0"],
+      "paths": ["node_modules/.pnpm/p-locate@4.1.0/node_modules/p-locate"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/p-locate#readme",
+      "description": "Get the first fulfilled promise that satisfies the provided testing function"
+    },
+    {
+      "name": "p-try",
+      "versions": ["2.2.0"],
+      "paths": ["node_modules/.pnpm/p-try@2.2.0/node_modules/p-try"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/p-try#readme",
+      "description": "`Start a promise chain"
+    },
+    {
+      "name": "parse-svg-path",
+      "versions": ["0.1.2"],
+      "paths": ["node_modules/.pnpm/parse-svg-path@0.1.2/node_modules/parse-svg-path"],
+      "license": "MIT",
+      "author": "Jake Rosoman",
+      "homepage": "https://github.com/jkroso/parse-svg-path#readme",
+      "description": "svg path parser"
+    },
+    {
+      "name": "path-browserify",
+      "versions": ["1.0.1"],
+      "paths": ["node_modules/.pnpm/path-browserify@1.0.1/node_modules/path-browserify"],
+      "license": "MIT",
+      "author": "James Halliday",
+      "homepage": "https://github.com/browserify/path-browserify",
+      "description": "the path module from node core for browsers"
+    },
+    {
+      "name": "path-data-parser",
+      "versions": ["0.1.0"],
+      "paths": ["node_modules/.pnpm/path-data-parser@0.1.0/node_modules/path-data-parser"],
+      "license": "MIT",
+      "author": "Preet Shihn",
+      "homepage": "https://github.com/pshihn/path-data-parser#readme",
+      "description": "Yet another SVG path parser. This one's tiny"
+    },
+    {
+      "name": "path-exists",
+      "versions": ["4.0.0"],
+      "paths": ["node_modules/.pnpm/path-exists@4.0.0/node_modules/path-exists"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/path-exists#readme",
+      "description": "Check if a path exists"
+    },
+    {
+      "name": "pathe",
+      "versions": ["2.0.3"],
+      "paths": ["node_modules/.pnpm/pathe@2.0.3/node_modules/pathe"],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/pathe#readme",
+      "description": "Universal filesystem path utils"
+    },
+    {
+      "name": "pdfast",
+      "versions": ["0.2.0"],
+      "paths": ["node_modules/.pnpm/pdfast@0.2.0/node_modules/pdfast"],
+      "license": "MIT",
+      "author": "William Gozali",
+      "homepage": "https://github.com/gyosh/pdfast",
+      "description": "Fast kernel density estimation library"
+    },
+    {
+      "name": "perfect-debounce",
+      "versions": ["1.0.0", "2.0.0"],
+      "paths": [
+        "node_modules/.pnpm/perfect-debounce@1.0.0/node_modules/perfect-debounce",
+        "node_modules/.pnpm/perfect-debounce@2.0.0/node_modules/perfect-debounce"
+      ],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/perfect-debounce#readme",
+      "description": ""
+    },
+    {
+      "name": "phoenix-designer",
+      "versions": ["1.3.14"],
+      "paths": [
+        "node_modules/.pnpm/phoenix-designer@1.3.14_@types+sortablejs@1.15.8_element-plus@2.13.6_typescript@5.9.3_v_aadb44b0bbb9ed6f097a4092ee9d3679/node_modules/phoenix-designer"
+      ],
+      "license": "MIT",
+      "author": "saperliu",
+      "homepage": "https://github.com/saperliu/phoenix-designer",
+      "description": "基于vue3的设计器,可视化开发页面表单"
+    },
+    {
+      "name": "picomatch",
+      "versions": ["4.0.3"],
+      "paths": ["node_modules/.pnpm/picomatch@4.0.3/node_modules/picomatch"],
+      "license": "MIT",
+      "author": "Jon Schlinkert",
+      "homepage": "https://github.com/micromatch/picomatch",
+      "description": "Blazing fast and accurate glob matcher written in JavaScript, with no dependencies and full support for standard and extended Bash glob features, including braces, extglobs, POSIX brackets, and regular expressions."
+    },
+    {
+      "name": "pinia",
+      "versions": ["3.0.4"],
+      "paths": ["node_modules/.pnpm/pinia@3.0.4_typescript@5.9.3_vue@3.5.31_typescript@5.9.3_/node_modules/pinia"],
+      "license": "MIT",
+      "author": "Eduardo San Martin Morote",
+      "homepage": "https://pinia.vuejs.org",
+      "description": "Intuitive, type safe and flexible Store for Vue"
+    },
+    {
+      "name": "pinyin-pro",
+      "versions": ["3.28.0"],
+      "paths": ["node_modules/.pnpm/pinyin-pro@3.28.0/node_modules/pinyin-pro"],
+      "license": "MIT",
+      "author": "zh-lx",
+      "homepage": "https://pinyin-pro.cn",
+      "description": "准确率和性能最优异的汉字转拼音库。获取中文拼音、韵母、声母、声调、首字母，支持拼音匹配"
+    },
+    {
+      "name": "pkg-types",
+      "versions": ["1.3.1", "2.3.0"],
+      "paths": [
+        "node_modules/.pnpm/pkg-types@1.3.1/node_modules/pkg-types",
+        "node_modules/.pnpm/pkg-types@2.3.0/node_modules/pkg-types"
+      ],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/pkg-types#readme",
+      "description": "Node.js utilities and TypeScript definitions for `package.json` and `tsconfig.json`"
+    },
+    {
+      "name": "pngjs",
+      "versions": ["5.0.0"],
+      "paths": ["node_modules/.pnpm/pngjs@5.0.0/node_modules/pngjs"],
+      "license": "MIT",
+      "homepage": "https://github.com/lukeapage/pngjs",
+      "description": "PNG encoder/decoder in pure JS, supporting any bit size & interlace, async & sync with full test suite."
+    },
+    {
+      "name": "point-at-length",
+      "versions": ["1.1.0"],
+      "paths": ["node_modules/.pnpm/point-at-length@1.1.0/node_modules/point-at-length"],
+      "license": "MIT",
+      "author": "James Halliday",
+      "homepage": "https://github.com/substack/point-at-length",
+      "description": "compute a point from an svg path string"
+    },
+    {
+      "name": "points-on-curve",
+      "versions": ["0.2.0"],
+      "paths": ["node_modules/.pnpm/points-on-curve@0.2.0/node_modules/points-on-curve"],
+      "license": "MIT",
+      "author": "Preet Shihn",
+      "homepage": "https://github.com/pshihn/bezier-points#readme",
+      "description": "Estimate points on a bezier curve or a set of connexted bezier curves"
+    },
+    {
+      "name": "points-on-path",
+      "versions": ["0.2.1"],
+      "paths": ["node_modules/.pnpm/points-on-path@0.2.1/node_modules/points-on-path"],
+      "license": "MIT",
+      "author": "Preet Shihn",
+      "homepage": "https://github.com/pshihn/points-on-path#readme",
+      "description": "Estimate points on a SVG path"
+    },
+    {
+      "name": "postcss",
+      "versions": ["8.5.6", "8.5.8"],
+      "paths": [
+        "node_modules/.pnpm/postcss@8.5.6/node_modules/postcss",
+        "node_modules/.pnpm/postcss@8.5.8/node_modules/postcss"
+      ],
+      "license": "MIT",
+      "author": "Andrey Sitnik",
+      "homepage": "https://postcss.org/",
+      "description": "Tool for transforming styles with JS plugins"
+    },
+    {
+      "name": "preact",
+      "versions": ["10.29.8"],
+      "paths": ["node_modules/.pnpm/preact@10.29.8/node_modules/preact"],
+      "license": "MIT",
+      "homepage": "https://preactjs.com",
+      "description": "Fast 3kb React-compatible Virtual DOM library."
+    },
+    {
+      "name": "print-js",
+      "versions": ["1.6.0"],
+      "paths": ["node_modules/.pnpm/print-js@1.6.0/node_modules/print-js"],
+      "license": "MIT",
+      "author": "Rodrigo Vieira",
+      "homepage": "http://printjs.crabbly.com",
+      "description": "A tiny javascript library to help printing from the web."
+    },
+    {
+      "name": "prismjs",
+      "versions": ["1.30.0"],
+      "paths": ["node_modules/.pnpm/prismjs@1.30.0/node_modules/prismjs"],
+      "license": "MIT",
+      "author": "Lea Verou",
+      "homepage": "https://github.com/PrismJS/prism#readme",
+      "description": "Lightweight, robust, elegant syntax highlighting. A spin-off project from Dabblet."
+    },
+    {
+      "name": "promise-polyfill",
+      "versions": ["7.1.2"],
+      "paths": ["node_modules/.pnpm/promise-polyfill@7.1.2/node_modules/promise-polyfill"],
+      "license": "MIT",
+      "author": "Taylor Hakes",
+      "homepage": "https://github.com/taylorhakes/promise-polyfill",
+      "description": "Lightweight promise polyfill. A+ compliant"
+    },
+    {
+      "name": "protocol-buffers-schema",
+      "versions": ["3.6.0"],
+      "paths": ["node_modules/.pnpm/protocol-buffers-schema@3.6.0/node_modules/protocol-buffers-schema"],
+      "license": "MIT",
+      "author": "Mathias Buus",
+      "homepage": "https://github.com/mafintosh/protocol-buffers-schema",
+      "description": "No nonsense protocol buffers schema parser written in Javascript"
+    },
+    {
+      "name": "proxy-from-env",
+      "versions": ["2.1.0"],
+      "paths": ["node_modules/.pnpm/proxy-from-env@2.1.0/node_modules/proxy-from-env"],
+      "license": "MIT",
+      "author": "Rob Wu",
+      "homepage": "https://github.com/Rob--W/proxy-from-env#readme",
+      "description": "Offers getProxyForUrl to get the proxy URL for a URL, respecting the *_PROXY (e.g. HTTP_PROXY) and NO_PROXY environment variables."
+    },
+    {
+      "name": "qrcode",
+      "versions": ["1.5.4"],
+      "paths": ["node_modules/.pnpm/qrcode@1.5.4/node_modules/qrcode"],
+      "license": "MIT",
+      "author": "Ryan Day",
+      "homepage": "http://github.com/soldair/node-qrcode",
+      "description": "QRCode / 2d Barcode api with both server side and client side support using canvas"
+    },
+    {
+      "name": "quansync",
+      "versions": ["0.2.11"],
+      "paths": ["node_modules/.pnpm/quansync@0.2.11/node_modules/quansync"],
+      "license": "MIT",
+      "author": "Anthony Fu",
+      "homepage": "https://github.com/quansync-dev/quansync#readme",
+      "description": "Create sync/async APIs with usable logic"
+    },
+    {
+      "name": "rangy",
+      "versions": ["1.3.2"],
+      "paths": ["node_modules/.pnpm/rangy@1.3.2/node_modules/rangy"],
+      "license": "MIT",
+      "author": "Tim Down",
+      "homepage": "https://github.com/timdown/rangy",
+      "description": "A cross-browser DOM range and selection library"
+    },
+    {
+      "name": "rbush",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/rbush@3.0.1/node_modules/rbush"],
+      "license": "MIT",
+      "author": "Vladimir Agafonkin",
+      "homepage": "https://github.com/mourner/rbush",
+      "description": "High-performance 2D spatial index for rectangles (based on R*-tree with bulk loading and bulk insertion algorithms)"
+    },
+    {
+      "name": "readable-stream",
+      "versions": ["1.1.14", "3.6.2"],
+      "paths": [
+        "node_modules/.pnpm/readable-stream@1.1.14/node_modules/readable-stream",
+        "node_modules/.pnpm/readable-stream@3.6.2/node_modules/readable-stream"
+      ],
+      "license": "MIT",
+      "homepage": "https://github.com/nodejs/readable-stream#readme",
+      "description": "Streams3, a user-land copy of the stream library from Node.js"
+    },
+    {
+      "name": "readdirp",
+      "versions": ["5.0.0"],
+      "paths": ["node_modules/.pnpm/readdirp@5.0.0/node_modules/readdirp"],
+      "license": "MIT",
+      "author": "Thorsten Lorenz",
+      "homepage": "https://github.com/paulmillr/readdirp",
+      "description": "Recursive version of fs.readdir with small RAM & CPU footprint"
+    },
+    {
+      "name": "regression",
+      "versions": ["2.0.1"],
+      "paths": ["node_modules/.pnpm/regression@2.0.1/node_modules/regression"],
+      "license": "MIT",
+      "author": "Tom Alexander",
+      "homepage": "https://github.com/Tom-Alexander/regression-js#readme",
+      "description": "Javascript least squares data fitting methods"
+    },
+    {
+      "name": "require-directory",
+      "versions": ["2.1.1"],
+      "paths": ["node_modules/.pnpm/require-directory@2.1.1/node_modules/require-directory"],
+      "license": "MIT",
+      "author": "Troy Goode",
+      "homepage": "https://github.com/troygoode/node-require-directory/",
+      "description": "Recursively iterates over specified directory, require()'ing each file, and returning a nested hash structure containing those modules."
+    },
+    {
+      "name": "resolve-protobuf-schema",
+      "versions": ["2.1.0"],
+      "paths": ["node_modules/.pnpm/resolve-protobuf-schema@2.1.0/node_modules/resolve-protobuf-schema"],
+      "license": "MIT",
+      "author": "Mathias Buus",
+      "homepage": "https://github.com/mafintosh/resolve-protobuf-schema",
+      "description": "Read a protobuf schema from the disk, parse it and resolve all imports"
+    },
+    {
+      "name": "rfdc",
+      "versions": ["1.4.1"],
+      "paths": ["node_modules/.pnpm/rfdc@1.4.1/node_modules/rfdc"],
+      "license": "MIT",
+      "author": "David Mark Clements",
+      "homepage": "https://github.com/davidmarkclements/rfdc#readme",
+      "description": "Really Fast Deep Clone"
+    },
+    {
+      "name": "roughjs",
+      "versions": ["4.6.6"],
+      "paths": ["node_modules/.pnpm/roughjs@4.6.6/node_modules/roughjs"],
+      "license": "MIT",
+      "author": "Preet Shihn",
+      "homepage": "https://roughjs.com",
+      "description": "Create graphics using HTML Canvas or SVG with a hand-drawn, sketchy, appearance."
+    },
+    {
+      "name": "safe-buffer",
+      "versions": ["5.2.1"],
+      "paths": ["node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer"],
+      "license": "MIT",
+      "author": "Feross Aboukhadijeh",
+      "homepage": "https://github.com/feross/safe-buffer",
+      "description": "Safer Node.js Buffer API"
+    },
+    {
+      "name": "safer-buffer",
+      "versions": ["2.1.2"],
+      "paths": ["node_modules/.pnpm/safer-buffer@2.1.2/node_modules/safer-buffer"],
+      "license": "MIT",
+      "author": "Nikita Skovoroda",
+      "homepage": "https://github.com/ChALkeR/safer-buffer#readme",
+      "description": "Modern Buffer API polyfill without footguns"
+    },
+    {
+      "name": "scroll-into-view-if-needed",
+      "versions": ["2.2.31"],
+      "paths": ["node_modules/.pnpm/scroll-into-view-if-needed@2.2.31/node_modules/scroll-into-view-if-needed"],
+      "license": "MIT",
+      "author": "Cody Olsen",
+      "homepage": "https://scroll-into-view.dev",
+      "description": "Ponyfill for upcoming Element.scrollIntoView() APIs like scrollMode: if-needed, behavior: smooth and block: center"
+    },
+    {
+      "name": "scule",
+      "versions": ["1.3.0"],
+      "paths": ["node_modules/.pnpm/scule@1.3.0/node_modules/scule"],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/scule#readme",
+      "description": "String case utils"
+    },
+    {
+      "name": "seemly",
+      "versions": ["0.3.10"],
+      "paths": ["node_modules/.pnpm/seemly@0.3.10/node_modules/seemly"],
+      "license": "MIT",
+      "author": "07akioni",
+      "description": "Utils for user interface."
+    },
+    {
+      "name": "select",
+      "versions": ["1.1.2"],
+      "paths": ["node_modules/.pnpm/select@1.1.2/node_modules/select"],
+      "license": "MIT",
+      "homepage": "https://github.com/zenorocha/select#readme",
+      "description": "Programmatically select the text of a HTML element"
+    },
+    {
+      "name": "side-channel",
+      "versions": ["1.1.0"],
+      "paths": ["node_modules/.pnpm/side-channel@1.1.0/node_modules/side-channel"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/side-channel#readme",
+      "description": "Store information about any JS value in a side channel. Uses WeakMap if available."
+    },
+    {
+      "name": "side-channel-list",
+      "versions": ["1.0.0"],
+      "paths": ["node_modules/.pnpm/side-channel-list@1.0.0/node_modules/side-channel-list"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/side-channel-list#readme",
+      "description": "Store information about any JS value in a side channel, using a linked list"
+    },
+    {
+      "name": "side-channel-map",
+      "versions": ["1.0.1"],
+      "paths": ["node_modules/.pnpm/side-channel-map@1.0.1/node_modules/side-channel-map"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/side-channel-map#readme",
+      "description": "Store information about any JS value in a side channel, using a Map"
+    },
+    {
+      "name": "side-channel-weakmap",
+      "versions": ["1.0.2"],
+      "paths": ["node_modules/.pnpm/side-channel-weakmap@1.0.2/node_modules/side-channel-weakmap"],
+      "license": "MIT",
+      "author": "Jordan Harband",
+      "homepage": "https://github.com/ljharb/side-channel-weakmap#readme",
+      "description": "Store information about any JS value in a side channel. Uses WeakMap if available."
+    },
+    {
+      "name": "simple-swizzle",
+      "versions": ["0.2.2"],
+      "paths": ["node_modules/.pnpm/simple-swizzle@0.2.2/node_modules/simple-swizzle"],
+      "license": "MIT",
+      "author": "Qix",
+      "homepage": "https://github.com/qix-/node-simple-swizzle#readme",
+      "description": "Simply swizzle your arguments"
+    },
+    {
+      "name": "simplebar-core",
+      "versions": ["1.3.2"],
+      "paths": ["node_modules/.pnpm/simplebar-core@1.3.2/node_modules/simplebar-core"],
+      "license": "MIT",
+      "author": "Adrien Denat from a fork by Jonathan Nicol",
+      "homepage": "https://grsmto.github.io/simplebar/",
+      "description": "Scrollbars, simpler."
+    },
+    {
+      "name": "simplebar-vue",
+      "versions": ["2.4.2"],
+      "paths": ["node_modules/.pnpm/simplebar-vue@2.4.2_vue@3.5.31_typescript@5.9.3_/node_modules/simplebar-vue"],
+      "license": "MIT",
+      "author": "Piers Olenski",
+      "homepage": "https://grsmto.github.io/simplebar/",
+      "description": "Vue component for SimpleBar"
+    },
+    {
+      "name": "simplify-geometry",
+      "versions": ["0.0.2"],
+      "paths": ["node_modules/.pnpm/simplify-geometry@0.0.2/node_modules/simplify-geometry"],
+      "license": "MIT",
+      "author": "Sean Brewer",
+      "homepage": "https://github.com/seabre/simplify-geometry#readme",
+      "description": "Simplify geometry using the Ramer–Douglas–Peucker algorithm."
+    },
+    {
+      "name": "slate",
+      "versions": ["0.72.8"],
+      "paths": ["node_modules/.pnpm/slate@0.72.8/node_modules/slate"],
+      "license": "MIT",
+      "homepage": "https://github.com/ianstormtaylor/slate#readme",
+      "description": "A completely customizable framework for building rich text editors."
+    },
+    {
+      "name": "slate-history",
+      "versions": ["0.66.0"],
+      "paths": ["node_modules/.pnpm/slate-history@0.66.0_slate@0.72.8/node_modules/slate-history"],
+      "license": "MIT",
+      "homepage": "https://github.com/ianstormtaylor/slate#readme",
+      "description": "An operation-based history implementation for Slate editors."
+    },
+    {
+      "name": "snabbdom",
+      "versions": ["3.6.4"],
+      "paths": ["node_modules/.pnpm/snabbdom@3.6.4/node_modules/snabbdom"],
+      "license": "MIT",
+      "author": "Simon Friis Vindum",
+      "homepage": "https://github.com/snabbdom/snabbdom#readme",
+      "description": "A virtual DOM library with focus on simplicity, modularity, powerful features and performance."
+    },
+    {
+      "name": "socket.io-client",
+      "versions": ["4.7.4"],
+      "paths": ["node_modules/.pnpm/socket.io-client@4.7.4_supports-color@7.2.0/node_modules/socket.io-client"],
+      "license": "MIT",
+      "homepage": "https://github.com/socketio/socket.io-client#readme",
+      "description": "Realtime application framework client"
+    },
+    {
+      "name": "socket.io-parser",
+      "versions": ["4.2.7"],
+      "paths": ["node_modules/.pnpm/socket.io-parser@4.2.7_supports-color@7.2.0/node_modules/socket.io-parser"],
+      "license": "MIT",
+      "homepage": "https://github.com/socketio/socket.io/tree/main/packages/socket.io-client#readme",
+      "description": "socket.io protocol parser"
+    },
+    {
+      "name": "sortablejs",
+      "versions": ["1.14.0"],
+      "paths": ["node_modules/.pnpm/sortablejs@1.14.0/node_modules/sortablejs"],
+      "license": "MIT",
+      "homepage": "https://github.com/SortableJS/Sortable#readme",
+      "description": "JavaScript library for reorderable drag-and-drop lists on modern browsers and touch devices. No jQuery required. Supports Meteor, AngularJS, React, Polymer, Vue, Knockout and any CSS library, e.g. Bootstrap."
+    },
+    {
+      "name": "ssr-window",
+      "versions": ["3.0.0"],
+      "paths": ["node_modules/.pnpm/ssr-window@3.0.0/node_modules/ssr-window"],
+      "license": "MIT",
+      "author": "Vladimir Kharlampidi",
+      "homepage": "https://github.com/nolimits4web/ssr-window",
+      "description": "Better handling for window object in SSR environment"
+    },
+    {
+      "name": "string_decoder",
+      "versions": ["0.10.31", "1.3.0"],
+      "paths": [
+        "node_modules/.pnpm/string_decoder@0.10.31/node_modules/string_decoder",
+        "node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder"
+      ],
+      "license": "MIT",
+      "homepage": "https://github.com/nodejs/string_decoder",
+      "description": "The string_decoder module from Node core"
+    },
+    {
+      "name": "string-width",
+      "versions": ["4.2.3"],
+      "paths": ["node_modules/.pnpm/string-width@4.2.3/node_modules/string-width"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/sindresorhus/string-width#readme",
+      "description": "Get the visual width of a string - the number of columns required to display it"
+    },
+    {
+      "name": "strip-ansi",
+      "versions": ["6.0.1"],
+      "paths": ["node_modules/.pnpm/strip-ansi@6.0.1/node_modules/strip-ansi"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/chalk/strip-ansi#readme",
+      "description": "Strip ANSI escape codes from a string"
+    },
+    {
+      "name": "superjson",
+      "versions": ["2.2.2"],
+      "paths": ["node_modules/.pnpm/superjson@2.2.2/node_modules/superjson"],
+      "license": "MIT",
+      "author": "Simon Knott",
+      "homepage": "https://github.com/blitz-js/superjson#readme"
+    },
+    {
+      "name": "svg-path-parser",
+      "versions": ["1.1.0"],
+      "paths": ["node_modules/.pnpm/svg-path-parser@1.1.0/node_modules/svg-path-parser"],
+      "license": "MIT",
+      "homepage": "https://github.com/hughsk/svg-path-parser#readme",
+      "description": "A parser for SVG's path syntax"
+    },
+    {
+      "name": "swiper",
+      "versions": ["12.1.3"],
+      "paths": ["node_modules/.pnpm/swiper@12.1.3/node_modules/swiper"],
+      "license": "MIT",
+      "author": "Vladimir Kharlampidi",
+      "homepage": "https://swiperjs.com",
+      "description": "Most modern mobile touch slider and framework with hardware accelerated transitions"
+    },
+    {
+      "name": "tailwind-merge",
+      "versions": ["3.5.0"],
+      "paths": ["node_modules/.pnpm/tailwind-merge@3.5.0/node_modules/tailwind-merge"],
+      "license": "MIT",
+      "author": "Dany Castillo",
+      "homepage": "https://github.com/dcastil/tailwind-merge",
+      "description": "Merge Tailwind CSS classes without style conflicts"
+    },
+    {
+      "name": "tiny-emitter",
+      "versions": ["2.1.0"],
+      "paths": ["node_modules/.pnpm/tiny-emitter@2.1.0/node_modules/tiny-emitter"],
+      "license": "MIT",
+      "author": "Scott Corgan",
+      "homepage": "https://github.com/scottcorgan/tiny-emitter#readme",
+      "description": "A tiny (less than 1k) event emitter library"
+    },
+    {
+      "name": "tiny-warning",
+      "versions": ["1.0.3"],
+      "paths": ["node_modules/.pnpm/tiny-warning@1.0.3/node_modules/tiny-warning"],
+      "license": "MIT",
+      "author": "Alex Reardon",
+      "homepage": "https://github.com/alexreardon/tiny-warning#readme",
+      "description": "A tiny warning function"
+    },
+    {
+      "name": "tinyglobby",
+      "versions": ["0.2.15"],
+      "paths": ["node_modules/.pnpm/tinyglobby@0.2.15/node_modules/tinyglobby"],
+      "license": "MIT",
+      "author": "Superchupu",
+      "homepage": "https://superchupu.dev/tinyglobby",
+      "description": "A fast and minimal alternative to globby and fast-glob"
+    },
+    {
+      "name": "typedarray",
+      "versions": ["0.0.6", "0.0.7"],
+      "paths": [
+        "node_modules/.pnpm/typedarray@0.0.6/node_modules/typedarray",
+        "node_modules/.pnpm/typedarray@0.0.7/node_modules/typedarray"
+      ],
+      "license": "MIT",
+      "author": "James Halliday",
+      "homepage": "https://github.com/es-shims/typedarray",
+      "description": "TypedArray polyfill for old browsers"
+    },
+    {
+      "name": "ua-parser-js",
+      "versions": ["1.0.36"],
+      "paths": ["node_modules/.pnpm/ua-parser-js@1.0.36/node_modules/ua-parser-js"],
+      "license": "MIT",
+      "author": "Faisal Salman",
+      "homepage": "https://github.com/faisalman/ua-parser-js",
+      "description": "Detect Browser, Engine, OS, CPU, and Device type/model from User-Agent data. Supports browser & node.js environment"
+    },
+    {
+      "name": "ufo",
+      "versions": ["1.6.1"],
+      "paths": ["node_modules/.pnpm/ufo@1.6.1/node_modules/ufo"],
+      "license": "MIT",
+      "homepage": "https://github.com/unjs/ufo#readme",
+      "description": "URL utils for humans"
+    },
+    {
+      "name": "unplugin",
+      "versions": ["3.0.0"],
+      "paths": ["node_modules/.pnpm/unplugin@3.0.0/node_modules/unplugin"],
+      "license": "MIT",
+      "homepage": "https://unplugin.unjs.io",
+      "description": "Unified plugin system for build tools"
+    },
+    {
+      "name": "unplugin-utils",
+      "versions": ["0.3.1"],
+      "paths": ["node_modules/.pnpm/unplugin-utils@0.3.1/node_modules/unplugin-utils"],
+      "license": "MIT",
+      "author": "Kevin Deng",
+      "homepage": "https://github.com/sxzz/unplugin-utils#readme",
+      "description": "A set of utility functions commonly used by unplugins."
+    },
+    {
+      "name": "util-deprecate",
+      "versions": ["1.0.2"],
+      "paths": ["node_modules/.pnpm/util-deprecate@1.0.2/node_modules/util-deprecate"],
+      "license": "MIT",
+      "author": "Nathan Rajlich",
+      "homepage": "https://github.com/TooTallNate/util-deprecate",
+      "description": "The Node.js `util.deprecate()` function with browser support"
+    },
+    {
+      "name": "uuid",
+      "versions": ["9.0.1"],
+      "paths": ["node_modules/.pnpm/uuid@9.0.1/node_modules/uuid"],
+      "license": "MIT",
+      "homepage": "https://github.com/uuidjs/uuid#readme",
+      "description": "RFC4122 (v1, v4, and v5) UUIDs"
+    },
+    {
+      "name": "vditor",
+      "versions": ["3.11.2"],
+      "paths": ["node_modules/.pnpm/vditor@3.11.2/node_modules/vditor"],
+      "license": "MIT",
+      "author": "Vanessa",
+      "homepage": "https://b3log.org/vditor",
+      "description": "♏ 易于使用的 Markdown 编辑器，为适配不同的应用场景而生"
+    },
+    {
+      "name": "vue",
+      "versions": ["3.5.31"],
+      "paths": ["node_modules/.pnpm/vue@3.5.31_typescript@5.9.3/node_modules/vue"],
+      "license": "MIT",
+      "author": "Evan You",
+      "homepage": "https://github.com/vuejs/core/tree/main/packages/vue#readme",
+      "description": "The progressive JavaScript framework for building modern web UI."
+    },
+    {
+      "name": "vue-component-type-helpers",
+      "versions": ["3.2.6"],
+      "paths": ["node_modules/.pnpm/vue-component-type-helpers@3.2.6/node_modules/vue-component-type-helpers"],
+      "license": "MIT",
+      "homepage": "https://github.com/vuejs/language-tools#readme"
+    },
+    {
+      "name": "vue-demi",
+      "versions": ["0.13.11"],
+      "paths": ["node_modules/.pnpm/vue-demi@0.13.11_vue@3.5.31_typescript@5.9.3_/node_modules/vue-demi"],
+      "license": "MIT",
+      "author": "Anthony Fu",
+      "homepage": "https://github.com/antfu/vue-demi#readme"
+    },
+    {
+      "name": "vue-draggable-plus",
+      "versions": ["0.6.1"],
+      "paths": ["node_modules/.pnpm/vue-draggable-plus@0.6.1_@types+sortablejs@1.15.8/node_modules/vue-draggable-plus"],
+      "license": "MIT",
+      "author": "yangpanteng",
+      "homepage": "https://vue-draggable-plus.pages.dev/en/",
+      "description": "Universal Drag-and-Drop Component Supporting both Vue 3 and Vue 2"
+    },
+    {
+      "name": "vue-i18n",
+      "versions": ["11.3.0"],
+      "paths": ["node_modules/.pnpm/vue-i18n@11.3.0_vue@3.5.31_typescript@5.9.3_/node_modules/vue-i18n"],
+      "license": "MIT",
+      "author": "kazuya kawaguchi",
+      "homepage": "https://github.com/intlify/vue-i18n/tree/master/packages/vue-i18n#readme",
+      "description": "Internationalization plugin for Vue.js"
+    },
+    {
+      "name": "vue-pdf-embed",
+      "versions": ["2.1.4"],
+      "paths": ["node_modules/.pnpm/vue-pdf-embed@2.1.4_vue@3.5.31_typescript@5.9.3_/node_modules/vue-pdf-embed"],
+      "license": "MIT",
+      "author": "Aliaksei Hrynko",
+      "homepage": "https://github.com/hrynko/vue-pdf-embed#readme",
+      "description": "PDF embed component for Vue"
+    },
+    {
+      "name": "vue-router",
+      "versions": ["5.0.4"],
+      "paths": [
+        "node_modules/.pnpm/vue-router@5.0.4_@vue+compiler-sfc@3.5.31_pinia@3.0.4_typescript@5.9.3_vue@3.5.31_types_df7c111a6a60d39dac7e42e005e22993/node_modules/vue-router"
+      ],
+      "license": "MIT",
+      "author": "Eduardo San Martin Morote",
+      "homepage": "https://router.vuejs.org"
+    },
+    {
+      "name": "vuedraggable",
+      "versions": ["4.1.0"],
+      "paths": ["node_modules/.pnpm/vuedraggable@4.1.0_vue@3.5.31_typescript@5.9.3_/node_modules/vuedraggable"],
+      "license": "MIT",
+      "homepage": "https://github.com/SortableJS/Vue.Draggable#readme",
+      "description": "draggable component for vue"
+    },
+    {
+      "name": "wangeditor",
+      "versions": ["4.7.15"],
+      "paths": ["node_modules/.pnpm/wangeditor@4.7.15/node_modules/wangeditor"],
+      "license": "MIT",
+      "author": "",
+      "homepage": "http://www.wangeditor.com/",
+      "description": "wangEditor - 轻量级 web 富文本编辑器，配置方便，使用简单，开源免费"
+    },
+    {
+      "name": "webpack-virtual-modules",
+      "versions": ["0.6.2"],
+      "paths": ["node_modules/.pnpm/webpack-virtual-modules@0.6.2/node_modules/webpack-virtual-modules"],
+      "license": "MIT",
+      "author": "SysGears INC",
+      "homepage": "https://github.com/sysgears/webpack-virtual-modules#readme",
+      "description": "Webpack Virtual Modules"
+    },
+    {
+      "name": "wildcard",
+      "versions": ["1.1.2"],
+      "paths": ["node_modules/.pnpm/wildcard@1.1.2/node_modules/wildcard"],
+      "license": "MIT",
+      "author": "Damon Oehlman",
+      "homepage": "https://github.com/DamonOehlman/wildcard#readme",
+      "description": "Wildcard matching tools"
+    },
+    {
+      "name": "wrap-ansi",
+      "versions": ["6.2.0"],
+      "paths": ["node_modules/.pnpm/wrap-ansi@6.2.0/node_modules/wrap-ansi"],
+      "license": "MIT",
+      "author": "Sindre Sorhus",
+      "homepage": "https://github.com/chalk/wrap-ansi#readme",
+      "description": "Wordwrap a string with ANSI escape codes"
+    },
+    {
+      "name": "ws",
+      "versions": ["8.17.1"],
+      "paths": ["node_modules/.pnpm/ws@8.17.1/node_modules/ws"],
+      "license": "MIT",
+      "author": "Einar Otto Stangvik",
+      "homepage": "https://github.com/websockets/ws",
+      "description": "Simple to use, blazing fast and thoroughly tested websocket client and server for Node.js"
+    },
+    {
+      "name": "xgplayer",
+      "versions": ["3.0.24"],
+      "paths": ["node_modules/.pnpm/xgplayer@3.0.24_core-js@3.45.1/node_modules/xgplayer"],
+      "license": "MIT",
+      "author": "yinguohui@bytedance.com",
+      "homepage": "https://github.com/bytedance/xgplayer#readme",
+      "description": "video player"
+    },
+    {
+      "name": "xgplayer-subtitles",
+      "versions": ["3.0.24"],
+      "paths": ["node_modules/.pnpm/xgplayer-subtitles@3.0.24_core-js@3.45.1/node_modules/xgplayer-subtitles"],
+      "license": "MIT",
+      "author": "hongqiongxing@bytedance.com",
+      "homepage": "https://github.com/bytedance/xgplayer#readme",
+      "description": ""
+    },
+    {
+      "name": "xmlhttprequest-ssl",
+      "versions": ["2.0.0"],
+      "paths": ["node_modules/.pnpm/xmlhttprequest-ssl@2.0.0/node_modules/xmlhttprequest-ssl"],
+      "license": "MIT",
+      "author": "Michael de Wit",
+      "homepage": "https://github.com/mjwwit/node-XMLHttpRequest#readme",
+      "description": "XMLHttpRequest for Node"
+    },
+    {
+      "name": "yargs",
+      "versions": ["15.4.1"],
+      "paths": ["node_modules/.pnpm/yargs@15.4.1/node_modules/yargs"],
+      "license": "MIT",
+      "homepage": "https://yargs.js.org/",
+      "description": "yargs the modern, pirate-themed, successor to optimist."
+    }
+  ],
+  "ISC": [
+    {
+      "name": "@antv/util",
+      "versions": ["2.0.17"],
+      "paths": ["node_modules/.pnpm/@antv+util@2.0.17/node_modules/@antv/util"],
+      "license": "ISC",
+      "author": "https://github.com/orgs/antvis/people",
+      "homepage": "https://github.com/antvis/util#readme",
+      "description": "A common util collection for antv projects"
+    },
+    {
+      "name": "@sphinxxxx/color-conversion",
+      "versions": ["2.2.2"],
+      "paths": ["node_modules/.pnpm/@sphinxxxx+color-conversion@2.2.2/node_modules/@sphinxxxx/color-conversion"],
+      "license": "ISC",
+      "author": "Joudee",
+      "homepage": "https://github.com/Sphinxxxx/color-conversion",
+      "description": "Convert colors between RGBA/HSLA/Hex"
+    },
+    {
+      "name": "cliui",
+      "versions": ["6.0.0"],
+      "paths": ["node_modules/.pnpm/cliui@6.0.0/node_modules/cliui"],
+      "license": "ISC",
+      "author": "Ben Coe",
+      "homepage": "https://github.com/yargs/cliui#readme",
+      "description": "easily create complex multi-column command-line-interfaces"
+    },
+    {
+      "name": "d",
+      "versions": ["1.0.2"],
+      "paths": ["node_modules/.pnpm/d@1.0.2/node_modules/d"],
+      "license": "ISC",
+      "author": "Mariusz Nowak",
+      "homepage": "https://github.com/medikoo/d#readme",
+      "description": "Property descriptor factory"
+    },
+    {
+      "name": "d3-array",
+      "versions": ["3.2.4"],
+      "paths": ["node_modules/.pnpm/d3-array@3.2.4/node_modules/d3-array"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-array/",
+      "description": "Array manipulation, ordering, searching, summarizing, etc."
+    },
+    {
+      "name": "d3-color",
+      "versions": ["3.1.0"],
+      "paths": ["node_modules/.pnpm/d3-color@3.1.0/node_modules/d3-color"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-color/",
+      "description": "Color spaces! RGB, HSL, Cubehelix, Lab and HCL (Lch)."
+    },
+    {
+      "name": "d3-dispatch",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/d3-dispatch@3.0.1/node_modules/d3-dispatch"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-dispatch/",
+      "description": "Register named callbacks and call them with arguments."
+    },
+    {
+      "name": "d3-dsv",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/d3-dsv@3.0.1/node_modules/d3-dsv"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-dsv/",
+      "description": "A parser and formatter for delimiter-separated values, such as CSV and TSV"
+    },
+    {
+      "name": "d3-fetch",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/d3-fetch@3.0.1/node_modules/d3-fetch"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-fetch/",
+      "description": "Convenient parsing for Fetch."
+    },
+    {
+      "name": "d3-force",
+      "versions": ["3.0.0"],
+      "paths": ["node_modules/.pnpm/d3-force@3.0.0/node_modules/d3-force"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-force/",
+      "description": "Force-directed graph layout using velocity Verlet integration."
+    },
+    {
+      "name": "d3-format",
+      "versions": ["3.1.0"],
+      "paths": ["node_modules/.pnpm/d3-format@3.1.0/node_modules/d3-format"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-format/",
+      "description": "Format numbers for human consumption."
+    },
+    {
+      "name": "d3-geo",
+      "versions": ["3.1.1"],
+      "paths": ["node_modules/.pnpm/d3-geo@3.1.1/node_modules/d3-geo"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-geo/",
+      "description": "Shapes and calculators for spherical coordinates."
+    },
+    {
+      "name": "d3-geo-projection",
+      "versions": ["4.0.0"],
+      "paths": ["node_modules/.pnpm/d3-geo-projection@4.0.0/node_modules/d3-geo-projection"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-geo-projection/",
+      "description": "Extended geographic projections for d3-geo."
+    },
+    {
+      "name": "d3-hierarchy",
+      "versions": ["3.1.2"],
+      "paths": ["node_modules/.pnpm/d3-hierarchy@3.1.2/node_modules/d3-hierarchy"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-hierarchy/",
+      "description": "Layout algorithms for visualizing hierarchical data."
+    },
+    {
+      "name": "d3-interpolate",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/d3-interpolate@3.0.1/node_modules/d3-interpolate"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-interpolate/",
+      "description": "Interpolate numbers, colors, strings, arrays, objects, whatever!"
+    },
+    {
+      "name": "d3-path",
+      "versions": ["3.1.0"],
+      "paths": ["node_modules/.pnpm/d3-path@3.1.0/node_modules/d3-path"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-path/",
+      "description": "Serialize Canvas path commands to SVG."
+    },
+    {
+      "name": "d3-quadtree",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/d3-quadtree@3.0.1/node_modules/d3-quadtree"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-quadtree/",
+      "description": "Two-dimensional recursive spatial subdivision."
+    },
+    {
+      "name": "d3-random",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/d3-random@3.0.1/node_modules/d3-random"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-random/",
+      "description": "Generate random numbers from various distributions."
+    },
+    {
+      "name": "d3-scale",
+      "versions": ["4.0.2"],
+      "paths": ["node_modules/.pnpm/d3-scale@4.0.2/node_modules/d3-scale"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-scale/",
+      "description": "Encodings that map abstract data to visual representation."
+    },
+    {
+      "name": "d3-scale-chromatic",
+      "versions": ["3.1.0"],
+      "paths": ["node_modules/.pnpm/d3-scale-chromatic@3.1.0/node_modules/d3-scale-chromatic"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-scale-chromatic/",
+      "description": "Sequential, diverging and categorical color schemes."
+    },
+    {
+      "name": "d3-shape",
+      "versions": ["3.2.0"],
+      "paths": ["node_modules/.pnpm/d3-shape@3.2.0/node_modules/d3-shape"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-shape/",
+      "description": "Graphical primitives for visualization, such as lines and areas."
+    },
+    {
+      "name": "d3-time",
+      "versions": ["3.1.0"],
+      "paths": ["node_modules/.pnpm/d3-time@3.1.0/node_modules/d3-time"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-time/",
+      "description": "A calculator for humanity’s peculiar conventions of time."
+    },
+    {
+      "name": "d3-time-format",
+      "versions": ["4.1.0"],
+      "paths": ["node_modules/.pnpm/d3-time-format@4.1.0/node_modules/d3-time-format"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-time-format/",
+      "description": "A JavaScript time formatter and parser inspired by strftime and strptime."
+    },
+    {
+      "name": "d3-timer",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/d3-timer@3.0.1/node_modules/d3-timer"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-timer/",
+      "description": "An efficient queue capable of managing thousands of concurrent animations."
+    },
+    {
+      "name": "es5-ext",
+      "versions": ["0.10.64"],
+      "paths": ["node_modules/.pnpm/es5-ext@0.10.64/node_modules/es5-ext"],
+      "license": "ISC",
+      "author": "Mariusz Nowak",
+      "homepage": "https://github.com/medikoo/es5-ext#readme",
+      "description": "ECMAScript extensions and shims"
+    },
+    {
+      "name": "es6-symbol",
+      "versions": ["3.1.4"],
+      "paths": ["node_modules/.pnpm/es6-symbol@3.1.4/node_modules/es6-symbol"],
+      "license": "ISC",
+      "author": "Mariusz Nowak",
+      "homepage": "https://github.com/medikoo/es6-symbol#readme",
+      "description": "ECMAScript 6 Symbol polyfill"
+    },
+    {
+      "name": "esniff",
+      "versions": ["2.0.1"],
+      "paths": ["node_modules/.pnpm/esniff@2.0.1/node_modules/esniff"],
+      "license": "ISC",
+      "author": "Mariusz Nowak",
+      "homepage": "https://github.com/medikoo/esniff#readme",
+      "description": "Low footprint ECMAScript source code parser"
+    },
+    {
+      "name": "ext",
+      "versions": ["1.7.0"],
+      "paths": ["node_modules/.pnpm/ext@1.7.0/node_modules/ext"],
+      "license": "ISC",
+      "author": "Mariusz Nowak",
+      "homepage": "https://github.com/medikoo/es5-ext/tree/ext#readme",
+      "description": "JavaScript utilities with respect to emerging standard"
+    },
+    {
+      "name": "geobuf",
+      "versions": ["3.0.2"],
+      "paths": ["node_modules/.pnpm/geobuf@3.0.2/node_modules/geobuf"],
+      "license": "ISC",
+      "homepage": "https://github.com/mapbox/geobuf",
+      "description": "Compact binary encoding for geographic data"
+    },
+    {
+      "name": "geojson-dissolve",
+      "versions": ["3.1.0"],
+      "paths": ["node_modules/.pnpm/geojson-dissolve@3.1.0/node_modules/geojson-dissolve"],
+      "license": "ISC",
+      "author": "Stephen Whitmore",
+      "homepage": "https://github.com/noffle/geojson-dissolve",
+      "description": "Dissolve contiguous GeoJSON LineStrings and Polygons into single units."
+    },
+    {
+      "name": "geojson-linestring-dissolve",
+      "versions": ["0.0.1"],
+      "paths": ["node_modules/.pnpm/geojson-linestring-dissolve@0.0.1/node_modules/geojson-linestring-dissolve"],
+      "license": "ISC",
+      "author": "Stephen Whitmore",
+      "homepage": "https://github.com/noffle/geojson-linestring-dissolve",
+      "description": "Dissolve contiguous GeoJSON LineStrings and Polygons into single units."
+    },
+    {
+      "name": "get-caller-file",
+      "versions": ["2.0.5"],
+      "paths": ["node_modules/.pnpm/get-caller-file@2.0.5/node_modules/get-caller-file"],
+      "license": "ISC",
+      "author": "Stefan Penner",
+      "homepage": "https://github.com/stefanpenner/get-caller-file#readme",
+      "description": ""
+    },
+    {
+      "name": "inherits",
+      "versions": ["2.0.4"],
+      "paths": ["node_modules/.pnpm/inherits@2.0.4/node_modules/inherits"],
+      "license": "ISC",
+      "homepage": "https://github.com/isaacs/inherits#readme",
+      "description": "Browser-friendly inheritance fully compatible with standard node.js inherits()"
+    },
+    {
+      "name": "internmap",
+      "versions": ["2.0.3"],
+      "paths": ["node_modules/.pnpm/internmap@2.0.3/node_modules/internmap"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/mbostock/internmap/",
+      "description": "Map and Set with automatic key interning"
+    },
+    {
+      "name": "mime-match",
+      "versions": ["1.0.2"],
+      "paths": ["node_modules/.pnpm/mime-match@1.0.2/node_modules/mime-match"],
+      "license": "ISC",
+      "author": "Damon Oehlman",
+      "homepage": "https://github.com/DamonOehlman/mime-match",
+      "description": "A simple function to check whether a mimetype matches the specified mimetype (with wildcard support)"
+    },
+    {
+      "name": "next-tick",
+      "versions": ["1.1.0"],
+      "paths": ["node_modules/.pnpm/next-tick@1.1.0/node_modules/next-tick"],
+      "license": "ISC",
+      "author": "Mariusz Nowak",
+      "homepage": "https://github.com/medikoo/next-tick#readme",
+      "description": "Environment agnostic nextTick polyfill"
+    },
+    {
+      "name": "picocolors",
+      "versions": ["1.1.1"],
+      "paths": ["node_modules/.pnpm/picocolors@1.1.1/node_modules/picocolors"],
+      "license": "ISC",
+      "author": "Alexey Raspopov",
+      "homepage": "https://github.com/alexeyraspopov/picocolors#readme",
+      "description": "The tiniest and the fastest library for terminal output formatting with ANSI colors"
+    },
+    {
+      "name": "quickselect",
+      "versions": ["2.0.0"],
+      "paths": ["node_modules/.pnpm/quickselect@2.0.0/node_modules/quickselect"],
+      "license": "ISC",
+      "author": "Vladimir Agafonkin",
+      "description": "A tiny and fast selection algorithm in JavaScript."
+    },
+    {
+      "name": "rate-limiter-flexible",
+      "versions": ["5.0.5"],
+      "paths": ["node_modules/.pnpm/rate-limiter-flexible@5.0.5/node_modules/rate-limiter-flexible"],
+      "license": "ISC",
+      "author": "animir",
+      "homepage": "https://github.com/animir/node-rate-limiter-flexible#readme",
+      "description": "Node.js rate limiter by key and protection from DDoS and Brute-Force attacks in process Memory, Redis, MongoDb, Memcached, MySQL, PostgreSQL, Cluster or PM"
+    },
+    {
+      "name": "require-main-filename",
+      "versions": ["2.0.0"],
+      "paths": ["node_modules/.pnpm/require-main-filename@2.0.0/node_modules/require-main-filename"],
+      "license": "ISC",
+      "author": "Ben Coe",
+      "homepage": "https://github.com/yargs/require-main-filename#readme",
+      "description": "shim for require.main.filename() that works in as many environments as possible"
+    },
+    {
+      "name": "set-blocking",
+      "versions": ["2.0.0"],
+      "paths": ["node_modules/.pnpm/set-blocking@2.0.0/node_modules/set-blocking"],
+      "license": "ISC",
+      "author": "Ben Coe",
+      "homepage": "https://github.com/yargs/set-blocking#readme",
+      "description": "set blocking stdio and stderr ensuring that terminal output does not truncate"
+    },
+    {
+      "name": "simple-statistics",
+      "versions": ["6.1.1", "7.8.8"],
+      "paths": [
+        "node_modules/.pnpm/simple-statistics@6.1.1/node_modules/simple-statistics",
+        "node_modules/.pnpm/simple-statistics@7.8.8/node_modules/simple-statistics"
+      ],
+      "license": "ISC",
+      "author": "Tom MacWright",
+      "homepage": "https://github.com/simple-statistics/simple-statistics#readme",
+      "description": "Simple Statistics"
+    },
+    {
+      "name": "topojson-client",
+      "versions": ["3.1.0"],
+      "paths": ["node_modules/.pnpm/topojson-client@3.1.0/node_modules/topojson-client"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/topojson/topojson-client",
+      "description": "Manipulate TopoJSON and convert it to GeoJSON."
+    },
+    {
+      "name": "topojson-server",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/topojson-server@3.0.1/node_modules/topojson-server"],
+      "license": "ISC",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/topojson/topojson-server",
+      "description": "Convert GeoJSON to TopoJSON for smaller files and the power of topology!"
+    },
+    {
+      "name": "type",
+      "versions": ["2.7.3"],
+      "paths": ["node_modules/.pnpm/type@2.7.3/node_modules/type"],
+      "license": "ISC",
+      "author": "Mariusz Nowak",
+      "homepage": "https://github.com/medikoo/type#readme",
+      "description": "Runtime validation and processing of JavaScript types"
+    },
+    {
+      "name": "vanilla-picker",
+      "versions": ["2.12.3"],
+      "paths": ["node_modules/.pnpm/vanilla-picker@2.12.3/node_modules/vanilla-picker"],
+      "license": "ISC",
+      "author": "Andreas Borgen",
+      "homepage": "https://vanilla-picker.js.org",
+      "description": "A simple, easy to use vanilla JS color picker with alpha selection."
+    },
+    {
+      "name": "which-module",
+      "versions": ["2.0.1"],
+      "paths": ["node_modules/.pnpm/which-module@2.0.1/node_modules/which-module"],
+      "license": "ISC",
+      "author": "nexdrew",
+      "homepage": "https://github.com/nexdrew/which-module#readme",
+      "description": "Find the module object for something that was require()d"
+    },
+    {
+      "name": "y18n",
+      "versions": ["4.0.3"],
+      "paths": ["node_modules/.pnpm/y18n@4.0.3/node_modules/y18n"],
+      "license": "ISC",
+      "author": "Ben Coe",
+      "homepage": "https://github.com/yargs/y18n",
+      "description": "the bare-bones internationalization library used by yargs"
+    },
+    {
+      "name": "yaml",
+      "versions": ["2.8.3"],
+      "paths": ["node_modules/.pnpm/yaml@2.8.3/node_modules/yaml"],
+      "license": "ISC",
+      "author": "Eemeli Aro",
+      "homepage": "https://eemeli.org/yaml/",
+      "description": "JavaScript parser and stringifier for YAML"
+    },
+    {
+      "name": "yargs-parser",
+      "versions": ["18.1.3"],
+      "paths": ["node_modules/.pnpm/yargs-parser@18.1.3/node_modules/yargs-parser"],
+      "license": "ISC",
+      "author": "Ben Coe",
+      "homepage": "https://github.com/yargs/yargs-parser#readme",
+      "description": "the mighty option parser used by yargs"
+    }
+  ],
+  "MIT AND ISC": [
+    {
+      "name": "@antv/vendor",
+      "versions": ["1.0.11"],
+      "paths": ["node_modules/.pnpm/@antv+vendor@1.0.11/node_modules/@antv/vendor"],
+      "license": "MIT AND ISC",
+      "homepage": "https://github.com/antvis/vendor#readme",
+      "description": "Vendored dependencies to fix ERR_REQUIRE_ESM."
+    }
+  ],
+  "Apache-2.0": [
+    {
+      "name": "@logicflow/core",
+      "versions": ["2.2.5"],
+      "paths": ["node_modules/.pnpm/@logicflow+core@2.2.5/node_modules/@logicflow/core"],
+      "license": "Apache-2.0",
+      "author": "Logicflow-Team",
+      "homepage": "https://site.logic-flow.cn",
+      "description": "LogicFlow, help you quickly create flowcharts"
+    },
+    {
+      "name": "@logicflow/extension",
+      "versions": ["2.3.1"],
+      "paths": [
+        "node_modules/.pnpm/@logicflow+extension@2.3.1_@logicflow+core@2.2.5/node_modules/@logicflow/extension"
+      ],
+      "license": "Apache-2.0",
+      "author": "Logicflow-Team",
+      "homepage": "https://site.logic-flow.cn",
+      "description": "LogicFlow Extensions"
+    },
+    {
+      "name": "adler-32",
+      "versions": ["1.3.1"],
+      "paths": ["node_modules/.pnpm/adler-32@1.3.1/node_modules/adler-32"],
+      "license": "Apache-2.0",
+      "author": "sheetjs",
+      "homepage": "http://sheetjs.com/opensource",
+      "description": "Pure-JS ADLER-32"
+    },
+    {
+      "name": "axios-retry",
+      "versions": ["4.5.0"],
+      "paths": [
+        "node_modules/.pnpm/axios-retry@4.5.0_axios@1.14.0_debug@4.4.3_supports-color@7.2.0__/node_modules/axios-retry"
+      ],
+      "license": "Apache-2.0",
+      "author": "Rubén Norte",
+      "homepage": "https://github.com/softonic/axios-retry",
+      "description": "Axios plugin that intercepts failed requests and retries them whenever posible."
+    },
+    {
+      "name": "cfb",
+      "versions": ["1.2.2"],
+      "paths": ["node_modules/.pnpm/cfb@1.2.2/node_modules/cfb"],
+      "license": "Apache-2.0",
+      "author": "sheetjs",
+      "homepage": "http://sheetjs.com/",
+      "description": "Compound File Binary File Format extractor"
+    },
+    {
+      "name": "codepage",
+      "versions": ["1.15.0"],
+      "paths": ["node_modules/.pnpm/codepage@1.15.0/node_modules/codepage"],
+      "license": "Apache-2.0",
+      "author": "SheetJS",
+      "homepage": "https://sheetjs.com/",
+      "description": "pure-JS library to handle codepages"
+    },
+    {
+      "name": "comlink",
+      "versions": ["4.4.2"],
+      "paths": ["node_modules/.pnpm/comlink@4.4.2/node_modules/comlink"],
+      "license": "Apache-2.0",
+      "author": "Surma",
+      "homepage": "https://github.com/GoogleChromeLabs/comlink#readme",
+      "description": "Comlink makes WebWorkers enjoyable"
+    },
+    {
+      "name": "crc-32",
+      "versions": ["1.2.2"],
+      "paths": ["node_modules/.pnpm/crc-32@1.2.2/node_modules/crc-32"],
+      "license": "Apache-2.0",
+      "author": "sheetjs",
+      "homepage": "https://sheetjs.com/",
+      "description": "Pure-JS CRC-32"
+    },
+    {
+      "name": "diff-match-patch",
+      "versions": ["1.0.5"],
+      "paths": ["node_modules/.pnpm/diff-match-patch@1.0.5/node_modules/diff-match-patch"],
+      "license": "Apache-2.0",
+      "homepage": "https://github.com/JackuB/diff-match-patch#readme",
+      "description": "npm package for https://github.com/google/diff-match-patch"
+    },
+    {
+      "name": "echarts",
+      "versions": ["6.0.0"],
+      "paths": ["node_modules/.pnpm/echarts@6.0.0/node_modules/echarts"],
+      "license": "Apache-2.0",
+      "homepage": "https://echarts.apache.org",
+      "description": "Apache ECharts is a powerful, interactive charting and data visualization library for browser"
+    },
+    {
+      "name": "frac",
+      "versions": ["1.1.2"],
+      "paths": ["node_modules/.pnpm/frac@1.1.2/node_modules/frac"],
+      "license": "Apache-2.0",
+      "author": "SheetJS",
+      "homepage": "http://sheetjs.com/opensource",
+      "description": "Rational approximation with bounded denominator"
+    },
+    {
+      "name": "localforage",
+      "versions": ["1.10.0"],
+      "paths": ["node_modules/.pnpm/localforage@1.10.0/node_modules/localforage"],
+      "license": "Apache-2.0",
+      "author": "Mozilla",
+      "homepage": "https://github.com/localForage/localForage",
+      "description": "Offline storage, improved."
+    },
+    {
+      "name": "pdfjs-dist",
+      "versions": ["4.10.38"],
+      "paths": ["node_modules/.pnpm/pdfjs-dist@4.10.38/node_modules/pdfjs-dist"],
+      "license": "Apache-2.0",
+      "homepage": "https://mozilla.github.io/pdf.js/",
+      "description": "Generic build of Mozilla's PDF.js library."
+    },
+    {
+      "name": "ssf",
+      "versions": ["0.11.2"],
+      "paths": ["node_modules/.pnpm/ssf@0.11.2/node_modules/ssf"],
+      "license": "Apache-2.0",
+      "author": "sheetjs",
+      "homepage": "http://sheetjs.com/",
+      "description": "Format data using ECMA-376 spreadsheet Format Codes"
+    },
+    {
+      "name": "wmf",
+      "versions": ["1.0.2"],
+      "paths": ["node_modules/.pnpm/wmf@1.0.2/node_modules/wmf"],
+      "license": "Apache-2.0",
+      "author": "sheetjs",
+      "homepage": "https://sheetjs.com/",
+      "description": "Windows MetaFile (WMF) parser"
+    },
+    {
+      "name": "word",
+      "versions": ["0.3.0"],
+      "paths": ["node_modules/.pnpm/word@0.3.0/node_modules/word"],
+      "license": "Apache-2.0",
+      "author": "sheetjs",
+      "homepage": "https://wordjs.com/",
+      "description": "Word Processing Document library"
+    },
+    {
+      "name": "xlsx",
+      "versions": ["0.18.5"],
+      "paths": ["node_modules/.pnpm/xlsx@0.18.5/node_modules/xlsx"],
+      "license": "Apache-2.0",
+      "author": "sheetjs",
+      "homepage": "https://sheetjs.com/",
+      "description": "SheetJS Spreadsheet data parser and writer"
+    }
+  ],
+  "MPL-2.0": [
+    {
+      "name": "@resvg/resvg-js",
+      "versions": ["2.4.1"],
+      "paths": ["node_modules/.pnpm/@resvg+resvg-js@2.4.1/node_modules/@resvg/resvg-js"],
+      "license": "MPL-2.0",
+      "homepage": "https://github.com/yisibl/resvg-js#readme",
+      "description": "A high-performance SVG renderer and toolkit, powered by Rust based resvg and napi-rs"
+    }
+  ],
+  "Apache 2.0": [
+    {
+      "name": "@vicons/carbon",
+      "versions": ["0.12.0"],
+      "paths": ["node_modules/.pnpm/@vicons+carbon@0.12.0/node_modules/@vicons/carbon"],
+      "license": "Apache 2.0",
+      "author": "07akioni",
+      "description": "Vue3 SVG icon components integrated from [`Carbon`](undefined)"
+    },
+    {
+      "name": "@vicons/material",
+      "versions": ["0.12.0"],
+      "paths": ["node_modules/.pnpm/@vicons+material@0.12.0/node_modules/@vicons/material"],
+      "license": "Apache 2.0",
+      "author": "07akioni",
+      "description": "Vue3 SVG icon components integrated from [`material-design-icons`](https://github.com/google/material-design-icons)"
+    }
+  ],
+  "BSD-3-Clause": [
+    {
+      "name": "array-source",
+      "versions": ["0.0.4"],
+      "paths": ["node_modules/.pnpm/array-source@0.0.4/node_modules/array-source"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/mbostock/array-source",
+      "description": "Read arrays as standard WhatWG streams."
+    },
+    {
+      "name": "d3-array",
+      "versions": ["1.2.4"],
+      "paths": ["node_modules/.pnpm/d3-array@1.2.4/node_modules/d3-array"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-array/",
+      "description": "Array manipulation, ordering, searching, summarizing, etc."
+    },
+    {
+      "name": "d3-collection",
+      "versions": ["1.0.7"],
+      "paths": ["node_modules/.pnpm/d3-collection@1.0.7/node_modules/d3-collection"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-collection/",
+      "description": "Handy data structures for elements keyed by string."
+    },
+    {
+      "name": "d3-composite-projections",
+      "versions": ["1.5.0"],
+      "paths": ["node_modules/.pnpm/d3-composite-projections@1.5.0/node_modules/d3-composite-projections"],
+      "license": "BSD-3-Clause",
+      "author": "Roger Veciana i Rovira",
+      "homepage": "http://geoexamples.com/d3-composite-projections/",
+      "description": "Like the AlbersUsa projection, adds several d3 projections to show the countries that are far from the mainland close to it."
+    },
+    {
+      "name": "d3-dsv",
+      "versions": ["1.2.0", "2.0.0"],
+      "paths": [
+        "node_modules/.pnpm/d3-dsv@1.2.0/node_modules/d3-dsv",
+        "node_modules/.pnpm/d3-dsv@2.0.0/node_modules/d3-dsv"
+      ],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-dsv/",
+      "description": "A parser and formatter for delimiter-separated values, such as CSV and TSV"
+    },
+    {
+      "name": "d3-ease",
+      "versions": ["3.0.1"],
+      "paths": ["node_modules/.pnpm/d3-ease@3.0.1/node_modules/d3-ease"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-ease/",
+      "description": "Easing functions for smooth animation."
+    },
+    {
+      "name": "d3-geo",
+      "versions": ["1.6.4", "1.12.1"],
+      "paths": [
+        "node_modules/.pnpm/d3-geo@1.6.4/node_modules/d3-geo",
+        "node_modules/.pnpm/d3-geo@1.12.1/node_modules/d3-geo"
+      ],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-geo/",
+      "description": "Shapes and calculators for spherical coordinates."
+    },
+    {
+      "name": "d3-geo-projection",
+      "versions": ["2.1.2"],
+      "paths": ["node_modules/.pnpm/d3-geo-projection@2.1.2/node_modules/d3-geo-projection"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-geo-projection/",
+      "description": "Extended geographic projections for d3-geo."
+    },
+    {
+      "name": "d3-hexbin",
+      "versions": ["0.2.2"],
+      "paths": ["node_modules/.pnpm/d3-hexbin@0.2.2/node_modules/d3-hexbin"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/d3/d3-hexbin",
+      "description": "Group two-dimensional points into hexagonal bins."
+    },
+    {
+      "name": "d3-hexjson",
+      "versions": ["1.1.1"],
+      "paths": ["node_modules/.pnpm/d3-hexjson@1.1.1/node_modules/d3-hexjson"],
+      "license": "BSD-3-Clause",
+      "homepage": "https://github.com/olihawkins/d3-hexjson",
+      "description": "Generate hexmaps from data that uses the Open Data Institute's HexJSON format."
+    },
+    {
+      "name": "d3-hierarchy",
+      "versions": ["1.1.9"],
+      "paths": ["node_modules/.pnpm/d3-hierarchy@1.1.9/node_modules/d3-hierarchy"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-hierarchy/",
+      "description": "Layout algorithms for visualizing hierarchical data."
+    },
+    {
+      "name": "d3-path",
+      "versions": ["1.0.9"],
+      "paths": ["node_modules/.pnpm/d3-path@1.0.9/node_modules/d3-path"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-path/",
+      "description": "Serialize Canvas path commands to SVG."
+    },
+    {
+      "name": "d3-regression",
+      "versions": ["1.3.10"],
+      "paths": ["node_modules/.pnpm/d3-regression@1.3.10/node_modules/d3-regression"],
+      "license": "BSD-3-Clause",
+      "author": "Harry Stevens",
+      "homepage": "https://github.com/HarryStevens/d3-regression#readme",
+      "description": "Calculate statistical regressions for two-dimensional data"
+    },
+    {
+      "name": "d3-sankey",
+      "versions": ["0.9.1"],
+      "paths": ["node_modules/.pnpm/d3-sankey@0.9.1/node_modules/d3-sankey"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/d3/d3-sankey",
+      "description": "Visualize flow between nodes in a directed acyclic network."
+    },
+    {
+      "name": "d3-shape",
+      "versions": ["1.3.7"],
+      "paths": ["node_modules/.pnpm/d3-shape@1.3.7/node_modules/d3-shape"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-shape/",
+      "description": "Graphical primitives for visualization, such as lines and areas."
+    },
+    {
+      "name": "d3-voronoi",
+      "versions": ["1.1.4"],
+      "paths": ["node_modules/.pnpm/d3-voronoi@1.1.4/node_modules/d3-voronoi"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://d3js.org/d3-voronoi/",
+      "description": "Compute the Voronoi diagram of a set of two-dimensional points."
+    },
+    {
+      "name": "file-source",
+      "versions": ["0.6.1"],
+      "paths": ["node_modules/.pnpm/file-source@0.6.1/node_modules/file-source"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/mbostock/file-source",
+      "description": "Read binary files in chunks, on demand, with promises."
+    },
+    {
+      "name": "hoist-non-react-statics",
+      "versions": ["2.5.5"],
+      "paths": ["node_modules/.pnpm/hoist-non-react-statics@2.5.5/node_modules/hoist-non-react-statics"],
+      "license": "BSD-3-Clause",
+      "author": "Michael Ridgway",
+      "homepage": "https://github.com/mridgway/hoist-non-react-statics#readme",
+      "description": "Copies non-react specific statics from a child component to a parent component"
+    },
+    {
+      "name": "ieee754",
+      "versions": ["1.2.1"],
+      "paths": ["node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754"],
+      "license": "BSD-3-Clause",
+      "author": "Feross Aboukhadijeh",
+      "homepage": "https://github.com/feross/ieee754#readme",
+      "description": "Read/write IEEE754 floating point numbers from/to a Buffer or array-like object"
+    },
+    {
+      "name": "normalize-wheel-es",
+      "versions": ["1.2.0"],
+      "paths": ["node_modules/.pnpm/normalize-wheel-es@1.2.0/node_modules/normalize-wheel-es"],
+      "license": "BSD-3-Clause",
+      "author": "Bas Stottelaar",
+      "homepage": "https://github.com/sxzz/normalize-wheel-es#readme",
+      "description": "Mouse wheel normalization across multiple multiple browsers."
+    },
+    {
+      "name": "path-source",
+      "versions": ["0.1.3"],
+      "paths": ["node_modules/.pnpm/path-source@0.1.3/node_modules/path-source"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/mbostock/path-source",
+      "description": "Read files in Node, or fetch URLs in browser, as standard WhatWG streams."
+    },
+    {
+      "name": "pbf",
+      "versions": ["3.3.0"],
+      "paths": ["node_modules/.pnpm/pbf@3.3.0/node_modules/pbf"],
+      "license": "BSD-3-Clause",
+      "author": "Konstantin Kaefer",
+      "homepage": "https://github.com/mapbox/pbf",
+      "description": "a low-level, lightweight protocol buffers implementation in JavaScript"
+    },
+    {
+      "name": "qs",
+      "versions": ["6.15.0"],
+      "paths": ["node_modules/.pnpm/qs@6.15.0/node_modules/qs"],
+      "license": "BSD-3-Clause",
+      "homepage": "https://github.com/ljharb/qs",
+      "description": "A querystring parser that supports nesting and arrays, with a depth limit"
+    },
+    {
+      "name": "rw",
+      "versions": ["1.3.3"],
+      "paths": ["node_modules/.pnpm/rw@1.3.3/node_modules/rw"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/mbostock/rw",
+      "description": "Now stdin and stdout are files."
+    },
+    {
+      "name": "shapefile",
+      "versions": ["0.6.6"],
+      "paths": ["node_modules/.pnpm/shapefile@0.6.6/node_modules/shapefile"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/mbostock/shapefile",
+      "description": "An implementation of the shapefile (.shp) spatial data format."
+    },
+    {
+      "name": "slice-source",
+      "versions": ["0.4.1"],
+      "paths": ["node_modules/.pnpm/slice-source@0.4.1/node_modules/slice-source"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/mbostock/slice-source",
+      "description": "A readable stream reader that reads a desired number of bytes."
+    },
+    {
+      "name": "source-map-js",
+      "versions": ["1.2.1"],
+      "paths": ["node_modules/.pnpm/source-map-js@1.2.1/node_modules/source-map-js"],
+      "license": "BSD-3-Clause",
+      "author": "Valentin 7rulnik Semirulnik",
+      "homepage": "https://github.com/7rulnik/source-map-js",
+      "description": "Generates and consumes source maps"
+    },
+    {
+      "name": "speakingurl",
+      "versions": ["14.0.1"],
+      "paths": ["node_modules/.pnpm/speakingurl@14.0.1/node_modules/speakingurl"],
+      "license": "BSD-3-Clause",
+      "author": "Sascha Droste",
+      "homepage": "http://pid.github.io/speakingurl/",
+      "description": "Generate a slug – transliteration with a lot of options"
+    },
+    {
+      "name": "stream-source",
+      "versions": ["0.3.5"],
+      "paths": ["node_modules/.pnpm/stream-source@0.3.5/node_modules/stream-source"],
+      "license": "BSD-3-Clause",
+      "author": "Mike Bostock",
+      "homepage": "https://github.com/mbostock/stream-source",
+      "description": "Read binary streams in chunks, on demand, with promises."
+    },
+    {
+      "name": "zrender",
+      "versions": ["6.0.0"],
+      "paths": ["node_modules/.pnpm/zrender@6.0.0/node_modules/zrender"],
+      "license": "BSD-3-Clause",
+      "homepage": "https://github.com/ecomfe/zrender#readme",
+      "description": "A lightweight graphic library providing 2d draw for Apache ECharts"
+    }
+  ],
+  "(MPL-2.0 OR Apache-2.0)": [
+    {
+      "name": "dompurify",
+      "versions": ["3.3.3", "3.4.8"],
+      "paths": [
+        "node_modules/.pnpm/dompurify@3.3.3/node_modules/dompurify",
+        "node_modules/.pnpm/dompurify@3.4.8/node_modules/dompurify"
+      ],
+      "license": "(MPL-2.0 OR Apache-2.0)",
+      "author": "Dr.-Ing. Mario Heiderich, Cure53",
+      "homepage": "https://github.com/cure53/DOMPurify",
+      "description": "DOMPurify is a DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, MathML and SVG. It's written in JavaScript and works in all modern browsers (Safari, Opera (15+), Internet Explorer (10+), Firefox and Chrome - as well as almost anything else using Blink or WebKit). DOMPurify is written by security people who have vast background in web attacks and XSS. Fear not."
+    }
+  ],
+  "BSD-2-Clause": [
+    {
+      "name": "entities",
+      "versions": ["7.0.0", "7.0.1"],
+      "paths": [
+        "node_modules/.pnpm/entities@7.0.0/node_modules/entities",
+        "node_modules/.pnpm/entities@7.0.1/node_modules/entities"
+      ],
+      "license": "BSD-2-Clause",
+      "author": "Felix Boehm",
+      "homepage": "https://github.com/fb55/entities#readme",
+      "description": "Encode & decode XML and HTML entities with ease & speed"
+    },
+    {
+      "name": "geojson-flatten",
+      "versions": ["0.2.4"],
+      "paths": ["node_modules/.pnpm/geojson-flatten@0.2.4/node_modules/geojson-flatten"],
+      "license": "BSD-2-Clause",
+      "author": "Tom MacWright",
+      "homepage": "https://github.com/node-geojson/geojson-flatten",
+      "description": "transform geojson into single-parts"
+    },
+    {
+      "name": "simplify-geojson",
+      "versions": ["1.0.5"],
+      "paths": ["node_modules/.pnpm/simplify-geojson@1.0.5/node_modules/simplify-geojson"],
+      "license": "BSD-2-Clause",
+      "author": "max ogden",
+      "homepage": "https://github.com/maxogden/simplify-geojson",
+      "description": "Apply Ramer-Douglas-Peucker line simplification to GeoJSON features or feature collections in JS or on the CLI"
+    }
+  ],
+  "Apache-2.0 WITH LLVM-exception": [
+    {
+      "name": "mousetrap",
+      "versions": ["1.6.5"],
+      "paths": ["node_modules/.pnpm/mousetrap@1.6.5/node_modules/mousetrap"],
+      "license": "Apache-2.0 WITH LLVM-exception",
+      "author": "Craig Campbell",
+      "homepage": "https://github.com/ccampbell/mousetrap#readme",
+      "description": "Simple library for handling keyboard shortcuts"
+    }
+  ],
+  "(MIT AND Zlib)": [
+    {
+      "name": "pako",
+      "versions": ["1.0.11"],
+      "paths": ["node_modules/.pnpm/pako@1.0.11/node_modules/pako"],
+      "license": "(MIT AND Zlib)",
+      "homepage": "https://github.com/nodeca/pako",
+      "description": "zlib port to javascript - fast, modularized, with browser support"
+    }
+  ],
+  "Unlicense": [
+    {
+      "name": "text-encoding",
+      "versions": ["0.6.4"],
+      "paths": ["node_modules/.pnpm/text-encoding@0.6.4/node_modules/text-encoding"],
+      "license": "Unlicense",
+      "author": "Joshua Bell",
+      "homepage": "https://github.com/inexorabletash/text-encoding",
+      "description": "Polyfill for the Encoding Living Standard's API."
+    },
+    {
+      "name": "wolfy87-eventemitter",
+      "versions": ["5.2.9"],
+      "paths": ["node_modules/.pnpm/wolfy87-eventemitter@5.2.9/node_modules/wolfy87-eventemitter"],
+      "license": "Unlicense",
+      "author": "Oliver Caldwell",
+      "homepage": "https://github.com/Olical/EventEmitter#readme",
+      "description": "Event based JavaScript for the browser"
+    }
+  ],
+  "0BSD": [
+    {
+      "name": "tslib",
+      "versions": ["2.3.0", "2.8.1"],
+      "paths": [
+        "node_modules/.pnpm/tslib@2.3.0/node_modules/tslib",
+        "node_modules/.pnpm/tslib@2.8.1/node_modules/tslib"
+      ],
+      "license": "0BSD",
+      "author": "Microsoft Corp.",
+      "homepage": "https://www.typescriptlang.org/",
+      "description": "Runtime library for TypeScript helper functions"
+    }
+  ]
+}

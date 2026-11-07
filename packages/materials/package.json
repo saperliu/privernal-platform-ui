@@ -1,0 +1,19 @@
+{
+  "name": "@privernal/materials",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["./src/*"]
+    }
+  },
+  "dependencies": {
+    "@privernal/utils": "workspace:*",
+    "simplebar-vue": "2.4.2"
+  },
+  "devDependencies": {
+    "typed-css-modules": "0.9.1"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@privernal/fetch",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["./src/*"]
+    }
+  },
+  "dependencies": {
+    "ofetch": "1.5.1"
+  }
+}
