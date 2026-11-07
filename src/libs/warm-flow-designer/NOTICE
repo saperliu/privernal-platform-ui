@@ -1,0 +1,43 @@
+NOTICE — warm-flow 流程设计器（本目录）
+==========================================
+
+本目录内嵌第三方开源组件，随每一份分发副本（含私有化部署包）一并交付。
+
+一、上游项目
+
+  Warm-Flow（流程引擎）由 dromara 开源，Apache License 2.0。
+  官方仓库：<https://github.com/dromara/warm-flow>
+  后端依赖坐标：`org.dromara.warm:warm-flow-*` 1.8.9
+  上游发布 POM（`https://repo1.maven.org/maven2/org/dromara/warm/warm-flow/1.8.9/warm-flow-1.8.9.pom`）
+  声明的许可证为 "The Apache Software License, Version 2.0"。
+
+  本目录内容为其官方前端设计器（发布名形态 `@dromara/warm-flow-designer`，
+  子路径 `/element-plus`、`/antdv`、`/naive`、`/style`）的构建产物与类型声明，
+  由本项目译自/改写后内嵌使用。来源判定与逐项清单见同目录 `SOURCE.md`。
+
+二、许可与权利归属
+
+  - 本目录中来自上游的代码、样式与类型声明，版权归上游作者所有，
+    按 Apache License 2.0 授权，许可证原文见同目录 `LICENSE`。
+  - 本项目新增的接入封装文件（`index.ts`、`dataProvider.ts`、`global.d.ts`）
+    版权归 Privernal Studio 所有，同样以 Apache License 2.0 授权。
+  - `src/utils/ruoyi.d.ts` 保留上游一行 `Copyright (c) 2019 ruoyi`，
+    该行属上游署名链的一部分，分发时不得移除。
+
+三、修改声明（Apache License 2.0 第 4(b) 条）
+
+  本目录内的上游产物（`*.es.js`、`warm-flow-designer.css`、`src/**` 的 64 个类型声明）
+  自引入后未作修改；目录内容与导入上游时一致——除 `SOURCE.md` 与接入封装
+  `index.ts`、`dataProvider.ts`、`global.d.ts` 外无任何新增或变更，且该三者为
+  本项目自写的接入封装（原导入提交 hash 已不随发布历史保留）。修改内容与理由
+  逐项记录在 `SOURCE.md` 第五节。
+
+四、无隶属关系声明
+
+  Warm-Flow、dromara 及其 contributors 与本产品（春祈平台 / Privernal Studio）
+  及本项目仓库之间不存在任何隶属、赞助、背书或认可关系。
+
+五、随附的外部运行时提示
+
+  设计器产物内置 `@iconify` 远程图标接口（`api.iconify.design`、`api.simplesvg.com`、
+  `api.unisvg.com`）。内网与私有化部署需替换为本地图标集，否则图标加载失败。

@@ -1,0 +1,152 @@
+import { getThemeColors, setCustomThemeColors, resetThemeColors, getUserOverride, lightColors, darkColors } from '../config/themeConfig';
+/**
+ * 全局暗黑模式 composable
+ *
+ * 功能：
+ * - 统一管理 isDark 状态、URL 参数初始化、postMessage 监听
+ * - 从 themeConfig 读取所有颜色（SSOT），消除硬编码
+ * - 导出当前主题 colors（响应式），供模板/计算属性使用
+ * - 提供 setCustomThemeColors() API，允许外部传入自定义暗黑颜色
+ * - 提供 applyDarkTheme() 将颜色应用到 LogicFlow 画布
+ */
+export declare function useDark(): {
+    isDark: import('vue').Ref<boolean>;
+    themeColors: import('vue').ComputedRef<{
+        primary: string;
+        primaryDark: string;
+        primaryLight: string;
+        primaryLighter: string;
+        success: string;
+        warning: string;
+        danger: string;
+        textPrimary: string;
+        textRegular: string;
+        textSecondary: string;
+        textPlaceholder: string;
+        borderColor: string;
+        borderLight: string;
+        borderLighter: string;
+        bgColor: string;
+        bgWhite: string;
+        bgPage: string;
+        bgContainer: string;
+        gridColor: string;
+        nodeTextColor: string;
+        nodeTextFill: string;
+        edgeTextBg: string;
+        snaplineStroke: string;
+        tooltipBg: string;
+        tooltipBorder: string;
+        tooltipShadow: string;
+        tooltipColor: string;
+        snapshotBg: string;
+        sidebarBg: string;
+        sidebarIconBg: string;
+        stepTabColor: string;
+        stepTabActiveBgStart: string;
+        stepTabActiveBgEnd: string;
+        saveBtnBgStart: string;
+        saveBtnBgEnd: string;
+        saveBtnShadow: string;
+        flowNameColor: string;
+        toolbarBorder: string;
+        scrollbarThumb: string;
+        scrollbarThumbHover: string;
+        drawerDisabledBg: string;
+    }>;
+    dark: {
+        primary: string;
+        primaryDark: string;
+        primaryLight: string;
+        primaryLighter: string;
+        success: string;
+        warning: string;
+        danger: string;
+        textPrimary: string;
+        textRegular: string;
+        textSecondary: string;
+        textPlaceholder: string;
+        borderColor: string;
+        borderLight: string;
+        borderLighter: string;
+        bgColor: string;
+        bgWhite: string;
+        bgPage: string;
+        bgContainer: string;
+        gridColor: string;
+        nodeTextColor: string;
+        nodeTextFill: string;
+        edgeTextBg: string;
+        snaplineStroke: string;
+        tooltipBg: string;
+        tooltipBorder: string;
+        tooltipShadow: string;
+        tooltipColor: string;
+        snapshotBg: string;
+        sidebarBg: string;
+        sidebarIconBg: string;
+        stepTabColor: string;
+        stepTabActiveBgStart: string;
+        stepTabActiveBgEnd: string;
+        saveBtnBgStart: string;
+        saveBtnBgEnd: string;
+        saveBtnShadow: string;
+        flowNameColor: string;
+        toolbarBorder: string;
+        scrollbarThumb: string;
+        scrollbarThumbHover: string;
+        drawerDisabledBg: string;
+    };
+    light: {
+        primary: string;
+        primaryDark: string;
+        primaryLight: string;
+        primaryLighter: string;
+        success: string;
+        warning: string;
+        danger: string;
+        textPrimary: string;
+        textRegular: string;
+        textSecondary: string;
+        textPlaceholder: string;
+        borderColor: string;
+        borderLight: string;
+        borderLighter: string;
+        bgColor: string;
+        bgWhite: string;
+        bgPage: string;
+        bgContainer: string;
+        gridColor: string;
+        nodeTextColor: string;
+        nodeTextFill: string;
+        edgeTextBg: string;
+        snaplineStroke: string;
+        tooltipBg: string;
+        tooltipBorder: string;
+        tooltipShadow: string;
+        tooltipColor: string;
+        snapshotBg: string;
+        sidebarBg: string;
+        sidebarIconBg: string;
+        stepTabColor: string;
+        stepTabActiveBgStart: string;
+        stepTabActiveBgEnd: string;
+        saveBtnBgStart: string;
+        saveBtnBgEnd: string;
+        saveBtnShadow: string;
+        flowNameColor: string;
+        toolbarBorder: string;
+        scrollbarThumb: string;
+        scrollbarThumbHover: string;
+        drawerDisabledBg: string;
+    };
+    initFromUrl: () => void;
+    applyDarkTheme: (lfInstance: any, isDarkMode: any) => void;
+    setupMessageListener: () => void;
+    cleanupMessageListener: () => void;
+    setCustomThemeColors: typeof setCustomThemeColors;
+    resetThemeColors: typeof resetThemeColors;
+    getUserOverride: typeof getUserOverride;
+    getThemeColors: typeof getThemeColors;
+};
+export { lightColors, darkColors };

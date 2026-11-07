@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    name: 构建与产物检查
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      # frozen-lockfile：lockfile 与 package.json 不一致直接失败，杜绝"本地能装 CI 装不上"
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      # vue-tsc 基线已清零（2026-11-08），类型回归直接阻断
+      - name: vue-tsc 类型检查
+        run: pnpm typecheck
+
+      # 组件注册表依赖 import.meta.glob 构建期解析，产物自证防止目录摆错静默收空
+      - name: 构建 prod 产物
+        run: pnpm build
+
+      - name: 产物自证
+        run: |
+          set -euo pipefail
+          test -f dist/index.html
+          echo "index.html OK"
+          grep -rl "charts.gauge" dist/assets | head -1
+          echo "组件注册表 OK"
+
+      - name: 上传构建产物
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: privernal-platform-ui-dist
+          path: dist/
+          if-no-files-found: warn

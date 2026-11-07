@@ -1,0 +1,22 @@
+/**
+ * phoenix-designer 设计器变量 → 平台主题桥接
+ *
+ * 设计器自带一套 --phoenix-* 令牌，这里只把「主色与两级底色」接到平台的主题变量上，
+ * 使设计器跟随主题色切换和暗色模式；其余中性色阶、圆角、阴影仍由设计器自身定义。
+ * 必须在 `phoenix-designer/dist/style.css` 之后引入，同为 :root/html.dark 时后者生效。
+ */
+:root {
+  --phoenix-primary: rgb(var(--primary-color));
+  --phoenix-background: rgb(var(--container-bg-color));
+  --phoenix-foreground: rgb(var(--base-text-color));
+  --phoenix-sidebar: rgb(var(--layout-bg-color));
+  --phoenix-canvas-container-background: rgb(var(--layout-bg-color));
+}
+
+html.dark {
+  --phoenix-primary: rgb(var(--primary-color));
+  --phoenix-background: rgb(var(--container-bg-color));
+  --phoenix-foreground: rgb(var(--base-text-color));
+  --phoenix-sidebar: rgb(var(--layout-bg-color));
+  --phoenix-canvas-container-background: rgb(var(--layout-bg-color));
+}

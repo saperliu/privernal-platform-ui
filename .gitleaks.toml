@@ -1,0 +1,14 @@
+# privernal-platform-ui 专用 gitleaks 配置。
+# 在默认规则之上仅叠加一个白名单条目，豁免已确认为误报的发现，不关闭任何默认规则。
+# 背景（docs/roadmap/opensource-plan.md 第十二轮，2026-11-07）：
+#   src/router/routes/index.ts:29/39/49 的 `i18nKey: 'route.exception_403|404|500'`
+#   是 vue-router 路由的 i18n 键名，因 "Key: '<字符串>'" 形态 + 熵值较高，
+#   被通用规则 generic-api-key 误报为 API Key；本仓库无任何真实凭据。
+[extend]
+useDefault = true
+
+[allowlist]
+  description = "vue-router i18nKey 熵值误报（route.exception_40x）"
+  regexes = [
+    '''route\.exception_(403|404|500)''',
+  ]

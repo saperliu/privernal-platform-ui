@@ -1,0 +1,7 @@
+$popover-text: var(--n-text-color);
+$popover-background: var(--n-color);
+
+:export {
+  popoverText: $popover-text;
+  popoverBackground: $popover-background;
+}

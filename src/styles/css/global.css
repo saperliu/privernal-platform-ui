@@ -1,0 +1,83 @@
+@import './reset.css';
+@import './nprogress.css';
+@import './transition.css';
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+/* ===== 设计器工作台（/designer 及其子面板）设计令牌 =====
+   放在全局而不是组件 scoped 样式里：节点属性抽屉等元素会被 teleport 到 body，
+   组件内定义的同名变量继承不到。底色继续跟随平台主题变量，暗色模式自动生效。 */
+:root {
+  --ds-surface: rgb(var(--container-bg-color));
+  --ds-canvas: rgb(var(--layout-bg-color));
+  --ds-text: rgb(var(--base-text-color));
+  --ds-text-sub: rgb(var(--base-text-color) / 62%);
+  --ds-text-weak: rgb(var(--base-text-color) / 40%);
+  --ds-border: rgb(120 130 148 / 20%);
+  --ds-border-strong: rgb(120 130 148 / 40%);
+  --ds-hover: rgb(120 130 148 / 10%);
+  --ds-shadow-xs: 0 1px 2px rgb(15 23 42 / 6%);
+  --ds-shadow-sm: 0 1px 2px rgb(15 23 42 / 6%), 0 6px 16px -8px rgb(15 23 42 / 16%);
+}
+
+html.dark {
+  --ds-text-sub: rgb(var(--base-text-color) / 68%);
+  --ds-text-weak: rgb(var(--base-text-color) / 46%);
+  --ds-border: rgb(255 255 255 / 12%);
+  --ds-border-strong: rgb(255 255 255 / 24%);
+  --ds-hover: rgb(255 255 255 / 8%);
+  --ds-shadow-xs: 0 1px 2px rgb(0 0 0 / 30%);
+  --ds-shadow-sm: 0 1px 2px rgb(0 0 0 / 30%), 0 6px 16px -8px rgb(0 0 0 / 45%);
+}
+
+/* ===== 高级筛选栅格（NGrid :cols="40" 平移）布局修复 =====
+   原 naive 栅格 40 等分在窄容器下 label(3/40) 仅 ~40px 导致文字竖排。
+   语义还原：每行 4 组「96px label 右对齐 + 弹性输入框」，窄屏退化为 2 组。 */
+.grid-cols-40 {
+  display: grid;
+  grid-template-columns: repeat(4, 96px minmax(0, 1fr));
+  gap: 8px 12px;
+}
+
+.grid-cols-40 > .col-span-3,
+.grid-cols-40 > .col-span-7 {
+  grid-column: auto / span 1 !important;
+  margin-left: 0 !important;
+}
+
+.grid-cols-40 > .col-span-3 {
+  font-size: 13px;
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 1100px) {
+  .grid-cols-40 {
+    grid-template-columns: repeat(2, 96px minmax(0, 1fr));
+  }
+}
+
+/* ===== 弹窗表单栅格（NGrid :cols="24" + NFormItemGi 平移）布局修复 =====
+   FormItemGi 的 span 在转 ElFormItem 时丢失，24 等分栅格塌陷为 13px/列。
+   兜底为流式表单：每项独占一行、宽度撑满（ElFormItem 自管 label 宽度）。 */
+.grid-cols-24 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.grid-cols-24 > .el-form-item,
+.grid-cols-24 > * {
+  flex: 1 1 100%;
+  width: auto;
+}

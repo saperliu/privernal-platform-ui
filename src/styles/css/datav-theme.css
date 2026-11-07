@@ -1,0 +1,333 @@
+/**
+ * 大屏（datav）主题层
+ *
+ * 与平台统一的做法不是「大屏长得跟后台一样」，而是两者共用同一套 token：
+ * 这里所有基础色一律引用 src/theme/vars.ts 暴露的 CSS 变量（--primary-color 等），
+ * 所以用户改平台主色或切暗色时，大屏自动跟随。
+ *
+ * 唯一允许出现固定十六进制色值的地方就是本文件的「图表系列色板」——
+ * 系列色需要可区分度，无法由单一主色派生；它是集中定义的设计资产，
+ * 组件内不得再写任何字面色值（由 scripts/check-datav-tokens.mjs 拦截）。
+ *
+ * 作用域限定在 .datav-scope 内，平台后台不受影响。
+ */
+
+.datav-scope {
+  /* —— 基础色：全部来自平台 token —— */
+  --datav-bg: rgb(var(--layout-bg-color));
+  --datav-panel: rgb(var(--container-bg-color));
+  --datav-text-primary: rgb(var(--base-text-color));
+  --datav-text-secondary: rgb(var(--base-text-color) / 65%);
+  --datav-text-tertiary: rgb(var(--base-text-color) / 45%);
+  --datav-accent: rgb(var(--primary-color));
+  --datav-success: rgb(var(--success-color));
+  --datav-warning: rgb(var(--warning-color));
+  --datav-error: rgb(var(--error-color));
+  --datav-info: rgb(var(--info-color));
+  --datav-border: rgb(var(--base-text-color) / 12%);
+  --datav-border-strong: rgb(var(--base-text-color) / 24%);
+  --datav-grid: rgb(var(--base-text-color) / 8%);
+  /* 编辑器工作台斑点底（go-view 的 point-bg 口径）：画布外的滚动区一眼可辨「不是画布」 */
+  --datav-workspace-dot: rgb(var(--base-text-color) / 16%);
+
+  /* —— 深色画布：大屏投放态默认深底，与后台浅底工作台刻意不同 —— */
+  --datav-canvas-bg: #0b1220;
+  --datav-canvas-panel: rgba(255, 255, 255, 0.04);
+  --datav-canvas-text: rgba(255, 255, 255, 0.92);
+  --datav-canvas-text-secondary: rgba(255, 255, 255, 0.62);
+  --datav-canvas-border: rgba(255, 255, 255, 0.12);
+
+  --datav-radius-sm: 4px;
+  --datav-radius-md: 8px;
+  --datav-radius-lg: 14px;
+
+  --datav-glow: 0 0 12px rgb(var(--primary-color) / 35%);
+  --datav-shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  /* 默认配色板 */
+  --datav-series-1: rgb(var(--primary-500-color));
+  --datav-series-2: rgb(var(--primary-300-color));
+  --datav-series-3: rgb(var(--info-400-color));
+  --datav-series-4: rgb(var(--success-400-color));
+  --datav-series-5: rgb(var(--warning-400-color));
+  --datav-series-6: rgb(var(--error-400-color));
+  --datav-series-7: rgb(var(--primary-700-color));
+  --datav-series-8: rgb(var(--info-600-color));
+
+  background: var(--datav-bg);
+  color: var(--datav-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 深色投放态：预览页与大屏模式默认使用，编辑器按 schema.canvas.theme 切换 */
+.datav-scope[data-datav-theme='dark'] {
+  background: var(--datav-canvas-bg);
+  color: var(--datav-canvas-text);
+  --datav-panel: var(--datav-canvas-panel);
+  --datav-text-primary: var(--datav-canvas-text);
+  --datav-text-secondary: var(--datav-canvas-text-secondary);
+  --datav-border: var(--datav-canvas-border);
+}
+
+/* ==================== 配色板（5 套内置） ==================== */
+
+.datav-scope[data-datav-palette='tech-blue'] {
+  --datav-series-1: #2d8cf0;
+  --datav-series-2: #36f2d3;
+  --datav-series-3: #5cadff;
+  --datav-series-4: #8a6cff;
+  --datav-series-5: #3ba0e9;
+  --datav-series-6: #00e4ff;
+  --datav-series-7: #1d5fd6;
+  --datav-series-8: #6ee7ff;
+}
+
+.datav-scope[data-datav-palette='aurora-purple'] {
+  --datav-series-1: #8a6cff;
+  --datav-series-2: #c48cff;
+  --datav-series-3: #5ad1ff;
+  --datav-series-4: #ff8bd0;
+  --datav-series-5: #6a5ae0;
+  --datav-series-6: #ffd0f0;
+  --datav-series-7: #a06aff;
+  --datav-series-8: #4fd2e8;
+}
+
+.datav-scope[data-datav-palette='graphite-gold'] {
+  --datav-series-1: #d8b26a;
+  --datav-series-2: #f0d9a8;
+  --datav-series-3: #9a9bab;
+  --datav-series-4: #c9a227;
+  --datav-series-5: #6f7280;
+  --datav-series-6: #e8c97e;
+  --datav-series-7: #b08d3f;
+  --datav-series-8: #d5d8e0;
+}
+
+.datav-scope[data-datav-palette='emerald'] {
+  --datav-series-1: #2ec27e;
+  --datav-series-2: #7fe0b0;
+  --datav-series-3: #17a2b8;
+  --datav-series-4: #b6e388;
+  --datav-series-5: #0f766e;
+  --datav-series-6: #4dd0e1;
+  --datav-series-7: #55c57a;
+  --datav-series-8: #a7f3d0;
+}
+
+.datav-scope[data-datav-palette='neon-cyan'] {
+  --datav-series-1: #00e5ff;
+  --datav-series-2: #ff3d8b;
+  --datav-series-3: #b6ff00;
+  --datav-series-4: #7c4dff;
+  --datav-series-5: #00ffc8;
+  --datav-series-6: #ff9100;
+  --datav-series-7: #18ffff;
+  --datav-series-8: #ff4081;
+}
+
+/* 属性面板页签：窄栏（300px）里用小号页签，去掉 EP 默认的大边距 */
+.datav-prop-tabs .el-tabs__header {
+  margin-bottom: 8px;
+}
+
+.datav-prop-tabs .el-tabs__nav-wrap::after {
+  height: 1px;
+}
+
+.datav-prop-tabs .el-tabs__item {
+  height: 30px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+/* ==================== 画布与网格 ==================== */
+
+.datav-canvas {
+  position: relative;
+  overflow: hidden;
+  background: var(--datav-canvas-bg);
+  transform-origin: 0 0;
+}
+
+/** 组件绝对定位容器：位置尺寸都用设计稿像素，由 .datav-canvas 统一 scale 适配实际屏幕 */
+.datav-widget {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+/*
+ * 编辑器画布的边界三层（go-view 口径：工作台斑点底 + 画布框边框投影），只出现在设计器，
+ * 预览/投放页不引用这两个类——大屏成品不带设计辅助视觉。
+ * 画布内容底色归 schema.canvas.background 管（透明/深底都合法），边界感不依赖它：
+ * 1px 边框在浅深两主题下都落在画布内容之上，投影把画布从工作台上「抬」起来。
+ */
+.datav-stage-workspace,
+.datav-panel.datav-stage-workspace {
+  /* 复合选择器压过 .datav-panel 的 background 简写（同特异性时后者声明在后会把 image 重置成 none） */
+  background-image: radial-gradient(var(--datav-workspace-dot) 1px, transparent 1px);
+  background-size: 14px 14px;
+  /* 工作台空白可左键拖拽平移，抓手光标提示这一点；画布框内复位为默认（框内拖动是框选） */
+  cursor: grab;
+}
+
+.datav-stage-workspace.cursor-grabbing {
+  cursor: grabbing;
+}
+
+.datav-stage-frame {
+  cursor: default;
+  outline: 1px solid var(--datav-border-strong);
+  /* 投影固定用黑（同 --datav-shadow-panel 先例）：暗色主题 base-text 是浅色，按文字色派生会变发光 */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.datav-widget[data-locked='true'] {
+  outline: 1px dashed var(--datav-warning);
+}
+
+/* ==================== 通用视觉件（流行取向：玻璃拟态 + 微发光 + 细线） ==================== */
+
+.datav-panel {
+  background: var(--datav-panel);
+  border: 1px solid var(--datav-border);
+  border-radius: var(--datav-radius-md);
+  box-shadow: var(--datav-shadow-panel);
+  backdrop-filter: blur(8px);
+}
+
+.datav-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--datav-text-primary);
+  letter-spacing: 0.5px;
+}
+
+.datav-title::before {
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--datav-accent);
+  box-shadow: var(--datav-glow);
+  content: '';
+}
+
+.datav-metric {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--datav-accent);
+}
+
+.datav-axis-line {
+  stroke: var(--datav-border);
+  stroke-width: 1;
+}
+
+.datav-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--datav-border), transparent);
+}
+
+/* ==================== 编辑器：选中框与对齐参考线 ==================== */
+
+.datav-selection {
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+  border: 1px solid var(--datav-accent);
+}
+
+.datav-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--datav-panel);
+  border: 1px solid var(--datav-accent);
+  border-radius: 2px;
+  pointer-events: auto;
+}
+
+.datav-guide {
+  position: absolute;
+  width: 1px;
+  background: var(--datav-error);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* ---------- 联动（M6.2） ---------- */
+
+/*
+ * DOM 类组件的选中态。图表类不走这里：它们用 ECharts 原生 select，
+ * 因为数据点在 option 里而不在 DOM 里，加类名点不准是哪一根。
+ *
+ * 只用内描边 + 强调色：投屏上组件背景由设计者随意配，半透明底色盖不住就看不见，
+ * 而 1px 内描边在任何底色上都在。
+ */
+.datav-linked {
+  box-shadow: inset 0 0 0 1px var(--datav-accent);
+}
+
+.datav-widget--linkable {
+  cursor: pointer;
+}
+
+/* ---------- 编辑器页签条（M6.3 分页与轮播） ---------- */
+
+.datav-pagebar__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  color: var(--datav-text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  background: var(--datav-panel);
+  border: 1px solid var(--datav-border);
+  border-radius: var(--datav-radius-sm);
+}
+
+.datav-pagebar__tab:hover {
+  color: var(--datav-text-primary);
+  border-color: var(--datav-accent);
+}
+
+/* 当前页用强调色实心：十几个页签时只有填充色能在余光里认出「我在改哪一页」 */
+.datav-pagebar__tab.is-active {
+  color: var(--datav-canvas-text);
+  background: var(--datav-accent);
+  border-color: var(--datav-accent);
+}
+
+.datav-pagebar__count {
+  font-size: 10px;
+  opacity: 0.75;
+}
+
+.datav-pagebar__tab--add {
+  border-style: dashed;
+}
+
+/* 投放页的页指示点：轮播时观众需要知道这是一组屏里的第几块 */
+.datav-page-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.datav-page-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  cursor: pointer;
+  background: var(--datav-border);
+  border: none;
+  border-radius: 50%;
+}
+
+.datav-page-dot.is-active {
+  background: var(--datav-accent);
+}

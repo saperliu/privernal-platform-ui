@@ -1,0 +1,20 @@
+packages:
+  - 'packages/*'
+overrides:
+  lodash: 4.17.23
+allowBuilds:
+  '@logicflow/core': true
+  '@parcel/watcher': false
+  core-js: false
+  core-js-pure: false
+  es5-ext: false
+  esbuild: false
+  simple-git-hooks: false
+  typeit: false
+  unrs-resolver: false
+  vue-demi: false
+shamefullyHoist: true
+ignoreWorkspaceRootCheck: true
+linkWorkspacePackages: true
+minimumReleaseAgeExclude:
+  - phoenix-designer@1.3.14
