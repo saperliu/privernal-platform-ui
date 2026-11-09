@@ -7,6 +7,7 @@ import {
 import type { LayoutMode } from '@privernal/materials';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
+import { useWebsocket } from '@/hooks/business';
 import GlobalHeader from '../modules/global-header/index.vue';
 import GlobalSider from '../modules/global-sider/index.vue';
 import GlobalTab from '../modules/global-tab/index.vue';
@@ -20,6 +21,9 @@ defineOptions({ name: 'BaseLayout' });
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 const { childLevelMenus, isActiveFirstLevelMenuHasChildren } = setupMixMenuContext();
+
+// 站内信实时推送通道：登录进入工作台后建立 socket 连接并监听 platform_message（离线靠列表拉取）
+useWebsocket();
 
 const GlobalMenu = defineAsyncComponent(() => import('../modules/global-menu/index.vue'));
 

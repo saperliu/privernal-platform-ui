@@ -184,7 +184,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   }
 
   /**
-   * F4 挑战-应答提交：成功返回 LoginToken，失败返回 null（错误提示由请求层统一弹出）。
+   * 挑战-应答提交：成功返回 LoginToken，失败返回 null（错误提示由请求层统一弹出）。
    * 流程：取挑战 → 已迁移传 SHA512(nonce+X)（X=SHA512(明文)，截获值换 nonce 即失效）；
    * 未迁移先静默提交一次 X 引导服务端封存，再取新 nonce 重试；
    * 挑战关闭（服务端未配主密钥或旧版本）直接传 X 走 bcrypt 口径。
@@ -226,7 +226,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   async function login(loginDTO: Api.Auth.LoginDTO, redirect = true) {
     startLoading();
 
-    // F4：密码非空走挑战-应答提交；空密码（验证码等链路）维持原样直发
+    // 密码非空走挑战-应答提交；空密码（验证码等链路）维持原样直发
     let loginToken: Api.Auth.LoginToken | null = null;
     if (loginDTO.password !== null && loginDTO.password !== undefined) {
       loginToken = await submitWithDigestProtocol(loginDTO);

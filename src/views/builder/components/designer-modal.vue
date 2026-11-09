@@ -8,6 +8,7 @@ import { delDynamicFormData, findDynamicFormData, saveDynamicFormData } from '@/
 import { useBodyLoading } from '@/hooks';
 import { getQueryString } from '@/utils';
 import { buildCustomViewPageApi } from '@/utils/custom-view/page-api';
+import { applyDictOptions } from '@/libs/dict-options';
 import { applyRelationScope } from '@/libs/relation-scope';
 import { btnColorOf, loadBtnPermConfig, matchBtn, visibleBtnPerms } from '@/views/flow/components/btn-perm';
 import CustomViewHost from './custom-view-host.vue';
@@ -201,6 +202,8 @@ watch(
       ebFormData.value = { ...formData.value };
       // 编辑/查看已有数据时补上业务数据id：审批人等流程参与人没有本表单权限，靠它按参与人放行关联数据
       applyRelationScope(pageSchema.value, { fromTableCode: code, businessId: props.editData?.id });
+      // 字典数据源：渲染前把声明的字典项注入 options（拉取失败保持组件原样）
+      await applyDictOptions(pageSchema.value);
       ebKey.value += 1;
       await nextTick();
       handleUpdateFormModelByModalType();

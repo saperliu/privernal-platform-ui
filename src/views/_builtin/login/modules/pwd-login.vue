@@ -63,7 +63,7 @@ const loginModuleRecord = __forwarded_loginModuleRecord;
         {{ $t('common.confirm') }}
       </ElButton>
       <!--
- 验证码登录/注册/忘记密码三入口已摘除（F10：原页面是只弹 success 的假实现）。
+ 验证码登录/注册/忘记密码三入口已摘除（原页面是只弹 success 的假实现）。
            恢复时需连同 modules/ 下对应页面、router 的 module 白名单与 UnionKey.LoginModule 一起做实。 
 -->
     </ElSpace>

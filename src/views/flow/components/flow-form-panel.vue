@@ -9,6 +9,7 @@ import {
   findFlowFormPermission,
   findFlowStatusByBusinessId
 } from '@/service';
+import { applyDictOptions } from '@/libs/dict-options';
 import { applyRelationScope } from '@/libs/relation-scope';
 
 /**
@@ -71,6 +72,8 @@ async function load() {
     // 设计器内置的关联组件只会提交被关联表编码；把引用方表单与业务数据id挂进 dataUrl，
     // 后端才能按「引用方表单权限 → 流程参与人 → 被关联表 list 权限」放行关联显示值
     applyRelationScope(schema, { fromTableCode: resolvedTableCode.value, businessId: props.businessId });
+    // 字典数据源：渲染前把声明的字典项注入 options（拉取失败保持组件原样）
+    await applyDictOptions(schema);
     pageSchema.value = schema;
     // 只读视图里字段权限只体现为「是否显示」；未配置的字段由后端补成显示
     fieldStates.value = (permRes.data?.fieldDTOList || [])

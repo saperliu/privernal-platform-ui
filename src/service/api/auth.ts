@@ -55,7 +55,7 @@ export function fetchLogin(login: LoginDTO) {
 }
 
 /**
- * F4 登录挑战签发：一次性 nonce（60 秒/单次）+ 迁移标志；未配主密钥时 enabled=false
+ * 登录挑战签发：一次性 nonce（60 秒/单次）+ 迁移标志；未配主密钥时 enabled=false
  *
  * @param loginName 登录名或手机号
  */

@@ -68,7 +68,6 @@ const isBetweenNode = computed(() => props.form?.nodeType === 'between');
 /** 读写节点 ext：设计器保存时把 properties.ext 序列化为 [{code,value}] 字符串落库，回显兼容字符串/数组/对象 */
 const EXT_NODE_KIND = 'nodeKind';
 const EXT_NO_FOUND = 'wfsNoFoundUser';
-const EXT_SEND_TYPE = 'wfsMessageSendType';
 const EXT_TIMEOUT_HOURS = 'wfTimeoutHours';
 const EXT_TIMEOUT_ACTION = 'wfTimeoutAction';
 
@@ -324,34 +323,28 @@ function persistTimeout() {
   form.ext = ext;
 }
 
-/** ===== 节点规则（找不到审批人时/消息发送） ===== */
+/** ===== 节点规则（找不到审批人时） ===== */
 // 两种策略互斥，后端 FlowNoHandlerTaskHandler 按此分流；未配置按 MANAGE（交给组织管理员）处理
 const noFoundUserOptions = [
   { label: '交给组织管理员（管理员成为本节点办理人）', value: 'MANAGE' },
   { label: '自动进入下一节点（该节点不留办理人）', value: 'NEXT' }
 ];
-const sendTypeOptions = [
-  { label: '实时发送', value: 'R' },
-  { label: '延时发送', value: 'D' },
-  { label: '不发送', value: 'N' }
-];
-const nodeRule = ref<{ noFound: string; sendType: string }>({ noFound: 'MANAGE', sendType: 'R' });
+const nodeRule = ref<{ noFound: string }>({ noFound: 'MANAGE' });
 
 function syncRuleFromForm() {
   const ext = parseExt(props.form?.ext);
   nodeRule.value = {
-    noFound: ext[EXT_NO_FOUND] || 'MANAGE',
-    sendType: ext[EXT_SEND_TYPE] || 'R'
+    noFound: ext[EXT_NO_FOUND] || 'MANAGE'
   };
 }
 
 function persistRule() {
   const form = props.form;
   if (!form) return;
-  // 直接改表单数据对象（与设计器内部同一引用），PropertySetting 的 deep watch 会同步到画布节点属性
+  // 直接改表单数据对象（与设计器内部同一引用），PropertySetting 的 deep watch 会同步到画布节点属性。
+  // 消息发送类型（wfsMessageSendType）不再写入：后端无消费，存量 ext 里的旧值无害保留
   const ext = parseExt(form.ext);
   ext[EXT_NO_FOUND] = nodeRule.value.noFound;
-  ext[EXT_SEND_TYPE] = nodeRule.value.sendType;
   form.ext = ext;
 }
 
@@ -783,6 +776,10 @@ async function initDraft() {
               <ElOption v-for="opt in timeoutActionOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
             </ElSelect>
           </ElFormItem>
+          <div class="perm-tip">
+            未配置超时的节点不会自动处置：待办会一直挂起等待办理（不存在隐藏的默认超时自动通过）。
+            需要超时提醒/自动通过/自动驳回的节点请在此显式配置
+          </div>
         </ElForm>
 
         <ElDivider title-placement="left">节点规则</ElDivider>
@@ -792,15 +789,11 @@ async function initDraft() {
               <ElOption v-for="opt in noFoundUserOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
             </ElSelect>
           </ElFormItem>
-          <ElFormItem label="消息发送">
-            <ElSelect v-model="nodeRule.sendType" :disabled="disabled" @change="persistRule">
-              <ElOption v-for="opt in sendTypeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
-            </ElSelect>
-          </ElFormItem>
         </ElForm>
         <div class="perm-tip">
           找不到办理人时：「交给组织管理员」（含未配置，默认）会把组织负责人写成本节点办理人、任务停在本节点等审批；「自动进入下一节点」则直接跳过该节点且不留办理人。两者互斥。
-          票签策略与驳回目标写入节点流转属性，超时/消息规则写入节点扩展属性，均随流程画布保存落库
+          票签策略与驳回目标写入节点流转属性，超时规则写入节点扩展属性，均随流程画布保存落库。
+          「消息发送」选项已移除：消息推送通道就绪前该配置无任何后端消费，保留只会误导配置者
         </div>
       </ElTabPane>
 

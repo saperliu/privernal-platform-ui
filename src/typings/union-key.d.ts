@@ -17,7 +17,7 @@ declare namespace UnionKey {
    * - pwd-login: password login
    * - bind-wechat: bind wechat
    *
-   * code-login/register/reset-pwd 已随 F10 摘除（假实现），恢复时需连同 modules/ 页面与本类型一起做实
+   * code-login/register/reset-pwd 已摘除（假实现），恢复时需连同 modules/ 页面与本类型一起做实
    */
   type LoginModule = 'pwd-login' | 'bind-wechat';
 
