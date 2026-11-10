@@ -13,7 +13,9 @@ import {
 import {
   copyFlowDefinition,
   delFlowDefinition,
+  exportFlowDefinitionJson,
   findFlowDefinitionList,
+  importFlowDefinitionJson,
   publishFlowDefinition,
   startFlowInstance,
   unpublishFlowDefinition
@@ -209,6 +211,47 @@ function init() {
   getTableData();
 }
 
+/** 导出流程定义 JSON（文件名带编码与版本，导入按同编码生成新版本） */
+async function handleExportJson(row: FlowNamespace.Definition) {
+  const { data, error } = await exportFlowDefinitionJson(String(row.id));
+  if (error !== null || data === null) {
+    window.$message?.error('导出失败');
+    return;
+  }
+  const blob = new Blob([data], { type: 'application/json' });
+  const blobUrl = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = blobUrl;
+  link.download = `${row.flowCode}-v${row.version}.json`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  window.URL.revokeObjectURL(blobUrl);
+}
+
+const importInput = ref<HTMLInputElement | null>(null);
+
+/** 导入入口：选 JSON 文件后按文本读出直接上送（相同 flowCode 落为同编码新版本） */
+function openImportDialog() {
+  importInput.value?.click();
+}
+
+async function onImportFileChange(event: Event) {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  // 同一文件重复选择时 change 不触发，选完即清空
+  target.value = '';
+  if (!file) return;
+  try {
+    const text = await file.text();
+    await importFlowDefinitionJson(text);
+    window.$message?.success('导入成功，已落为同编码新版本');
+    getTableData();
+  } catch (e) {
+    window.$message?.error(`导入失败：${e instanceof Error ? e.message : '文件内容不是合法的流程定义 JSON'}`);
+  }
+}
+
 const columns: Ref<DataTable.Column<FlowNamespace.Definition>[]> = ref([
   { type: 'selection', width: 50, align: 'center' },
   {
@@ -254,7 +297,7 @@ const columns: Ref<DataTable.Column<FlowNamespace.Definition>[]> = ref([
   {
     key: 'action',
     title: '操作',
-    width: 300,
+    width: 360,
     align: 'center',
     render: row => {
       const published = row.isPublish === 1;
@@ -262,6 +305,9 @@ const columns: Ref<DataTable.Column<FlowNamespace.Definition>[]> = ref([
         <ElSpace alignment="center" size="small">
           <ElButton size="small" type="primary" onClick={() => openDesigner(row)}>
             编辑
+          </ElButton>
+          <ElButton size="small" onClick={() => handleExportJson(row)}>
+            导出
           </ElButton>
           {published ? (
             <ElButton size="small" type="warning" onClick={() => handleUnpublish(row)}>
@@ -296,17 +342,19 @@ getTableData();
   <div class="main-space overflow-hidden">
     <ElCard title="" :bordered="false" class="h-full rounded-8px shadow-sm">
       <div class="h-full flex-col">
+        <!-- 种子里导入/导出同挂一条 F 权限（flow:definition:import，名称"流程定义导入导出"） -->
         <ListFilter
           v-model:keyword="keyword"
           permission-add="flow:definition:add"
           permission-remove="flow:definition:remove"
           operation-title="流程定义"
-          permission-export="flow:definition:export"
+          permission-export="flow:definition:import"
           permission-import="flow:definition:import"
           :show-export="false"
-          :show-import="false"
+          :show-import="true"
           @add="openDesigner()"
           @delete="handleBatchDelete"
+          @import="openImportDialog"
           @keyword-search="keywordSearch"
           @keyword-clear="clearSearch"
           @search="search"
@@ -361,5 +409,7 @@ getTableData();
         />
       </div>
     </ElCard>
+    <!-- 导入的文件选择入口（隐藏），change 后立即清空 value 以支持重复选择同一文件 -->
+    <input ref="importInput" type="file" accept="application/json,.json" class="hidden" @change="onImportFileChange" />
   </div>
 </template>

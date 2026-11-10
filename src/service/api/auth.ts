@@ -15,7 +15,8 @@ export function fetchSmsCode(phone: string) {
  * 退出登录：让服务端作废当前会话（F3——只清本地缓存时，token 在过期前仍然有效可重放）
  */
 export function fetchLogout() {
-  return request.delete<boolean>('/auth/logout', {});
+  // 网关链路剥掉第一个 /auth（服务选择符），控制器路径本身是 /auth/logout，所以请求要写两段
+  return request.delete<boolean>('/auth/auth/logout', {});
 }
 
 /**
@@ -23,7 +24,8 @@ export function fetchLogout() {
  * ek 由 APP 登录态生成（60 秒/单次，兑换即作废），URL 里不再出现 token 本体
  */
 export function exchangeAppToken(ek: string) {
-  return request.post<string>('/auth/web/exchange', { ek });
+  // 网关链路剥掉第一个 /auth（服务选择符），控制器路径本身是 /auth/web/exchange，所以请求要写两段
+  return request.post<string>('/auth/auth/web/exchange', { ek });
 }
 
 /** 获取验证码 */

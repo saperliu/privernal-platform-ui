@@ -37,3 +37,33 @@ export function startDynamicDataFlow(tableCode: string, id: string) {
 export function delDynamicFormData(id: string, tableName: string) {
   return request.delete(`/dynamic/dbs/open/dynamic/${tableName}/${id}`, {});
 }
+
+// ===== 回收站（软删行；权限=对应表单的 remove）=====
+
+/** 回收站分页列表（软删行，按删除时间倒序） */
+export function fetchRecycleBin(tableName: string, data: { pageNum?: number; pageSize?: number }) {
+  return request.post<{ list: Record<string, any>[]; total: number; pageNum: number; pages: number }>(
+    `/dynamic/dbs/open/dynamic/${tableName}/recycle-bin`,
+    data
+  );
+}
+
+/** 回收站还原：软删行回活跃态，同业务唯一值与活跃行冲突时由后端唯一索引报错 */
+export function restoreRecycleBinRow(tableName: string, id: string) {
+  return request.put(`/dynamic/dbs/open/dynamic/${tableName}/${id}/restore`, {});
+}
+
+/** 回收站彻底删除（物理清除，不可逆） */
+export function purgeRecycleBinRow(tableName: string, id: string) {
+  return request.delete(`/dynamic/dbs/open/dynamic/${tableName}/${id}/purge`, {});
+}
+
+/** 批量还原 */
+export function batchRestoreRecycleBin(tableName: string, ids: string[]) {
+  return request.post(`/dynamic/dbs/open/dynamic/${tableName}/batch-restore`, { ids });
+}
+
+/** 批量彻底删除 */
+export function batchPurgeRecycleBin(tableName: string, ids: string[]) {
+  return request.post(`/dynamic/dbs/open/dynamic/${tableName}/batch-purge`, { ids });
+}

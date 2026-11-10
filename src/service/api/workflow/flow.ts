@@ -46,6 +46,16 @@ export function delFlowDefinition(ids: string) {
   return request.delete(`/system/back/flow/definition/${ids}`, {});
 }
 
+// 导出流程定义 JSON（data 为定义 JSON 文本，调用方落成文件）
+export function exportFlowDefinitionJson(id: string) {
+  return request.get<string>(`/system/back/flow/definition/export/${id}`);
+}
+
+// 导入流程定义 JSON（相同 flowCode 为同编码新版本，不覆盖在办实例）
+export function importFlowDefinitionJson(defJson: string) {
+  return request.post<FlowNamespace.Definition>('/system/back/flow/definition/import', defJson);
+}
+
 // 启动流程
 export function startFlowInstance(data: FlowNamespace.StartRequest) {
   return request.post<FlowNamespace.InstanceStatus>('/system/back/flow/instance/save', data);

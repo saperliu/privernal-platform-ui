@@ -25,9 +25,11 @@ export function delDynamicForm(data: string[]) {
   return request.delete(`/dynamic/back/dynamic/form/${data}`, {});
 }
 
-// 查询前端form通过code
-export function findDynamicFormByCode(code: string) {
-  return request.get<DynamicFormNamespace.DynamicFormDetail>(`/dynamic/back/dynamic/form/code/${code}`);
+// 查询前端form通过code；businessId 非空时按版本钉定返回该实例发起时刻的表单形态
+export function findDynamicFormByCode(code: string, businessId?: string) {
+  return request.get<DynamicFormNamespace.DynamicFormDetail>(`/dynamic/back/dynamic/form/code/${code}`, {
+    params: businessId ? { businessId } : undefined
+  });
 }
 
 // 保存表单设计草稿（仅留痕，不生效、不改物理表）

@@ -177,6 +177,9 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   /** Init auth route；deepLinkApp 是深链目标（如 /flow/todo?app=SYSTEM）携带的应用编码 */
   async function initAuthRoute(deepLinkApp = '') {
+    // 本地可能没有 userInfo（浏览器清过缓存、A2 ek 兑换进入只落 token），
+    // 先按 token 拉取并持久化；否则下面按空角色过滤路由、initDynamicAppRoute 读 userId 都会炸
+    await authStore.initUserInfo();
     if (authRouteMode.value === 'static') {
       initStaticAuthRoute();
     } else {

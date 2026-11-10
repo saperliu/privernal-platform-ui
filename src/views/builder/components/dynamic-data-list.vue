@@ -18,7 +18,14 @@ import {
   findDynamicFormColumnList,
   findDynamicFormDataList
 } from '@/service';
-import { startDynamicDataFlow } from '@/service/api/dynamic/dynamic-common';
+import {
+  batchPurgeRecycleBin,
+  batchRestoreRecycleBin,
+  fetchRecycleBin,
+  purgeRecycleBinRow,
+  restoreRecycleBinRow,
+  startDynamicDataFlow
+} from '@/service/api/dynamic/dynamic-common';
 import {
   exportIoData,
   fetchIoImportProgress,
@@ -424,6 +431,14 @@ function sanitizeQuery(dataQuery: Record<string, any>): DynamicDataQuery {
 /** 请求序号：列配置晚于数据就绪时会触发重查，旧请求的晚到响应直接丢弃，防止覆盖展开结果 */
 let querySeq = 0;
 
+/** 服务端数值列合计（列编码→合计值）：随列表响应同条件返回，整页合计 */
+const pageSums = ref<Record<string, string | number>>({});
+
+/** DataTable 的 summary 回调：合计由服务端算好随分页返回，这里直接回填不再按行算 */
+function serverSums(): Record<string, string | number> {
+  return pageSums.value;
+}
+
 async function getTableData(dataQuery: FormFilterModel) {
   querySeq += 1;
   const seq = querySeq;
@@ -436,6 +451,7 @@ async function getTableData(dataQuery: FormFilterModel) {
     let result: { list: any[]; total: number } = { list: [], total: 0 };
     if (data) {
       result = data;
+      pageSums.value = (data as any).sums ?? {};
     }
     setTableData(result);
   } finally {
@@ -604,6 +620,146 @@ function handleDeleteRows() {
           window.$message?.success('删除成功');
         }
         search();
+      });
+    }
+  });
+}
+
+/** ===== 回收站（软删行的还原/彻底删除，权限=对应表单 remove）===== */
+const recycleVisible = ref(false);
+const recycleLoading = ref(false);
+const recycleRows = ref<Record<string, any>[]>([]);
+const recycleTotal = ref(0);
+const recyclePage = ref(1);
+const recycleChecked = ref<string[]>([]);
+
+/** 复用主列表的数据列渲染（翻译器闭包直接作用于软删行），只换掉序号/操作列 */
+const recycleColumns = computed<ListColumn[]>(() => [
+  ...columns.value.filter(col => col.key !== 'action' && col.key !== 'index'),
+  { key: 'deleted_time', title: '删除时间', width: 170, align: 'center' },
+  {
+    key: 'recycle_action',
+    title: '操作',
+    width: 180,
+    align: 'center',
+    render: (row: any) => (
+      <ElSpace size="small">
+        <ElButton size="small" type="primary" text onClick={() => handleRecycleRestore(row)}>
+          还原
+        </ElButton>
+        <ElButton size="small" type="danger" text onClick={() => handleRecyclePurge(row)}>
+          彻底删除
+        </ElButton>
+      </ElSpace>
+    )
+  }
+]);
+
+function openRecycle() {
+  recycleVisible.value = true;
+  recyclePage.value = 1;
+  recycleChecked.value = [];
+  loadRecycleBin();
+}
+
+function loadRecycleBin() {
+  recycleLoading.value = true;
+  fetchRecycleBin(formData.value.tableCode, { pageNum: recyclePage.value, pageSize: 10 })
+    .then(res => {
+      if (res.error === null && res.data) {
+        recycleRows.value = res.data.list ?? [];
+        recycleTotal.value = res.data.total ?? 0;
+      }
+    })
+    .finally(() => {
+      recycleLoading.value = false;
+    });
+}
+
+function handleRecyclePage(page: number) {
+  recyclePage.value = page;
+  recycleChecked.value = [];
+  loadRecycleBin();
+}
+
+/** 还原后主列表多出该行，一并刷新 */
+function handleRecycleRestore(row: Record<string, any>) {
+  window.$dialog?.warning({
+    title: '还原确认',
+    content: '确定还原该条数据吗？业务唯一值与现有数据冲突时将还原失败。',
+    positiveText: '确定',
+    negativeText: '取消',
+    onPositiveClick: () => {
+      restoreRecycleBinRow(formData.value.tableCode, String(row.id)).then(res => {
+        if (res.error === null) {
+          window.$message?.success('还原成功');
+          recycleChecked.value = recycleChecked.value.filter(id => id !== String(row.id));
+          loadRecycleBin();
+          search();
+        }
+      });
+    }
+  });
+}
+
+function handleRecyclePurge(row: Record<string, any>) {
+  window.$dialog?.error({
+    title: '彻底删除确认',
+    content: '彻底删除为物理删除，不可恢复。确定删除该条数据吗？',
+    positiveText: '确定',
+    negativeText: '取消',
+    onPositiveClick: () => {
+      purgeRecycleBinRow(formData.value.tableCode, String(row.id)).then(res => {
+        if (res.error === null) {
+          window.$message?.success('已彻底删除');
+          recycleChecked.value = recycleChecked.value.filter(id => id !== String(row.id));
+          loadRecycleBin();
+        }
+      });
+    }
+  });
+}
+
+function handleRecycleBatchRestore() {
+  if (recycleChecked.value.length === 0) {
+    window.$message?.error('请选择要还原的数据！');
+    return;
+  }
+  window.$dialog?.warning({
+    title: '批量还原确认',
+    content: `确定还原选中的 ${recycleChecked.value.length} 条数据吗？冲突行还原失败不影响其余行。`,
+    positiveText: '确定',
+    negativeText: '取消',
+    onPositiveClick: () => {
+      batchRestoreRecycleBin(formData.value.tableCode, recycleChecked.value).then(res => {
+        if (res.error === null) {
+          window.$message?.success('还原成功');
+          recycleChecked.value = [];
+          loadRecycleBin();
+          search();
+        }
+      });
+    }
+  });
+}
+
+function handleRecycleBatchPurge() {
+  if (recycleChecked.value.length === 0) {
+    window.$message?.error('请选择要彻底删除的数据！');
+    return;
+  }
+  window.$dialog?.error({
+    title: '批量彻底删除确认',
+    content: `彻底删除为物理删除，不可恢复。确定删除选中的 ${recycleChecked.value.length} 条数据吗？`,
+    positiveText: '确定',
+    negativeText: '取消',
+    onPositiveClick: () => {
+      batchPurgeRecycleBin(formData.value.tableCode, recycleChecked.value).then(res => {
+        if (res.error === null) {
+          window.$message?.success('已彻底删除');
+          recycleChecked.value = [];
+          loadRecycleBin();
+        }
       });
     }
   });
@@ -1645,6 +1801,14 @@ onMounted(() => {
               >
                 批量打印
               </ElButton>
+              <ElButton
+                v-if="hasAuth(`dynamic:${code}:remove`)"
+                text
+                size="small"
+                @click="openRecycle"
+              >
+                回收站
+              </ElButton>
             </template>
             <template #toolbar-extra>
               <ListAdditional v-model:columns="columns" @reload="search"></ListAdditional>
@@ -1666,6 +1830,7 @@ onMounted(() => {
             :bordered="false"
             :bottom-bordered="true"
             striped
+            :summary="serverSums"
             @update:checked-row-keys="handleChangeChecked"
             @update:sorter="handleUpdateSorter"
           />
@@ -1674,13 +1839,8 @@ onMounted(() => {
         <DesignerFormModal v-model:visible="visible" :type="modalType" :edit-data="editData" @closed="handleClose" />
         <ElDialog
           v-model="printModalVisible"
-          preset="dialog"
           title="单据打印"
-          confirm-button-text="打印"
-          cancel-button-text="取消"
-          :loading="printLoading"
-          :show-icon="false"
-          @confirm="handlePrintOk"
+          width="520px"
         >
           <div class="flex flex-col gap-12px py-8px">
             <div>已选择 {{ printRowIds.length }} 条数据</div>
@@ -1705,6 +1865,11 @@ onMounted(() => {
               下载 PDF（真页码）
             </ElButton>
           </div>
+          <template #footer>
+            <!-- naive 的 preset/confirm-button-text 在 EP ElDialog 上不渲染，打印确认钮需显式 footer（迁移遗漏修复） -->
+            <ElButton size="small" @click="printModalVisible = false">取消</ElButton>
+            <ElButton size="small" type="primary" :loading="printLoading" @click="handlePrintOk">打印</ElButton>
+          </template>
         </ElDialog>
         <FlowRecordModal
           v-model:show="flowModalVisible"
@@ -1762,6 +1927,47 @@ onMounted(() => {
               </ElButton>
             </ElSpace>
           </ElSpace>
+        </ElDialog>
+        <!-- 回收站弹窗：软删行还原/彻底删除（列渲染复用主列表翻译器） -->
+        <ElDialog v-model="recycleVisible" title="回收站" width="920px">
+          <div class="flex flex-col gap-12px">
+            <ElSpace :size="8">
+              <ElButton size="small" type="primary" plain @click="handleRecycleBatchRestore">批量还原</ElButton>
+              <ElPopconfirm
+                title="彻底删除为物理删除，不可恢复，确认删除选中的数据吗？"
+                confirm-button-text="确认"
+                cancel-button-text="取消"
+                width="280"
+                @confirm="handleRecycleBatchPurge"
+              >
+                <template #reference>
+                  <ElButton size="small" type="danger" plain>批量彻底删除</ElButton>
+                </template>
+              </ElPopconfirm>
+              <span class="text-12px opacity-60">共 {{ recycleTotal }} 条软删数据</span>
+            </ElSpace>
+            <DataTable
+              v-model:checked-row-keys="recycleChecked"
+              :columns="recycleColumns"
+              :data="recycleRows"
+              :loading="recycleLoading"
+              :row-key="rowKey"
+              max-height="420"
+              size="small"
+              :bordered="false"
+              :bottom-bordered="true"
+              striped
+              remote
+            />
+            <ElPagination
+              :current="recyclePage"
+              :page-size="10"
+              :total="recycleTotal"
+              layout="prev, pager, next"
+              small
+              @update:current="handleRecyclePage"
+            />
+          </div>
         </ElDialog>
       </div>
     </ElCard>

@@ -34,6 +34,8 @@ const tip = ref('');
 const resolvedTableCode = ref('');
 const pageSchema = ref<PageSchema | null>(null);
 const fieldStates = ref<any[]>([]);
+/** 当前用户是否为办理人：非办理人整表只读，办理人按节点字段权限逐字段放开 */
+const formReadonly = ref(true);
 
 async function load() {
   pageSchema.value = null;
@@ -57,7 +59,7 @@ async function load() {
     }
     const [permRes, formRes, dataRes] = await Promise.all([
       findFlowFormPermission(resolvedTableCode.value, props.businessId),
-      findDynamicFormByCode(resolvedTableCode.value),
+      findDynamicFormByCode(resolvedTableCode.value, props.businessId),
       findDynamicFormData(props.businessId, resolvedTableCode.value)
     ]);
     if (formRes.error !== null || !formRes.data?.metaData) {
@@ -76,9 +78,15 @@ async function load() {
     await applyDictOptions(schema);
     pageSchema.value = schema;
     // 只读视图里字段权限只体现为「是否显示」；未配置的字段由后端补成显示
-    fieldStates.value = (permRes.data?.fieldDTOList || [])
-      .filter(item => item.isShow === 0)
-      .map(item => ({ field: item.fieldValue, state: 'HIDE' as const }));
+    // 节点字段权限全量映射：isShow=0 → HIDE；办理人且 isEdit=1 → WRITE（可编辑）；
+    // 其余 → READ（渲染层状态机按 READ 置 readonly）；required 交给渲染层必填规则
+    formReadonly.value = !permRes.data?.haveUser;
+    fieldStates.value = (permRes.data?.fieldDTOList || []).map(item => ({
+      field: item.fieldValue,
+      state:
+        item.isShow === 0 ? 'HIDE' : item.isEdit === 1 && permRes.data?.haveUser ? 'WRITE' : 'READ',
+      required: item.isRequired === 1
+    }));
     ebKey.value += 1;
     await nextTick();
     ebRef.value?.setData(dataRes.data as Record<string, any>);
@@ -102,7 +110,7 @@ const EBuilder = __forwarded_EBuilder;
   <div class="flow-form-panel">
     <div v-loading="loading" class="panel-spin">
       <div v-if="pageSchema" class="panel-body">
-        <EBuilder ref="ebRef" :key="ebKey" :page-schema="pageSchema" :field-states="fieldStates" readonly />
+        <EBuilder ref="ebRef" :key="ebKey" :page-schema="pageSchema" :field-states="fieldStates" :readonly="formReadonly" />
       </div>
       <ElEmpty v-else-if="!loading" :description="tip" class="panel-empty" />
       <div v-else class="panel-placeholder" />
