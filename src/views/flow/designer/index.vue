@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { findFlowDefinitionDetail } from '@/service';
 import { type FlowDesignerModule, loadWarmFlowDesigner, setCurrentFormCode } from '@/libs/warm-flow-designer';
 import NodeFormPermPanel from '@/views/designer/components/node-form-perm-panel.vue';
+import { FLOW_PALETTE_NODES } from '@/views/flow/components/flow-palette';
 import FlowConditionEditor from '@/views/flow/components/flow-condition-editor.vue';
 
 const route = useRoute();
@@ -42,7 +43,10 @@ async function loadFlowCode() {
 const designProps = computed(() => ({
   definitionId: definitionId.value || undefined,
   disabled: false,
-  onlyDesignShow: false
+  onlyDesignShow: false,
+  // 调色板与动态表单流程设计页同口径：开始/中间/抄送/子流程/结束（此前独立页用默认调色板，
+  // 拿不到抄送/子流程节点，两个宿主不对称）
+  paletteNodes: FLOW_PALETTE_NODES
 }));
 
 async function initDesigner() {
@@ -202,8 +206,9 @@ watch(
 
 <style lang="scss">
 /* 独立流程设计器页与动态表单流程设计页同一套隐藏口径（规则释义见 flow-design-panel.vue）：
-   节点属性抽屉与基本信息弹窗 append-to-body，必须全局样式；EP 类名 .el-form-item/.el-switch */
-.property-drawer-modern .modern-tab-item:nth-child(n + 2) {
+   节点属性抽屉与基本信息弹窗 append-to-body，必须全局样式；EP 类名 .el-form-item/.el-switch。
+   R2-18：只隐藏「办理人设置」tab（与扩展面板人员设置重复），「监听器」tab 开放 */
+.property-drawer-modern .modern-tab-item:nth-child(2) {
   display: none;
 }
 

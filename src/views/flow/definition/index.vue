@@ -22,6 +22,7 @@ import {
 } from '@/service';
 import { useLoading } from '@/hooks';
 import { formatDateTime } from '@/utils/common';
+import FlowVersionDiff from '@/views/flow/components/flow-version-diff.vue';
 
 // 模板绑定显式转发（规避编译产物 setup 绑定缺失）；必须先于 columns 中的 JSX 使用
 const ElButton = __forwarded_ElButton;
@@ -252,6 +253,27 @@ async function onImportFileChange(event: Event) {
   }
 }
 
+/** 版本对比抽屉（R2-18 ①）：按行的 flowCode 拉全版本，默认对比目标=点击行 */
+const diffVisible = ref(false);
+const diffDefinitions = ref<FlowNamespace.Definition[]>([]);
+const diffTargetId = ref('');
+
+async function openVersionDiff(row: FlowNamespace.Definition) {
+  const { data, error } = await findFlowDefinitionList({
+    flowCode: row.flowCode,
+    pageNum: 1,
+    pageSize: 50,
+    keywords: []
+  });
+  if (error !== null) {
+    window.$message?.error('版本列表加载失败');
+    return;
+  }
+  diffDefinitions.value = data?.list || [];
+  diffTargetId.value = String(row.id);
+  diffVisible.value = true;
+}
+
 const columns: Ref<DataTable.Column<FlowNamespace.Definition>[]> = ref([
   { type: 'selection', width: 50, align: 'center' },
   {
@@ -297,17 +319,22 @@ const columns: Ref<DataTable.Column<FlowNamespace.Definition>[]> = ref([
   {
     key: 'action',
     title: '操作',
-    width: 360,
+    width: 420,
     align: 'center',
     render: row => {
       const published = row.isPublish === 1;
       return (
         <ElSpace alignment="center" size="small">
-          <ElButton size="small" type="primary" onClick={() => openDesigner(row)}>
-            编辑
-          </ElButton>
+          <span title={published ? '已发布版本锁定编辑：保存时自动另存为新版本，运行中的实例继续走旧版本' : undefined}>
+            <ElButton size="small" type="primary" onClick={() => openDesigner(row)}>
+              编辑
+            </ElButton>
+          </span>
           <ElButton size="small" onClick={() => handleExportJson(row)}>
             导出
+          </ElButton>
+          <ElButton size="small" onClick={() => openVersionDiff(row)}>
+            对比
           </ElButton>
           {published ? (
             <ElButton size="small" type="warning" onClick={() => handleUnpublish(row)}>
@@ -411,5 +438,7 @@ getTableData();
     </ElCard>
     <!-- 导入的文件选择入口（隐藏），change 后立即清空 value 以支持重复选择同一文件 -->
     <input ref="importInput" type="file" accept="application/json,.json" class="hidden" @change="onImportFileChange" />
+
+    <FlowVersionDiff v-model:visible="diffVisible" :definitions="diffDefinitions" :default-target-id="diffTargetId" />
   </div>
 </template>

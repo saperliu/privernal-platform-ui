@@ -1,7 +1,7 @@
 import { type Slots, computed, defineComponent, h, provide, ref, watch } from 'vue';
 import { ElButton } from 'element-plus';
 import { Delete, Edit, Plus } from '@element-plus/icons-vue';
-import { FORM_CONTEXT_KEY, provideBuilderDisabled, usePageManager } from 'phoenix-designer';
+import { FORM_CONTEXT_KEY, provideBuilderDisabled, SUB_TABLE_ROW_CONTEXT_KEY, usePageManager } from 'phoenix-designer';
 import './sub-table.css';
 
 /**
@@ -22,6 +22,9 @@ const SubTableRowContext = defineComponent({
   },
   setup(rowProps, { slots }) {
     provide(FORM_CONTEXT_KEY as any, rowProps.row);
+    // 行上下文标记：node.vue 据此对行内字段按平铺键读写（点号编码也是平铺键，
+    // 按 `.` 拆路径会把值写进嵌套对象，与提交收集的平铺键不一致=保存丢失）
+    provide(SUB_TABLE_ROW_CONTEXT_KEY as any, true);
     return () => slots.default?.();
   }
 });
@@ -62,10 +65,35 @@ export default defineComponent({
     const rows = ref<any[]>([]);
     const tableRef = ref<HTMLElement>();
 
+    /**
+     * switch 行值归一：子表行落物理列时布尔被 SQLite/JDBC 擦成 "1"/"0" 字符串，
+     * ElSwitch 严格全等比较 activeValue（默认 true），不归一则回显行的开关恒为关。
+     * 必须**原地**改写行对象（不能用拷贝）：行内控件把值写在行对象上，
+     * 提交收集的也是同一批行对象，拷贝归一会让编辑态的开关改动落不到提交数据里
+     */
+    function normalizeSwitchRows(list: any[]): any[] {
+      const switchFields = children.value
+        .filter((child: any) => child?.type === 'switch' && child?.field)
+        .map((child: any) => child.field);
+      if (!switchFields.length) {
+        return list;
+      }
+      list.forEach(row => {
+        switchFields.forEach((field: string) => {
+          if (row[field] === '1') {
+            row[field] = true;
+          } else if (row[field] === '0') {
+            row[field] = false;
+          }
+        });
+      });
+      return list;
+    }
+
     watch(
       () => props.modelValue,
       value => {
-        rows.value = value ?? [];
+        rows.value = normalizeSwitchRows(value ?? []);
       },
       { immediate: true }
     );

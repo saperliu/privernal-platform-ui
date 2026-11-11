@@ -95,6 +95,11 @@ export function findFlowRecordByInstanceId(instanceId: string) {
   return request.get<FlowNamespace.HisTask[]>(`/system/back/flow/instance/record/${instanceId}`);
 }
 
+// 实例的子流程关系列表（R2-18 子流程桥接：记录页展示子流程节点与子实例状态）
+export function findFlowInstanceSubflowRels(instanceId: string) {
+  return request.get<FlowNamespace.SubflowRel[]>(`/system/back/flow/instance/subflow-rels/${instanceId}`);
+}
+
 // 待办任务分页
 export function findFlowTodoList(data: FlowNamespace.TaskQuery) {
   return request.post<FlowNamespace.Page<FlowNamespace.Task>>('/system/back/flow/task/todo/list', data);

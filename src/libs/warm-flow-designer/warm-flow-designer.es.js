@@ -4511,7 +4511,7 @@ const yt = (e) => (ot("data-v-7ee5d3b7"), e = e(), nt(), e), kd = { class: "betw
     function S($) {
       u.value.listenerRows.splice($, 1);
     }
-    const W = le(() => l.nodes.filter((x) => !["start", "serial", "parallel", "inclusive"].includes(x.type) && !(x.properties && x.properties.ext && x.properties.ext.nodeKind === "cc") && x.id !== u.value.nodeCode)), Q = le(() => typeof window > "u" ? !1 : window.innerWidth <= 768);
+    const W = le(() => l.nodes.filter((x) => !["start", "serial", "parallel", "inclusive"].includes(x.type) && !(x.properties && x.properties.ext && x.properties.ext.nodeKind === "cc") && !wfSubflowNode(x) && x.id !== u.value.nodeCode)), Q = le(() => typeof window > "u" ? !1 : window.innerWidth <= 768);
     X(), H();
     function ee() {
       return new Promise(async ($, x) => {
@@ -5315,6 +5315,17 @@ const yt = (e) => (ot("data-v-7ee5d3b7"), e = e(), nt(), e), kd = { class: "betw
   } catch (r) {
     return !1;
   }
+}, wfSubflowNode = (e) => {
+  try {
+    let t = e && e.properties && e.properties.ext;
+    if (!t)
+      return !1;
+    typeof t == "string" && (t = JSON.parse(t));
+    const o = Array.isArray(t) ? Object.fromEntries(t.map((r) => [r.code, r.value])) : t;
+    return o ? String(o.nodeKind) === "subflow" : !1;
+  } catch (r) {
+    return !1;
+  }
 }, Su = /* @__PURE__ */ be({
   name: "PropertySetting",
   __name: "propertySetting",
@@ -5353,7 +5364,7 @@ const yt = (e) => (ot("data-v-7ee5d3b7"), e = e(), nt(), e), kd = { class: "betw
       }
       return a.nodes;
     }
-    const b = le(() => a.node && a.node.type === "skip" ? r("property.titleEdge") : a.node && a.node.type === "serial" ? r("property.titleSerial") : a.node && a.node.type === "parallel" ? r("property.titleParallel") : a.node && a.node.type === "inclusive" ? r("property.titleInclusive") : a.node && a.node.type === "start" ? r("property.titleStart") : a.node && a.node.type === "end" ? r("property.titleEnd") : a.node && a.node.type === "between" && wfCcNode(a.node) ? "抄送节点" : r("property.titleBetween")), y = le(() => {
+    const b = le(() => a.node && a.node.type === "skip" ? r("property.titleEdge") : a.node && a.node.type === "serial" ? r("property.titleSerial") : a.node && a.node.type === "parallel" ? r("property.titleParallel") : a.node && a.node.type === "inclusive" ? r("property.titleInclusive") : a.node && a.node.type === "start" ? r("property.titleStart") : a.node && a.node.type === "end" ? r("property.titleEnd") : a.node && a.node.type === "between" && wfCcNode(a.node) ? "抄送节点" : a.node && a.node.type === "between" && wfSubflowNode(a.node) ? "子流程节点" : r("property.titleBetween")), y = le(() => {
       if (!(!a.node || !a.node.type)) {
         if (a.node.type === "between" && wfCcNode(a.node))
           return Hs;
@@ -5386,9 +5397,13 @@ const yt = (e) => (ot("data-v-7ee5d3b7"), e = e(), nt(), e), kd = { class: "betw
         } else {
           let T = m.properties.nodeRatio || "0";
           const wfExt = m.properties.ext;
-          if (m.type === "between" && !wfCcNode(m)) {
-            m.properties.collaborativeWay || (m.properties.collaborativeWay = "2");
-            if (m.properties.collaborativeWay === "2" && (!m.properties.nodeRatio || !(wfExt && wfExt.voteType === "count") && parseFloat(m.properties.nodeRatio) === 0)) {
+          if (m.type === "between" && !wfCcNode(m) && !wfSubflowNode(m)) {
+            // R2-18 协作方式保真回显：collaborativeWay 是设计器内存属性不落库，
+            // 重开时按 nodeRatio 反推（0=或签 way1 / 100=会签 way3 / 其余与数量票签=票签 way2）；
+            // 无 ratio 且无数量票签的新节点按或签处理（与调色板默认一致）
+            const wfRatio = m.properties.nodeRatio === void 0 || m.properties.nodeRatio === null || m.properties.nodeRatio === "" ? "" : String(m.properties.nodeRatio);
+            m.properties.collaborativeWay || (m.properties.collaborativeWay = wfRatio === "100" ? "3" : !wfRatio && !(wfExt && wfExt.voteType === "count") ? "1" : "2");
+            if (m.properties.collaborativeWay === "2" && !wfRatio && !(wfExt && wfExt.voteType === "count")) {
               m.properties.nodeRatio = "50", T = "50";
             }
           }
@@ -8890,8 +8905,10 @@ const Kf = {
             R.close();
             const wfParts = [];
             const wfCcMissing = wfMissing.filter((te) => typeof te.ext == "string" && te.ext.indexOf("nodeKind") > -1 && te.ext.indexOf('"cc"') > -1);
-            const wfOtherMissing = wfMissing.filter((te) => wfCcMissing.indexOf(te) < 0);
+            const wfSubflowMissing = wfMissing.filter((te) => wfCcMissing.indexOf(te) < 0 && typeof te.ext == "string" && te.ext.indexOf('"subflow"') > -1);
+            const wfOtherMissing = wfMissing.filter((te) => wfCcMissing.indexOf(te) < 0 && wfSubflowMissing.indexOf(te) < 0);
             wfCcMissing.length && wfParts.push("抄送节点" + wfCcMissing.map(wfNodeLabel).join("、") + "也必须有一条连向下一节点（或结束）的跳转线：运行时抄送通知完成后沿这条线自动流转");
+            wfSubflowMissing.length && wfParts.push("子流程节点" + wfSubflowMissing.map(wfNodeLabel).join("、") + "也必须有一条连向下一节点（或结束）的跳转线：子流程办结后沿这条线自动流转");
             wfOtherMissing.length && wfParts.push("以下节点没有向外的跳转线，请在画布上从该节点拖出连线到下一节点：" + wfOtherMissing.map(wfNodeLabel).join("、"));
             wfDangling.length && wfParts.push("以下跳转线的目标节点不存在：" + wfDangling.join("、"));
             ht().message("error", { message: wfParts.join("；"), duration: 8e3 });

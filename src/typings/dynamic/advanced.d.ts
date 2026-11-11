@@ -19,6 +19,68 @@ declare namespace AdvancedNamespace {
     importFlowMode?: 'NONE' | 'AUTO_START';
   }
 
+  /** 可映射字段（导入预检响应 fields，自定义列映射下拉数据源） */
+  interface ImportField {
+    field: string;
+    fieldName: string | null;
+    fieldType: string | null;
+    required?: boolean;
+    unique?: boolean;
+  }
+
+  /** 跨环境列结构预检报告（R2-19） */
+  interface ImportPrecheck {
+    matched: Array<{ header: string; field: string; fieldName: string | null; fieldType: string | null }>;
+    unmatched: Array<{ header: string; reason: string }>;
+    missingRequired: Array<{ field: string; fieldName: string | null; reason: string }>;
+    warnings: Array<{
+      kind: 'TYPE_MISMATCH' | 'UNIQUE_MISSING';
+      header?: string;
+      field?: string;
+      fieldName?: string | null;
+      sample?: string;
+      reason: string;
+    }>;
+  }
+
+  /** 上传预检返回（两阶段第一步）：任务落 PENDING_MAPPING，映射确认后 start 才执行 */
+  interface ImportPreviewResult {
+    taskId: string;
+    total: number;
+    headers: string[];
+    mapping: Record<string, string>;
+    precheck: ImportPrecheck;
+    fields: ImportField[];
+  }
+
+  /** 导入进度（读库：重启不丢、多实例可见；status=PENDING_MAPPING/RUNNING/FINISHED/FAILED） */
+  interface ImportProgress {
+    taskId: string;
+    status: string;
+    finished: boolean;
+    total: number;
+    processed: number;
+    success: number;
+    skipped: number;
+    failed: number;
+    finishedTime?: string | null;
+    createdBy?: string | null;
+  }
+
+  /** 导入记录条目（dynamic_io_import_task 摘要） */
+  interface ImportTaskSummary {
+    taskId: string;
+    status: string;
+    total: number;
+    processed: number;
+    success: number;
+    skipped: number;
+    failed: number;
+    createdBy?: string | null;
+    createdTime?: string | null;
+    finishedTime?: string | null;
+  }
+
   /** 外链配置（dynamic_form_share） */
   interface ShareForm {
     formId: string;

@@ -53,6 +53,10 @@ export function setupPhoenixDesignerEpComponents() {
     async () => (await import('./title-fields/title-fields.vue')).default
   );
 
+  // 字典数据源编辑器：select/radio/checkbox 属性面板的「字典类型」控件
+  // （phoenix EP 包 select/radio/checkbox 的 dataSource/dictType 属性条目引用此编辑器）
+  pluginManager.component.add('EDictTypeEditor', async () => (await import('./dict-type/dict-type.vue')).default);
+
   // EP 版 form 组件的 attribute 列表缺「数据标题」条目（naiveUi 版有：
   // props.titleFields → ETitleFieldsEditor，选择可输入字段拼接列表页数据标题）。
   // getConfigByType 返回 { component, config, defaultSchema, ... } 包装，真配置在 .config；

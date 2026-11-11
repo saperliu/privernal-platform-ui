@@ -6,6 +6,7 @@ import {
   delReportChart,
   delReportDashboard,
   delReportDataset,
+  findDatasetJoinOptions,
   findDynamicFormList,
   findReportChartList,
   findReportDashboardDetail,
@@ -196,6 +197,50 @@ const datasetFilterRows = ref<DatasetFilterRow[]>([]);
 const formOptions = ref<Array<{ label: string; value: string }>>([]);
 
 /**
+ * 关联统计（R2-12）：提交的只是「想关联什么」的意图行，服务端保存时按登记关系重解析落定。
+ * 关联下拉的候选来自 joinOptions——服务端已按元数据+登记双口径筛过，选了就能保存成功。
+ */
+interface DatasetJoinRow {
+  type: 'subTable' | 'relation';
+
+  field: string;
+}
+
+/** 与服务端 MAX_JOINS 同源的上限；前端先拦一次让人当场知道 */
+const MAX_JOIN_ROWS = 3;
+
+const datasetJoinRows = ref<DatasetJoinRow[]>([]);
+const joinOptions = ref<ReportDatasetNamespace.DatasetJoinOption[]>([]);
+
+async function loadJoinOptions(tableCode: string) {
+  if (!tableCode) {
+    joinOptions.value = [];
+    return;
+  }
+  const res = await findDatasetJoinOptions(tableCode);
+  joinOptions.value = res.error === null && res.data ? res.data : [];
+}
+
+function joinOptionsForType(type: DatasetJoinRow['type']) {
+  return joinOptions.value.filter(option => option.type === type);
+}
+
+function joinOptionLabel(option: ReportDatasetNamespace.DatasetJoinOption) {
+  if (option.type === 'relation' && option.targetTableCode && option.targetTableCode !== option.label) {
+    return `${option.label}（${option.field} → ${option.targetTableCode}）`;
+  }
+  return `${option.label}（${option.field}）`;
+}
+
+function addDatasetJoinRow() {
+  if (datasetJoinRows.value.length >= MAX_JOIN_ROWS) {
+    window.$message?.error(`最多 ${MAX_JOIN_ROWS} 个关联`);
+    return;
+  }
+  datasetJoinRows.value.push({ type: 'subTable', field: '' });
+}
+
+/**
  * 计算字段（M4.8）。提交时只带这些派生列：后端保存时会重新抽样/解析出物理列，
  * 再把这里提交的派生列并回去（DerivedColumnSpec.mergeInto），所以前端不需要回传整份快照。
  */
@@ -351,12 +396,14 @@ function openDatasetModal() {
   healthResult.value = null;
   derivedRows.value = [];
   datasetFilterRows.value = [];
+  datasetJoinRows.value = [];
+  joinOptions.value = [];
   loadFormOptions();
   datasetModalVisible.value = true;
 }
 
 /** 编辑已有数据集：默认过滤在这里改，字段候选直接用它已解析的列快照 */
-function openDatasetEdit(dataset: ReportDatasetNamespace.Dataset) {
+async function openDatasetEdit(dataset: ReportDatasetNamespace.Dataset) {
   datasetEditing.value = true;
   datasetForm.id = dataset.id;
   datasetForm.datasetCode = dataset.datasetCode;
@@ -395,6 +442,12 @@ function openDatasetEdit(dataset: ReportDatasetNamespace.Dataset) {
     op: String(filter.op ?? 'eq'),
     value: String(filter.value ?? '')
   }));
+  // 关联回显 + 候选先拉好：快照里的 joins 是服务端已解析的落定值，
+  // relation 行保存时还要 tableCode（服务端必传），从候选里按 field 配对
+  await loadJoinOptions(datasetForm.tableCode);
+  datasetJoinRows.value = (((dataset.columnSnapshot as any)?.joins ?? []) as ReportDatasetNamespace.DatasetJoinMeta[])
+    .filter(join => join.type === 'subTable' || join.type === 'relation')
+    .map(join => ({ type: join.type, field: join.field }));
   loadFormOptions();
   datasetModalVisible.value = true;
 }
@@ -600,10 +653,42 @@ async function handleSaveDataset() {
       value: row.value
     }))
   };
-  // 只提交派生列：物理列由后端按数据源重新产出，前端回传整份快照反而会盖掉真实类型
-  datasetForm.columnSnapshot = derivedRows.value.length
-    ? { columns: derivedRows.value.map(row => ({ ...row, expression: row.expression.trim() })) }
-    : undefined;
+  // 关联意图行校验：未选字段 / 重复行当场拦；引用关联的目标表必须还在候选里（保存链必传 tableCode）
+  if (datasetJoinRows.value.some(row => !row.field)) {
+    window.$message?.error('关联统计有未选字段的行，请补全或删除');
+    return;
+  }
+  if (new Set(datasetJoinRows.value.map(row => `${row.type}:${row.field}`)).size !== datasetJoinRows.value.length) {
+    window.$message?.error('关联统计有重复行');
+    return;
+  }
+  const missingRelationTarget = datasetJoinRows.value.some(
+    row => row.type === 'relation' && !joinOptions.value.find(opt => opt.type === 'relation' && opt.field === row.field)
+  );
+  if (missingRelationTarget) {
+    window.$message?.error('有引用关联已不在可关联清单里（登记可能已删除），请重新选择或删除该行');
+    return;
+  }
+  // 只提交派生列与关联意图：物理列与关联落定都由后端重新解析产出，前端回传整份快照反而会盖掉真实结果
+  const hasDerived = derivedRows.value.length > 0;
+  const hasJoins = datasetJoinRows.value.length > 0;
+  datasetForm.columnSnapshot =
+    hasDerived || hasJoins
+      ? {
+          columns: derivedRows.value.map(row => ({ ...row, expression: row.expression.trim() })),
+          joins: hasJoins
+            ? datasetJoinRows.value.map(row => ({
+                type: row.type,
+                field: row.field,
+                tableCode:
+                  row.type === 'relation'
+                    ? (joinOptions.value.find(opt => opt.type === 'relation' && opt.field === row.field)
+                        ?.targetTableCode ?? '')
+                    : undefined
+              }))
+            : undefined
+        }
+      : undefined;
   const res = await saveReportDataset({ ...datasetForm });
   if (res.error === null) {
     window.$message?.success('数据集已保存，列快照已重新解析');
@@ -677,7 +762,11 @@ function currentDataset() {
 }
 
 function syncChartColumns() {
-  chartColumns.value = currentDataset()?.columnSnapshot?.columns ?? [];
+  // 关联列与主表列一起进候选：joins 段的 columns 是服务端落定的关联面，
+  // fieldCode 已带「{field}_{列}」前缀（后端查询白名单认的是同一份清单）
+  const snapshot = currentDataset()?.columnSnapshot;
+  const joinColumns = (snapshot?.joins ?? []).flatMap(join => join.columns ?? []);
+  chartColumns.value = [...(snapshot?.columns ?? []), ...joinColumns];
 }
 
 watch(
@@ -735,6 +824,14 @@ function defaultFormat(): ReportChartNamespace.ValueFormat {
   return { decimals: null, unit: '', thousands: false };
 }
 
+/**
+ * 下钻默认值（R2-12）：enabled=true + 第一维度 + 目标表留空，
+ * 与「config 无 drill 键的存量图按旧行为可下钻」完全等价，编辑保存后行为不变。
+ */
+function defaultDrill(): ReportChartNamespace.ReportConfig['drill'] {
+  return { enabled: true, dimensionIndex: 0, targetTableCode: null };
+}
+
 function openAddChart() {
   if (datasets.value.length === 0) {
     window.$message?.error('请先创建数据集');
@@ -753,7 +850,8 @@ function openAddChart() {
     sort: { field: '', order: 'DESC' },
     gaugeMax: null,
     rankingLimit: 10,
-    format: defaultFormat()
+    format: defaultFormat(),
+    drill: defaultDrill()
   };
   syncChartColumns();
   resetPreview();
@@ -780,6 +878,9 @@ function openEditChart(card: CanvasCard, index: number) {
   }
   if (!chartForm.config.format) {
     chartForm.config.format = defaultFormat();
+  }
+  if (!chartForm.config.drill) {
+    chartForm.config.drill = defaultDrill();
   }
   syncChartColumns();
   resetPreview();
@@ -889,6 +990,13 @@ async function handleSaveChart() {
   }
   if (config.sort && !config.sort.field) {
     delete config.sort;
+  }
+  // 下钻归一：维度下标缺省第一个维度；目标表清空/未选存 null（运行时回退 lookup||数据集主表）
+  if (config.drill) {
+    config.drill.dimensionIndex = config.drill.dimensionIndex ?? 0;
+    if (!config.drill.targetTableCode) {
+      config.drill.targetTableCode = null;
+    }
   }
   const res = await saveReportChart({ ...chartForm, config });
   if (res.error !== null) {
@@ -1148,9 +1256,46 @@ onMounted(() => {
         </ElFormItem>
         <template v-if="datasetForm.sourceType === 'dynamic_table'">
           <ElFormItem label="动态表" required>
-            <ElSelect v-model="datasetForm.tableCode" placeholder="选择本应用下的动态表">
+            <ElSelect v-model="datasetForm.tableCode" placeholder="选择本应用下的动态表" @change="loadJoinOptions">
               <ElOption v-for="opt in formOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
             </ElSelect>
+          </ElFormItem>
+          <ElFormItem label="关联统计">
+            <div class="w-full">
+              <div v-for="(row, index) in datasetJoinRows" :key="index" class="mb-6px flex items-center gap-6px">
+                <ElSelect v-model="row.type" size="small" class="w-110px" @change="row.field = ''">
+                  <ElOption label="子表" value="subTable" />
+                  <ElOption label="引用关联" value="relation" />
+                </ElSelect>
+                <ElSelect
+                  v-model="row.field"
+                  size="small"
+                  class="flex-1"
+                  filterable
+                  :placeholder="row.type === 'subTable' ? '选择子表字段' : '选择引用关联字段'"
+                >
+                  <ElOption
+                    v-for="opt in joinOptionsForType(row.type)"
+                    :key="`${opt.type}:${opt.field}`"
+                    :label="joinOptionLabel(opt)"
+                    :value="opt.field"
+                  />
+                </ElSelect>
+                <ElButton quaternary size="small" type="danger" @click="datasetJoinRows.splice(index, 1)">
+                  删
+                </ElButton>
+              </div>
+              <ElButton size="small" dashed block :disabled="datasetJoinRows.length >= MAX_JOIN_ROWS" @click="addDatasetJoinRow">
+                + 关联（≤{{ MAX_JOIN_ROWS }}）
+              </ElButton>
+              <div class="mt-4px text-12px text-gray-400">
+                {{
+                  joinOptions.length
+                    ? '关联表全部列以「字段_列」前缀并入数据集，图表可直接选作维度/度量；保存时按登记关系重解析。'
+                    : '当前表没有可关联的子表或引用关联（需在表单设计中配置并登记关系）。'
+                }}
+              </div>
+            </div>
           </ElFormItem>
         </template>
         <template v-else-if="datasetForm.sourceType === 'http'">
@@ -1451,6 +1596,38 @@ onMounted(() => {
                 </ElButton>
               </div>
               <ElButton size="small" dashed @click="addMeasure">+ 度量</ElButton>
+            </div>
+          </ElFormItem>
+
+          <ElFormItem v-if="!isSingleValueChart" label="下钻">
+            <div class="w-full">
+              <ElSpace :size="8" align="center">
+                <ElSwitch v-model="chartForm.config!.drill!.enabled" size="small" />
+                <ElSelect
+                  v-model="chartForm.config!.drill!.dimensionIndex"
+                  size="small"
+                  class="w-180px"
+                  placeholder="下钻维度"
+                >
+                  <ElOption
+                    v-for="(dim, index) in chartForm.config?.dimensions ?? []"
+                    :key="index"
+                    :label="`维度${index + 1}：${columnLabel(dim.field) || dim.field}`"
+                    :value="index"
+                  />
+                </ElSelect>
+                <ElSelect
+                  v-model="chartForm.config!.drill!.targetTableCode"
+                  size="small"
+                  class="w-200px"
+                  clearable
+                  filterable
+                  placeholder="目标表（默认数据集主表）"
+                >
+                  <ElOption v-for="opt in formOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+                </ElSelect>
+              </ElSpace>
+              <div class="mt-4px text-12px text-gray-400">点击图表维度值跳到底层表列表页并按该值过滤</div>
             </div>
           </ElFormItem>
 

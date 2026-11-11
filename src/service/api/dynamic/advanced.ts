@@ -111,26 +111,47 @@ export function fetchIoTemplate(formId: string) {
   return request.get<Blob>(`/dynamic/back/dynamic/io/template/${formId}`, { responseType: 'blob' });
 }
 
-/** 上传 Excel 发起异步导入，返回 { taskId, total } */
+/**
+ * 上传 Excel 一步式导入（自动映射，兼容旧调用方；新 UI 走 previewIoImport + startIoImport）。
+ * ⚠ file 必须以普通对象传（{ file }）：request 客户端的 multipart 转换层按 Object.entries 重建
+ * form-data，直接传原生 FormData 会被取成空条目 → 空 multipart body → 后端连接中断（R2-19 实测坑，
+ * 旧实现即坏在此处，UI 上传从未真正走通）。
+ */
 export function uploadIoImport(formId: string, file: File) {
-  const form = new FormData();
-  form.append('file', file);
-  return request.post<{ taskId: string; total: number }>(`/dynamic/back/dynamic/io/import/${formId}`, form, {
+  return request.post<{ taskId: string; total: number }>(`/dynamic/back/dynamic/io/import/${formId}`, { file }, {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
 }
 
-/** 导入进度轮询：{ taskId, finished, total, processed, success, skipped, failed } */
+/**
+ * 上传 Excel 预检（R2-19 两阶段第一步）：解析表头与原始行、生成跨环境列结构预检报告，
+ * 任务落 PENDING_MAPPING（不执行）。返回 taskId/headers/mapping(自动匹配建议)/precheck/fields。
+ * file 以普通对象传（同 uploadIoImport 的 multipart 转换层口径）。
+ */
+export function previewIoImport(formId: string, file: File) {
+  return request.post<AdvancedNamespace.ImportPreviewResult>(
+    `/dynamic/back/dynamic/io/import/preview/${formId}`,
+    { file },
+    { headers: { 'Content-Type': 'multipart/form-data' } }
+  );
+}
+
+/** 确认列映射并启动导入（两阶段第二步）：mapping={表头:字段编码}，空串=忽略该列 */
+export function startIoImport(taskId: string, mapping: Record<string, string>) {
+  return request.post<{ taskId: string; total: number }>(
+    `/dynamic/back/dynamic/io/import/start/${taskId}`,
+    mapping
+  );
+}
+
+/** 导入进度轮询（读库：重启不丢、多实例可见）：含 status/finishedTime */
 export function fetchIoImportProgress(taskId: string) {
-  return request.get<{
-    taskId: string;
-    finished: boolean;
-    total: number;
-    processed: number;
-    success: number;
-    skipped: number;
-    failed: number;
-  }>(`/dynamic/back/dynamic/io/import/progress/${taskId}`);
+  return request.get<AdvancedNamespace.ImportProgress>(`/dynamic/back/dynamic/io/import/progress/${taskId}`);
+}
+
+/** 导入记录：该表单最近 20 条任务（多实例可见的历史痕迹） */
+export function fetchIoImportTasks(formId: string) {
+  return request.get<AdvancedNamespace.ImportTaskSummary[]>(`/dynamic/back/dynamic/io/import/tasks/${formId}`);
 }
 
 /** 下载失败行报告（可修改后重新导入） */

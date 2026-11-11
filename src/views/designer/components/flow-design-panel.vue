@@ -15,6 +15,8 @@ import {
   setCurrentFormCode
 } from '@/libs/warm-flow-designer';
 import FlowConditionEditor from '@/views/flow/components/flow-condition-editor.vue';
+import { FLOW_PALETTE_NODES } from '@/views/flow/components/flow-palette';
+import FlowVersionDiff from '@/views/flow/components/flow-version-diff.vue';
 import NodeFormPermPanel from './node-form-perm-panel.vue';
 
 export interface Props {
@@ -70,62 +72,15 @@ const isActive = computed(() => currentDefinition.value?.activityStatus === 1);
 /** 画布重挂载计数：点「重置」重载当前版本时 key 变化强制重建设计器，丢弃未保存修改 */
 const designerReloadKey = ref(0);
 
-/** ===== 调色板节点图标（SVG 字符串，经 innerHTML 渲染，风格对齐设计器内置图标） ===== */
-const WF_ICON_BG = 'var(--wf-icon-bg, #ffffff)';
-const WF_START_ICON = `
-<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="50" cy="50" r="42" fill="${WF_ICON_BG}" stroke="rgb(56,161,105)" stroke-width="2.5"/>
-  <circle cx="50" cy="50" r="30" fill="rgba(56,161,105,0.35)"/>
-</svg>`;
-const WF_BETWEEN_ICON = `
-<svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
-  <rect x="5" y="5" width="90" height="70" rx="8" fill="${WF_ICON_BG}" stroke="rgb(37,99,235)" stroke-width="1.5"/>
-  <rect x="12" y="10" width="32" height="26" rx="5" ry="5" fill="rgba(37,99,235,0.08)" stroke="rgb(37,99,235)" stroke-width="1.2"/>
-  <circle cx="28" cy="23" r="5.5" fill="rgba(37,99,235,0.15)" stroke="rgb(37,99,235)" stroke-width="1"/>
-  <path d="M24 23l4 4l6-6" fill="none" stroke="rgb(37,99,235)" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"/>
-</svg>`;
-/** 抄送节点：卡片 + 信封 + 右上角纸飞机，青绿色区分审批节点 */
-const WF_CC_ICON = `
-<svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
-  <rect x="5" y="5" width="90" height="70" rx="8" fill="${WF_ICON_BG}" stroke="rgb(13,148,136)" stroke-width="1.5"/>
-  <rect x="12" y="14" width="46" height="32" rx="5" ry="5" fill="rgba(13,148,136,0.08)" stroke="rgb(13,148,136)" stroke-width="1.2"/>
-  <path d="M15 18 L35 35 L55 18" fill="none" stroke="rgb(13,148,136)" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter"/>
-  <path d="M64 18 L84 12 L76 26 L84 28 L64 42 Z" fill="rgb(13,148,136)" opacity="0.85"/>
-</svg>`;
-const WF_END_ICON = `
-<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="50" cy="50" r="42" fill="${WF_ICON_BG}" stroke="rgb(229,57,53)" stroke-width="3.5"/>
-  <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(229,57,53,0.25)" stroke-width="1"/>
-</svg>`;
-
 const designProps = computed(() => ({
   definitionId: currentDefinitionId.value || null,
   disabled: false,
   // 只进流程设计步骤：基础信息全部默认值（flowCode/名称/经典模型已预填），
   // 设计器隐藏「基础信息/流程设计」步骤栏并直接进入画布
   onlyDesignShow: true,
-  // 基础节点面板：开始/审批/抄送/结束（抄送为中间节点 + ext.nodeKind=cc 标记，
-  // 属性面板据此切换为精简面板，仅节点编码/名称 + 抄送人员）
-  paletteNodes: {
-    flowNodes: [
-      { type: 'start', text: '开始', label: '开始', icon: WF_START_ICON },
-      {
-        type: 'between',
-        text: '中间节点',
-        label: '中间节点',
-        icon: WF_BETWEEN_ICON,
-        properties: { collaborativeWay: '1' }
-      },
-      {
-        type: 'between',
-        text: '抄送节点',
-        label: '抄送',
-        icon: WF_CC_ICON,
-        properties: { collaborativeWay: '1', ext: { nodeKind: 'cc' } }
-      },
-      { type: 'end', text: '结束', label: '结束', icon: WF_END_ICON }
-    ]
-  },
+  // 基础节点面板：开始/审批/抄送/子流程/结束（抄送与子流程为中间节点 + ext.nodeKind 标记，
+  // 属性面板据此切换精简面板；与 /flow/designer 独立页共用 flow-palette.ts）
+  paletteNodes: FLOW_PALETTE_NODES,
   // 新建态预填基础信息，保证保存时 flowCode 与表单绑定
   initialJson: hasDefinition.value
     ? null
@@ -302,6 +257,15 @@ const versionOptions = computed(() =>
   }))
 );
 
+/** 编辑锁提示（5.13 口径=新版本为主）：已发布定义再保存不带 id，引擎按 flowCode 自动 version+1 */
+const nextVersionHint = computed(() => {
+  const maxVersion = definitionList.value.reduce((acc, item) => Math.max(acc, Number(item.version || 0)), 0);
+  return maxVersion + 1;
+});
+
+/** 版本对比抽屉（R2-18 ①） */
+const diffVisible = ref(false);
+
 /** 切换/选择版本 = 载入该版本到画布 */
 function handleVersionChange(id: string) {
   if (id !== currentDefinitionId.value) {
@@ -435,9 +399,21 @@ const ElDropdown = __forwarded_ElDropdown;
           <i class="state-dot"></i>
           {{ isActive ? '已激活' : '已挂起' }}
         </span>
+        <span v-if="isPublished" class="bar-hint" title="已发布版本锁定编辑：保存时自动另存为新版本，正在运行的实例继续走旧版本">
+          编辑保存将另存新版本 v{{ nextVersionHint }}
+        </span>
 
         <span class="bar-spacer"></span>
 
+        <ElButton
+          size="small"
+          quaternary
+          :disabled="!hasDefinition"
+          title="对比同一流程的两个版本：节点/连线/定义级配置差异"
+          @click="diffVisible = true"
+        >
+          版本对比
+        </ElButton>
         <ElButton
           size="small"
           quaternary
@@ -507,6 +483,8 @@ const ElDropdown = __forwarded_ElDropdown;
           </template>
         </component>
       </div>
+
+      <FlowVersionDiff v-model:visible="diffVisible" :definitions="definitionList" :default-target-id="currentDefinitionId" />
     </div>
   </div>
 </template>
@@ -628,6 +606,18 @@ const ElDropdown = __forwarded_ElDropdown;
   flex: 1;
 }
 
+/* 编辑锁提示（5.13 新版本为主口径）：轻量行内文案，不与状态胶囊抢视觉 */
+.bar-hint {
+  padding: 2px 8px;
+  font-size: 12px;
+  color: var(--ds-text-weak);
+  white-space: nowrap;
+  cursor: help;
+  background: var(--ds-canvas);
+  border: 1px dashed var(--ds-border);
+  border-radius: 10px;
+}
+
 /* 状态胶囊：圆点表意 + 文字，避免工具条上散落裸圆点 */
 .state-pill {
   display: inline-flex;
@@ -695,10 +685,7 @@ const ElDropdown = __forwarded_ElDropdown;
   display: none;
 }
 
-/* 隐藏「监听器配置」区块：业务人员不配置监听器（第二个 form-section） */
-:deep(.dialogForm > .form-section:last-of-type) {
-  display: none;
-}
+/* 基础信息弹窗的「监听器配置」区块（定义级监听器，R2-18 开放，不再隐藏） */
 
 /* 「设计器模型」提示换行显示，避免与模型卡片重叠截断 */
 :deep(.el-form-item:has(.radio-card-group) .el-form-item__content) {
@@ -764,9 +751,10 @@ const ElDropdown = __forwarded_ElDropdown;
 
 /* ===== 节点属性抽屉与钉钉画布定制（抽屉 append-to-body 传送至 body，必须用全局样式） ===== */
 
-/* 属性抽屉：只保留「基础设置」一个分区，「办理人设置」「监听器」入口对业务人员隐藏
-   （办理人配置由扩展面板的人员设置承担，监听器面向开发人员） */
-.property-drawer-modern .modern-tab-item:nth-child(n + 2) {
+/* 属性抽屉：只隐藏「办理人设置」分区（R2-18 监听器配置开放）——
+   办理人配置由扩展面板的人员设置承担，避免两套办理人 UI 并存；
+   「监听器」分区（第 3 个 tab）面向开发人员开放，选项来自 /listener/list 清单 */
+.property-drawer-modern .modern-tab-item:nth-child(2) {
   display: none;
 }
 

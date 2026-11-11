@@ -20,7 +20,7 @@ import {
   TimeOutline,
   GitNetworkOutline as __forwarded_GitNetworkOutline
 } from '@vicons/ionicons5';
-import { findFlowRecordByInstanceId, findFlowStatusByBusinessId, findSystemUserList } from '@/service';
+import { findFlowInstanceSubflowRels, findFlowRecordByInstanceId, findFlowStatusByBusinessId, findSystemUserList } from '@/service';
 import { formatDateTime, getCnDate } from '@/utils';
 import { cooperateTypeLabels, flowStatusLabels, flowStatusTones, skipTypeLabels, skipTypeTones } from './flow-labels';
 import type { FlowTone } from './flow-labels';
@@ -30,6 +30,8 @@ import FlowGraphPanel from './flow-graph-panel.vue';
  * 流程记录：实例流转轨迹（我发起的/已办/动态表单数据行 共用）
  * 支持两种入口：instanceId 直接查记录；businessId 先解析流程实例再查
  */
+defineOptions({ name: 'FlowRecordModal' });
+
 const props = defineProps<{
   show: boolean;
   /** 流程实例 id（列表行给出时用） */
@@ -253,6 +255,28 @@ const runningHint = computed(() => (resolved.value?.running ? String(resolved.va
 /** 流程图需要流程编码：业务入口来自实例解析，实例入口取首条记录 */
 const flowCode = computed(() => String(resolved.value?.flowCode || sortedRecords.value[0]?.flowCode || ''));
 
+/** ===== 子流程（R2-18）：实例的子流程关系与状态，支持下钻查看子实例记录 ===== */
+const SUBFLOW_STATUS: Record<string, { label: string; tone: FlowTone }> = {
+  LAUNCHED: { label: '子流程办理中', tone: 'info' },
+  DONE: { label: '子流程已办结', tone: 'success' },
+  CHILD_TERMINATED: { label: '子流程已终止', tone: 'error' },
+  CHILD_REVOKED: { label: '子流程已撤销', tone: 'warning' }
+};
+
+const subflowRels = ref<FlowNamespace.SubflowRel[]>([]);
+const childRecordShow = ref(false);
+const childRecordInstanceId = ref('');
+
+function subflowStatusOf(rel: FlowNamespace.SubflowRel) {
+  return SUBFLOW_STATUS[rel.status] ?? { label: rel.status, tone: 'default' as FlowTone };
+}
+
+function openChildRecord(rel: FlowNamespace.SubflowRel) {
+  if (!rel.childInstanceId) return;
+  childRecordInstanceId.value = rel.childInstanceId;
+  childRecordShow.value = true;
+}
+
 watch(
   () => [props.show, props.instanceId, props.businessId],
   async () => {
@@ -262,6 +286,7 @@ watch(
     resolved.value = null;
     notStarted.value = false;
     resolvedInstanceId.value = '';
+    subflowRels.value = [];
     activeTab.value = 'timeline';
     let instanceId = props.instanceId ?? '';
     if (!instanceId && props.businessId) {
@@ -277,6 +302,12 @@ watch(
     if (instanceId) {
       const { data, error } = await findFlowRecordByInstanceId(instanceId);
       records.value = error === null && data ? data : [];
+      // 子流程关系：失败静默（记录页主体不因扩展信息失败而不可用）
+      findFlowInstanceSubflowRels(instanceId)
+        .then(({ data: relData }) => {
+          subflowRels.value = relData ?? [];
+        })
+        .catch(() => {});
     }
     loading.value = false;
     if (records.value.some(row => /^\d{3,}$/.test(String(row.approver || '')))) {
@@ -409,6 +440,25 @@ const GitNetworkOutline = __forwarded_GitNetworkOutline;
 
             <div v-if="runningHint" class="flow-record-waiting">当前等待「{{ runningHint }}」节点办理</div>
 
+            <!-- 子流程条（R2-18）：父实例存在子流程节点时展示子实例状态，可下钻查看子流程记录 -->
+            <div v-if="subflowRels.length" class="flow-record-subflows">
+              <div v-for="rel in subflowRels" :key="rel.id" class="flow-record-subflow">
+                <span class="flow-record-subflow__name">子流程「{{ rel.subflowCode }}」</span>
+                <ElTag :type="tagType(subflowStatusOf(rel).tone)" size="small" effect="plain">
+                  {{ subflowStatusOf(rel).label }}
+                </ElTag>
+                <ElButton
+                  v-if="rel.childInstanceId"
+                  text
+                  type="primary"
+                  size="small"
+                  @click="openChildRecord(rel)"
+                >
+                  查看子流程记录
+                </ElButton>
+              </div>
+            </div>
+
             <div v-if="!steps.length && !loading" class="flow-record-empty">
               暂无流转记录，流程已发起，等待第一节点办理
             </div>
@@ -420,6 +470,13 @@ const GitNetworkOutline = __forwarded_GitNetworkOutline;
         </ElTabPane>
       </ElTabs>
     </div>
+
+    <!-- 子流程记录下钻：递归复用本组件按子实例 id 展示 -->
+    <FlowRecordModal
+      v-model:show="childRecordShow"
+      :instance-id="childRecordInstanceId"
+      :flow-name="'子流程'"
+    />
   </ElDialog>
 </template>
 
@@ -718,5 +775,31 @@ const GitNetworkOutline = __forwarded_GitNetworkOutline;
   margin-top: 4px;
   padding: 8px 12px;
   text-align: center;
+}
+
+/* 子流程条（R2-18）：每个子流程节点一行，名称+状态+下钻入口 */
+.flow-record-subflows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.flow-record-subflow {
+  align-items: center;
+  background: #f7f5ff;
+  border: 1px solid #e5dcff;
+  border-radius: 8px;
+  color: #4e5969;
+  display: flex;
+  font-size: 12px;
+  gap: 8px;
+  line-height: 20px;
+  padding: 6px 12px;
+}
+
+.flow-record-subflow__name {
+  color: #5b21b6;
+  font-weight: 500;
 }
 </style>

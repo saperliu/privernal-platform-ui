@@ -2,15 +2,12 @@
 import type { Ref } from 'vue';
 import { computed, onMounted, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import type { UploadFile } from 'element-plus';
 import {
   ElImage,
   ElButton as __forwarded_ElButton,
   ElDialog as __forwarded_ElDialog,
-  ElProgress as __forwarded_ElProgress,
   ElSelect as __forwarded_ElSelect,
-  ElSpace as __forwarded_ElSpace,
-  ElUpload as __forwarded_ElUpload
+  ElSpace as __forwarded_ElSpace
 } from 'element-plus';
 import {
   delDynamicFormData,
@@ -26,14 +23,7 @@ import {
   restoreRecycleBinRow,
   startDynamicDataFlow
 } from '@/service/api/dynamic/dynamic-common';
-import {
-  exportIoData,
-  fetchIoImportProgress,
-  fetchIoImportReport,
-  fetchIoTemplate,
-  getIoConfig,
-  uploadIoImport
-} from '@/service/api/dynamic/advanced';
+import { exportIoData, getIoConfig } from '@/service/api/dynamic/advanced';
 import type { PrintFilter } from '@/service/api/dynamic/doc-template';
 import { fetchDocTemplates, fetchPrintData, fetchPrintPdf } from '@/service/api/dynamic/doc-template';
 import { useAuth, useBoolean, useLoading } from '@/hooks';
@@ -49,18 +39,15 @@ import { useRelationOptions } from '@/components/business/relation-options';
 import type { ModalType } from './designer-modal.vue';
 import DesignerFormModal from './designer-modal.vue';
 import CustomViewHost from './custom-view-host.vue';
+import IoImportModal from './io-import-modal.vue';
 // 模板绑定显式转发（规避编译产物 setup 绑定缺失）
 const ElButton = __forwarded_ElButton;
 // 模板绑定显式转发（规避编译产物 setup 绑定缺失）
 const ElDialog = __forwarded_ElDialog;
 // 模板绑定显式转发（规避编译产物 setup 绑定缺失）
-const ElProgress = __forwarded_ElProgress;
-// 模板绑定显式转发（规避编译产物 setup 绑定缺失）
 const ElSelect = __forwarded_ElSelect;
 // 模板绑定显式转发（规避编译产物 setup 绑定缺失）
 const ElSpace = __forwarded_ElSpace;
-// 模板绑定显式转发（规避编译产物 setup 绑定缺失）
-const ElUpload = __forwarded_ElUpload;
 
 export interface Props {
   /** 操作按钮可见性 */
@@ -326,6 +313,58 @@ function renderUploadCell(value: any, uploadType: string) {
       附件 {urls.length} 个
     </ElButton>
   );
+}
+
+/** 签名字段列渲染：签名图片缩略图（dataURL 或图片 URL，点击预览）。
+ * 注意必须给固定宽高且不用 lazy：虚拟滚动内 lazy 观察器对 0 尺寸元素永不触发 */
+function renderSignatureCell(value: any) {
+  const url = String(value ?? '').trim();
+  if (!url) {
+    return <span style={{ color: '#c2c2c2' }}>-</span>;
+  }
+  return (
+    <ElImage
+      src={url}
+      fit="contain"
+      preview-src-list={[url]}
+      style={{ width: '72px', height: '36px', borderRadius: '4px', flexShrink: 0 }}
+    />
+  );
+}
+
+/** 富文本字段列渲染：剥掉 HTML 标签取纯文本预览（完整内容进编辑/查看弹窗看） */
+function renderRichTextCell(value: any) {
+  const text = String(value ?? '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .trim();
+  if (!text) {
+    return <span style={{ color: '#c2c2c2' }}>-</span>;
+  }
+  return <span>{text}</span>;
+}
+
+/** 地图字段列渲染：JSON 字符串（{lng,lat,address}）解析为「地址（经度,纬度）」 */
+function renderMapCell(value: any) {
+  const raw = String(value ?? '').trim();
+  if (!raw) {
+    return <span style={{ color: '#c2c2c2' }}>-</span>;
+  }
+  try {
+    const point = typeof value === 'object' ? value : JSON.parse(raw);
+    const lng = Number(point?.lng);
+    const lat = Number(point?.lat);
+    if (!Number.isFinite(lng) || !Number.isFinite(lat)) {
+      return <span>{raw}</span>;
+    }
+    const coords = `${lng.toFixed(6)},${lat.toFixed(6)}`;
+    return <span>{point.address ? `${point.address}（${coords}）` : coords}</span>;
+  } catch {
+    return <span>{raw}</span>;
+  }
 }
 
 /** 筛选控件类型判定：跟随表单组件类型，无组件信息时按列类型兜底 */
@@ -966,120 +1005,11 @@ async function handleExportData() {
   }
 }
 
+/** 导入弹窗开关（预检/映射/进度/记录都在 IoImportModal 组件内，R2-19） */
 const importVisible = ref(false);
-const importSubmitting = ref(false);
-const importFile = ref<File | null>(null);
-/** 导入任务进度：null=未开始/已重置 */
-const importTask = ref<{
-  taskId: string;
-  total: number;
-  processed: number;
-  success: number;
-  skipped: number;
-  failed: number;
-  finished: boolean;
-} | null>(null);
-let importTimer: ReturnType<typeof setInterval> | null = null;
-
-/** ElProgress 状态：进行中用默认色（EP 空串），完成后按失败行数给 warning/success */
-const importProgressStatus = computed<'' | 'success' | 'exception' | 'warning'>(() => {
-  if (!importTask.value?.finished) return '';
-  return importTask.value.failed > 0 ? 'warning' : 'success';
-});
 
 function openImportModal() {
-  importFile.value = null;
-  importTask.value = null;
   importVisible.value = true;
-}
-
-function closeImportModal() {
-  if (importTimer) {
-    clearInterval(importTimer);
-    importTimer = null;
-  }
-  importVisible.value = false;
-}
-
-/** ElUpload 的 change 回调：单文件导入，直接取本次变更文件的原生 File */
-function onImportFileChange(uploadFile: UploadFile) {
-  importFile.value = uploadFile.raw ?? null;
-}
-
-/** 下载导入模板（两 Sheet：数据+说明） */
-async function handleTemplateDownload() {
-  if (!formData.value.id) return;
-  const { data, error } = await fetchIoTemplate(String(formData.value.id));
-  if (error || !data) {
-    window.$message?.error('模板下载失败，请重试');
-    return;
-  }
-  downloadBlob(data, `import-template-${formData.value.tableName ?? code}.xlsx`);
-}
-
-/** 上传并轮询进度；结束后刷新列表，失败行可下载报告 */
-function submitImport() {
-  if (!formData.value.id || !importFile.value) {
-    window.$message?.warning('请先选择 .xlsx 文件');
-    return;
-  }
-  importSubmitting.value = true;
-  uploadIoImport(String(formData.value.id), importFile.value)
-    .then(({ data, error }) => {
-      if (error || !data?.taskId) {
-        window.$message?.error(error?.message ?? '导入发起失败');
-        return;
-      }
-      importTask.value = {
-        taskId: data.taskId,
-        total: data.total ?? 0,
-        processed: 0,
-        success: 0,
-        skipped: 0,
-        failed: 0,
-        finished: false
-      };
-      window.$message?.success(`导入任务已提交，共 ${data.total ?? 0} 行`);
-      if (importTimer) clearInterval(importTimer);
-      importTimer = setInterval(() => pollImportProgress(), 1000);
-    })
-    .finally(() => {
-      importSubmitting.value = false;
-    });
-}
-
-function pollImportProgress() {
-  if (!importTask.value) return;
-  fetchIoImportProgress(importTask.value.taskId)
-    .then(({ data, error }) => {
-      if (error || !data) return;
-      importTask.value = { ...importTask.value, ...data };
-      if (data.finished) {
-        if (importTimer) {
-          clearInterval(importTimer);
-          importTimer = null;
-        }
-        window.$message?.success(`导入完成：成功 ${data.success}，跳过 ${data.skipped}，失败 ${data.failed}`);
-        getTableData(formFilter);
-      }
-    })
-    .catch(() => {
-      if (importTimer) {
-        clearInterval(importTimer);
-        importTimer = null;
-      }
-    });
-}
-
-/** 下载失败行报告（可修改后重新导入） */
-async function handleImportReportDownload() {
-  if (!importTask.value?.taskId) return;
-  const { data, error } = await fetchIoImportReport(importTask.value.taskId);
-  if (error || !data) {
-    window.$message?.error('报告下载失败，请重试');
-    return;
-  }
-  downloadBlob(data, `import-report-${importTask.value.taskId}.xlsx`);
 }
 
 async function findFormColumn(formId: string) {
@@ -1200,6 +1130,36 @@ async function findFormColumn(formId: string) {
             width: 160,
             rowSpan: mainRowSpan,
             render: (row: any) => renderUploadCell(row[filedKey], uploadType)
+          });
+        } else if (comp && comp.type === 'signature') {
+          // 签名字段：签名图片缩略图（值为 PNG dataURL，纯文本展示会是超长 base64）
+          columns.value.push({
+            key: filedKey,
+            title: item.filedName,
+            align: 'left',
+            width: 120,
+            rowSpan: mainRowSpan,
+            render: (row: any) => renderSignatureCell(row[filedKey])
+          });
+        } else if (comp && comp.type === 'map') {
+          // 地图字段：JSON 值解析为「地址（经度,纬度）」文本
+          columns.value.push({
+            key: filedKey,
+            title: item.filedName,
+            align: 'left',
+            rowSpan: mainRowSpan,
+            ellipsis: true,
+            render: (row: any) => renderMapCell(row[filedKey])
+          });
+        } else if (comp && comp.type === 'rich-text') {
+          // 富文本字段：剥标签纯文本预览，长内容省略
+          columns.value.push({
+            key: filedKey,
+            title: item.filedName,
+            align: 'left',
+            rowSpan: mainRowSpan,
+            ellipsis: true,
+            render: (row: any) => renderRichTextCell(row[filedKey])
           });
         } else {
           // 选项/开关/人员/部门/状态列：按翻译层把编码翻译成展示名称
@@ -1876,58 +1836,14 @@ onMounted(() => {
           :business-id="flowModalBusinessId"
           :business-title="flowModalRowSummary"
         />
-        <!-- 数据导入弹窗：模板下载 → 上传 xlsx → 异步进度 → 成功/跳过/失败统计 → 失败报告 -->
-        <ElDialog v-model="importVisible" title="导入数据" width="560px" @closed="closeImportModal">
-          <ElSpace :size="14">
-            <ElButton text size="small" @click="handleTemplateDownload">
-              <icon-mdi-tray-arrow-down class="mr-4px text-18px" />
-              下载导入模板
-            </ElButton>
-            <ElUpload
-              :limit="1"
-              accept=".xlsx"
-              :auto-upload="false"
-              :file-list="importFile ? [{ name: importFile.name, status: 'success', percentage: 100 } as any] : []"
-              @change="onImportFileChange"
-            >
-              <ElButton text size="small">选择 Excel 文件（≤10MB）</ElButton>
-            </ElUpload>
-            <div v-if="importTask" class="flex flex-col gap-8px">
-              <ElProgress
-                type="line"
-                :percentage="importTask.total > 0 ? Math.round((importTask.processed / importTask.total) * 100) : 0"
-                :status="importProgressStatus"
-                :show-indicator="!importTask.finished"
-              />
-              <span class="text-13px">
-                已处理 {{ importTask.processed }} / {{ importTask.total }} 行
-                <template v-if="importTask.finished">
-                  ：成功 {{ importTask.success }}，跳过 {{ importTask.skipped }}，失败 {{ importTask.failed }}
-                </template>
-              </span>
-              <ElButton
-                v-if="importTask.finished && importTask.failed > 0"
-                text
-                size="small"
-                @click="handleImportReportDownload"
-              >
-                下载失败行报告（可修改后重新导入）
-              </ElButton>
-            </div>
-            <ElSpace justify="end">
-              <ElButton size="small" @click="closeImportModal">关闭</ElButton>
-              <ElButton
-                type="primary"
-                size="small"
-                :loading="importSubmitting"
-                :disabled="!importFile"
-                @click="submitImport"
-              >
-                开始导入
-              </ElButton>
-            </ElSpace>
-          </ElSpace>
-        </ElDialog>
+        <!-- 数据导入弹窗（R2-19 抽出为独立组件）：预检+列映射 → 进度（读库，重启可续）→ 导入记录 -->
+        <IoImportModal
+          v-model:show="importVisible"
+          :form-id="String(formData.id ?? '')"
+          :form-name="formData.tableName ?? code"
+          :strict-validate="String(ioConfig?.strictValidate ?? 'Y') !== 'N'"
+          @imported="getTableData(formFilter)"
+        />
         <!-- 回收站弹窗：软删行还原/彻底删除（列渲染复用主列表翻译器） -->
         <ElDialog v-model="recycleVisible" title="回收站" width="920px">
           <div class="flex flex-col gap-12px">

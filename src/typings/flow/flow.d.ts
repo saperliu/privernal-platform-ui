@@ -93,6 +93,23 @@ declare namespace FlowNamespace {
     nodeName?: string;
   }
 
+  /** 子流程父子实例关系（R2-18 子流程桥接，flow_subflow_rel） */
+  interface SubflowRel {
+    id: string;
+    /** 父流程实例id */
+    parentInstanceId: string;
+    /** 父流程子流程节点任务id */
+    parentTaskId: string;
+    /** 子流程实例id（发起成功后回填） */
+    childInstanceId?: string;
+    /** 子流程编码 */
+    subflowCode: string;
+    /** LAUNCHED已发起等待 / DONE已回推 / CHILD_TERMINATED子流程已终止 / CHILD_REVOKED子流程已撤销 */
+    status: string;
+    finishedTime?: string;
+    createdTime?: string;
+  }
+
   /** 启动流程参数 */
   interface StartRequest {
     flowCode?: string;

@@ -49,6 +49,13 @@ export function findReportDatasetList(appId: string) {
   return request.get<ReportDatasetNamespace.Dataset[]>(`/dynamic/back/report/dataset/list?appId=${appId}`);
 }
 
+// 可关联项清单（R2-12）：服务端按登记关系解析，只返回真正可保存成功的关联
+export function findDatasetJoinOptions(tableCode: string) {
+  return request.get<ReportDatasetNamespace.DatasetJoinOption[]>(
+    `/dynamic/back/report/dataset/joinOptions?tableCode=${encodeURIComponent(tableCode)}`
+  );
+}
+
 // 数据集详情
 export function findReportDatasetDetail(datasetCode: string) {
   return request.get<ReportDatasetNamespace.Dataset>(`/dynamic/back/report/dataset/${datasetCode}`);
@@ -121,4 +128,17 @@ export function queryReportData(
     reportCode,
     filters
   });
+}
+
+// 服务端 PDF 导出（R2-12）：单卡聚合结果表格 PDF，filters 与页面全局筛选同结构
+export function exportReportPdf(
+  dashboardCode: string,
+  reportCode: string,
+  filters?: ReportDatasetNamespace.ReportFilter[]
+) {
+  return request.post<Blob>(
+    '/dynamic/back/report/data/export/pdf',
+    { dashboardCode, reportCode, filters },
+    { responseType: 'blob' }
+  );
 }

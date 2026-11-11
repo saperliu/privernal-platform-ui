@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import * as XLSX from 'xlsx';
-import { findReportDashboardDetail, queryReportData } from '@/service';
+import { exportReportPdf, findReportDashboardDetail, queryReportData } from '@/service';
 import { useLoading } from '@/hooks';
 import { getQueryString } from '@/utils';
 
@@ -46,15 +46,32 @@ const cards = ref<ChartCardModel[]>([]);
 const dashboardName = ref('');
 const loadError = ref('');
 
-/** 看板级过滤：选一个各卡片共用的维度字段做包含过滤，没有该字段的卡不受影响 */
-const filterField = ref<string | null>(null);
-const filterKeyword = ref('');
+/** 看板级全局筛选（R2-12）：多条件行，字段候选来自各卡维度∪度量的并集 */
+interface GlobalFilterRow {
+  field: string;
 
-function dimensionFields(card: ChartCardModel) {
-  return (card.report?.config?.dimensions ?? []).map(dim => dim.field).filter(Boolean);
+  op: ReportDatasetNamespace.ReportFilter['op'];
+
+  value: string;
 }
 
-const filterFieldOptions = computed(() => {
+const FILTER_OP_OPTIONS: Array<{ label: string; value: ReportDatasetNamespace.ReportFilter['op'] }> = [
+  { label: '等于', value: 'eq' },
+  { label: '不等于', value: 'ne' },
+  { label: '包含', value: 'like' },
+  { label: '大于', value: 'gt' },
+  { label: '大于等于', value: 'ge' },
+  { label: '小于', value: 'lt' },
+  { label: '小于等于', value: 'le' }
+];
+
+const filterRows = ref<GlobalFilterRow[]>([]);
+
+function addFilterRow() {
+  filterRows.value.push({ field: '', op: 'eq', value: '' });
+}
+
+const globalFieldOptions = computed(() => {
   const labels = new Map<string, string>();
   cards.value.forEach(card => {
     (card.report?.config?.dimensions ?? []).forEach((dim, index) => {
@@ -62,10 +79,27 @@ const filterFieldOptions = computed(() => {
         labels.set(dim.field, card.dimensionLabels[index] || dim.field);
       }
     });
+    (card.report?.config?.measures ?? []).forEach((measure, index) => {
+      if (measure.field) {
+        labels.set(measure.field, card.measureLabels[index] || measure.field);
+      }
+    });
   });
   // 过滤按字段编码下发，选项里同时给出中文名，避免只看到一列英文编码
   return [...labels].map(([value, label]) => ({ label: label === value ? value : `${label}（${value}）`, value }));
 });
+
+/** 卡片可下发的字段集合：维度∪度量。该卡没有的字段不下发，避免后端按不存在的列过滤直接报错 */
+function cardFields(card: ChartCardModel) {
+  const fields = new Set<string>();
+  (card.report?.config?.dimensions ?? []).forEach(dim => {
+    if (dim.field) fields.add(dim.field);
+  });
+  (card.report?.config?.measures ?? []).forEach(measure => {
+    if (measure.field) fields.add(measure.field);
+  });
+  return fields;
+}
 
 /** 后端未回传度量别名时按度量个数兜底：首个度量固定叫 value，其余 m1、m2… */
 function defaultMeasureAliases(count: number) {
@@ -110,30 +144,48 @@ function exportCard(card: ChartCardModel) {
   XLSX.writeFile(workbook, `${card.item.title || card.report?.reportName || '报表数据'}.xlsx`);
 }
 
-/** 下钻：携带维度值跳到底层表列表页（dynamic-data-list 支持查询参初始过滤） */
+/** 服务端 PDF 导出（R2-12）：与页面同一份数据链路（后端按 /query 同口径取数），带当前全局筛选 */
+async function exportCardPdf(card: ChartCardModel) {
+  const res = await exportReportPdf(dashboardCode.value, card.report?.reportCode ?? '', runtimeFilters(card));
+  if (res.error !== null || !res.data) {
+    window.$message?.error(res.error?.message || 'PDF 导出失败');
+    return;
+  }
+  const url = URL.createObjectURL(res.data);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `${card.item.title || card.report?.reportName || '报表数据'}.pdf`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+/** 下钻（R2-12 配置化）：携带维度值跳到底层表列表页（dynamic-data-list 支持查询参初始过滤）。
+ * config 无 drill 键的存量图按旧行为处理（可下钻、第一维度、目标=lookup||数据集主表）；
+ * 配了 drill 以 enabled 为准——关闭即禁用。 */
 function handleDrillDown(card: ChartCardModel, row: ReportChartNamespace.AggRow) {
   const report = card.report;
   if (!report?.datasetCode) return;
-  const dim = report.config?.dimensions?.[0];
+  const drill = report.config?.drill;
+  if (drill && !drill.enabled) return;
+  const dimensions = report.config?.dimensions ?? [];
+  const index = Math.min(Math.max(drill?.dimensionIndex ?? 0, 0), Math.max(dimensions.length - 1, 0));
+  const dim = dimensions[index];
   if (!dim?.field) return;
-  const dimValue = row.dim0Code ?? row.dim0;
+  const dimValue = row[`dim${index}Code`] ?? row[`dim${index}`];
   if (dimValue === undefined || dimValue === null || dimValue === '') return;
-  // 配了 lookup 的维度，下钻目标是关联表本身
-  const targetTable = dim.lookup?.targetTableCode || report.datasetCode;
+  // 配了 lookup 的维度，下钻目标默认是关联表本身；显式配置的目标表优先
+  const targetTable = drill?.targetTableCode || dim.lookup?.targetTableCode || report.datasetCode;
   router.push({ path: `/builder/${targetTable}`, query: { [`f_${dim.field}`]: String(dimValue) } });
 }
 
 function runtimeFilters(card: ChartCardModel): ReportDatasetNamespace.ReportFilter[] | undefined {
-  const field = filterField.value;
-  const value = filterKeyword.value.trim();
-  if (!field || !value) {
+  const rows = filterRows.value.filter(
+    row => row.field && row.value !== '' && row.value !== null && cardFields(card).has(row.field)
+  );
+  if (rows.length === 0) {
     return undefined;
   }
-  // 只对该字段属于本卡维度的卡片下发，避免后端按不存在的列过滤直接报错
-  if (!dimensionFields(card).includes(field)) {
-    return undefined;
-  }
-  return [{ field, op: 'like', value }];
+  return rows.map(row => ({ field: row.field, op: row.op, value: row.value }));
 }
 
 async function loadCardData(index: number) {
@@ -204,8 +256,7 @@ function applyFilter() {
 }
 
 function clearFilter() {
-  filterField.value = null;
-  filterKeyword.value = '';
+  filterRows.value = [];
   reloadCards();
 }
 
@@ -220,30 +271,35 @@ onMounted(() => {
       <div class="h-full flex-col overflow-hidden">
         <div class="mb-12px flex flex-wrap items-center gap-12px">
           <div class="text-18px font-600">{{ dashboardName }}</div>
-          <div class="flex flex-1 items-center justify-end gap-8px">
-            <ElSelect
-              v-model="filterField"
+          <div class="flex flex-1 flex-wrap items-center justify-end gap-8px">
+            <template v-for="(row, index) in filterRows" :key="index">
+              <ElSelect v-model="row.field" size="small" class="w-170px" clearable filterable placeholder="字段">
+                <ElOption v-for="opt in globalFieldOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+              </ElSelect>
+              <ElSelect v-model="row.op" size="small" class="w-90px">
+                <ElOption v-for="opt in FILTER_OP_OPTIONS" :key="opt.value" :label="opt.label" :value="opt.value" />
+              </ElSelect>
+              <ElInput
+                v-model="row.value"
+                size="small"
+                class="w-150px"
+                clearable
+                placeholder="值"
+                @keyup.enter="applyFilter"
+              />
+              <ElButton size="small" quaternary @click="filterRows.splice(index, 1)">删</ElButton>
+            </template>
+            <ElButton size="small" tertiary @click="addFilterRow">+ 条件</ElButton>
+            <ElButton
               size="small"
-              class="w-180px"
-              clearable
-              filterable
-              tag
-              placeholder="按维度字段过滤"
+              type="primary"
+              secondary
+              :disabled="!filterRows.some(row => row.field && row.value !== '')"
+              @click="applyFilter"
             >
-              <ElOption v-for="opt in filterFieldOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
-            </ElSelect>
-            <ElInput
-              v-model="filterKeyword"
-              size="small"
-              class="w-200px"
-              clearable
-              placeholder="维度值包含"
-              @keyup.enter="applyFilter"
-            />
-            <ElButton size="small" type="primary" secondary :disabled="!filterKeyword.trim()" @click="applyFilter">
               应用
             </ElButton>
-            <ElButton size="small" :disabled="!filterKeyword && !filterField" @click="clearFilter">清除</ElButton>
+            <ElButton size="small" :disabled="filterRows.length === 0" @click="clearFilter">清除</ElButton>
             <ElButton size="small" tertiary @click="load">刷新</ElButton>
           </div>
         </div>
@@ -260,7 +316,10 @@ onMounted(() => {
                 class="h-320px rounded-8px"
               >
                 <template #header-extra>
-                  <ElButton quaternary size="small" @click="exportCard(card)">导出</ElButton>
+                  <ElSpace :size="4">
+                    <ElButton quaternary size="small" @click="exportCardPdf(card)">PDF</ElButton>
+                    <ElButton quaternary size="small" @click="exportCard(card)">导出</ElButton>
+                  </ElSpace>
                 </template>
                 <ChartCard
                   v-if="card.loaded && card.report"

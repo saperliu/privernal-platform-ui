@@ -3,7 +3,7 @@
  * 节点属性扩展面板（挂在 warm-flow 设计器 node-form-extra 插槽）
  *  - 抄送节点（ext.nodeKind=cc）：仅「抄送人员」，其余分区隐藏
  *  - 审批节点：按设置内容分成顶部页签——办理人 / 规则（节点流转规则+超时+节点规则）/ 表单权限（字段 可见/编辑/必填）/ 流程按钮
- *    协作方式在设计器侧固定为票签（选择卡片已移除），票签策略/策略值/驳回目标在本面板「节点流转规则」区维护
+ *    协作方式（或签/票签/会签）在「节点流转规则」区选择，票签策略/策略值/驳回目标同区维护
  *  - 开始/结束/网关节点：不渲染本面板（属性抽屉只保留节点编码/名称）
  * 人员/超时/节点规则/流转规则直接写节点 permissionFlag/ext/nodeRatio/anyNodeSkip，随设计器保存链路落库；
  * 字段/按钮权限持久化到 flow_form_version 草稿按节点合并
@@ -13,6 +13,7 @@ import type { PropType } from 'vue';
 import {
   findDynamicFormByCode,
   findDynamicFormColumnList,
+  findFlowDefinitionList,
   findFlowFormVersionDetail,
   findFlowFormVersionList,
   findSystemDepartmentList,
@@ -91,6 +92,60 @@ function parseExt(val: any): Record<string, any> {
 }
 
 const isCcNode = computed(() => parseExt(props.form?.ext)[EXT_NODE_KIND] === 'cc');
+
+/** ===== 子流程节点（ext.nodeKind=subflow，R2-18 ②） =====
+ * 运行时由后端 FlowSubflowTaskHandler 桥接：审批到达本节点自动发起所选流程的已发布版本，
+ * 父流程停在本节点等待；子流程办结后沿本节点出线自动流转。ext.subflowCode 存目标流程编码。
+ */
+const EXT_SUBFLOW_CODE = 'subflowCode';
+const isSubflowNode = computed(() => parseExt(props.form?.ext)[EXT_NODE_KIND] === 'subflow');
+
+const subflowOptions = ref<Array<{ label: string; value: string }>>([]);
+const subflowLoading = ref(false);
+/** 已加载过则复用（切换节点不重复拉取；列表随流程发布变化，失败可重开抽屉重试） */
+let subflowOptionsLoaded = false;
+
+async function loadSubflowOptions() {
+  if (subflowOptionsLoaded || subflowLoading.value) return;
+  subflowLoading.value = true;
+  try {
+    const res = await findFlowDefinitionList({ pageNum: 1, pageSize: 200, keywords: [], isPublish: 1 } as any);
+    const rows = pickPageRows(res.data);
+    subflowOptions.value = rows
+      .filter((row: any) => row.isPublish === 1 && row.flowCode !== props.flowCode)
+      .map((row: any) => ({
+        label: `${row.flowName}（v${row.version}）`,
+        value: String(row.flowCode)
+      }));
+    subflowOptionsLoaded = true;
+  } finally {
+    subflowLoading.value = false;
+  }
+}
+
+const subflowCode = computed({
+  get: () => String(parseExt(props.form?.ext)[EXT_SUBFLOW_CODE] ?? ''),
+  set: (code: string) => {
+    const form = props.form;
+    if (!form) return;
+    const ext = parseExt(form.ext);
+    ext[EXT_NODE_KIND] = 'subflow';
+    if (code) {
+      ext[EXT_SUBFLOW_CODE] = code;
+    } else {
+      Reflect.deleteProperty(ext, EXT_SUBFLOW_CODE);
+    }
+    form.ext = ext;
+  }
+});
+
+watch(
+  isSubflowNode,
+  val => {
+    if (val) loadSubflowOptions();
+  },
+  { immediate: true }
+);
 
 /** ===== 人员设置（办理人/抄送人员，值带类型前缀，运行时由后端解析） ===== */
 const approverFlags = ref<string[]>([]);
@@ -210,10 +265,38 @@ async function retryLoadHandlerNames() {
   await loadHandlerNames();
 }
 
-/** ===== 节点流转规则（票签策略/策略值/驳回到指定节点） =====
- * 协作方式固定为票签（设计器已隐藏选择），策略读写节点 nodeRatio/nodeRatioType/nodeRatioValue，
- * 由设计器内部 watcher 自动同步画布并随流程保存；固定人数策略保存时转入节点 ext（voteType 等）。
+/** ===== 节点流转规则（协作方式/票签策略/策略值/驳回到指定节点） =====
+ * 协作方式（R2-18）：或签=一人通过即过（nodeRatio 0）/ 票签=比例或固定人数 / 会签=全员通过才过（nodeRatio 100）。
+ * way 写 form.collaborativeWay，设计器内部 watcher 落 nodeRatio；固定人数策略保存时转入节点 ext（voteType 等）。
+ * 切走票签时同步清策略与 ext 票签键，避免后端仍按数量票签计数（skipWithCountVote 优先看 ext.voteType）。
  */
+const WAY_OPTIONS = [
+  { label: '或签（一人通过即过）', value: '1' },
+  { label: '票签（比例或固定人数）', value: '2' },
+  { label: '会签（全员通过才过）', value: '3' }
+];
+const EXT_VOTE_KEYS = ['voteType', 'voteCount', 'voteRejectCount'];
+const isTicketVote = computed(() => ((props.form as any)?.collaborativeWay || '2') === '2');
+
+function onCollaborativeWayChange(value: string) {
+  const form = props.form as any;
+  if (!form) return;
+  form.collaborativeWay = value;
+  if (value === '2') {
+    // 切回票签：给一组默认策略，Between 内部 watcher 会拼出 nodeRatio='50'
+    if (!form.nodeRatioType) {
+      form.nodeRatioType = 'passRatio';
+      form.nodeRatioValue = '50';
+    }
+    return;
+  }
+  // 或签/会签：票签策略不再适用，清策略（nodeRatio 由设计器 watcher 落 0/100），剥 ext 票签键
+  form.nodeRatioType = '';
+  form.nodeRatioValue = '';
+  const ext = parseExt(form.ext);
+  EXT_VOTE_KEYS.forEach(key => Reflect.deleteProperty(ext, key));
+  form.ext = ext;
+}
 interface RatioStrategy {
   label: string;
   value: string;
@@ -651,6 +734,34 @@ async function initDraft() {
       </ElForm>
     </template>
 
+    <!-- 子流程节点：仅子流程定义选择 -->
+    <template v-else-if="isSubflowNode">
+      <ElDivider title-placement="left">子流程设置</ElDivider>
+      <ElForm :label-width="110" size="small" :show-feedback="false" label-position="left">
+        <ElFormItem label="子流程">
+          <ElSelect
+            v-model="subflowCode"
+            filterable
+            clearable
+            placeholder="选择已发布的流程"
+            :loading="subflowLoading"
+            :disabled="disabled"
+          >
+            <ElOption v-for="opt in subflowOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+          </ElSelect>
+          <div v-if="!subflowCode" class="ratio-warning">
+            请选择子流程定义，未选择时保存校验会被拦截
+          </div>
+        </ElFormItem>
+        <ElFormItem label="运行说明">
+          <span class="perm-tip">
+            审批到达本节点时自动发起所选流程的已发布版本，父流程停在本节点等待；
+            子流程办结后自动流转到下一节点。发起参数沿用父流程变量（全量透传）。
+          </span>
+        </ElFormItem>
+      </ElForm>
+    </template>
+
     <!-- 审批节点完整配置：按设置内容分组到顶部页签，避免一屏长滚动 -->
     <ElTabs v-else v-model="activePermTab" size="small" class="perm-tabs" :tabs-padding="6">
       <template #suffix>
@@ -704,7 +815,16 @@ async function initDraft() {
       <ElTabPane name="rule" label="规则" display-directive="show:lazy">
         <ElDivider title-placement="left">节点流转规则</ElDivider>
         <ElForm :label-width="110" size="small" :show-feedback="false" label-position="left">
-          <ElFormItem label="票签策略">
+          <ElFormItem label="协作方式">
+            <ElSelect
+              :model-value="(form as any).collaborativeWay || '2'"
+              :disabled="disabled"
+              @change="onCollaborativeWayChange"
+            >
+              <ElOption v-for="opt in WAY_OPTIONS" :key="opt.value" :label="opt.label" :value="opt.value" />
+            </ElSelect>
+          </ElFormItem>
+          <ElFormItem v-if="isTicketVote" label="票签策略">
             <ElSelect
               :model-value="(form as any).nodeRatioType || null"
               placeholder="请选择策略类型"
@@ -714,7 +834,7 @@ async function initDraft() {
               <ElOption v-for="opt in ratioStrategyOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
             </ElSelect>
           </ElFormItem>
-          <ElFormItem v-if="voteStrategy" label="策略值">
+          <ElFormItem v-if="isTicketVote && voteStrategy" label="策略值">
             <div class="ratio-value-wrap">
               <div v-if="voteStrategy.numeric" class="ratio-value-row">
                 <ElInputNumber
@@ -792,7 +912,7 @@ async function initDraft() {
         </ElForm>
         <div class="perm-tip">
           找不到办理人时：「交给组织管理员」（含未配置，默认）会把组织负责人写成本节点办理人、任务停在本节点等审批；「自动进入下一节点」则直接跳过该节点且不留办理人。两者互斥。
-          票签策略与驳回目标写入节点流转属性，超时规则写入节点扩展属性，均随流程画布保存落库。
+          协作方式/票签策略与驳回目标写入节点流转属性，超时规则写入节点扩展属性，均随流程画布保存落库。
           「消息发送」选项已移除：消息推送通道就绪前该配置无任何后端消费，保留只会误导配置者
         </div>
       </ElTabPane>

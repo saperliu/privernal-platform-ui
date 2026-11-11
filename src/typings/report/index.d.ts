@@ -19,6 +19,33 @@ declare namespace ReportDatasetNamespace {
     value: string | number | null;
   }
 
+  /**
+   * 可关联项（R2-12）：服务端按主表元数据 + dynamic_form_relation 登记解析后的清单，
+   * 设计器「关联统计」只展示这里返回的项——选了就能保存成功。
+   */
+  interface DatasetJoinOption {
+    /** subTable=子表（ON parent_id），relation=引用关联（ON 目标表.id） */
+    type: 'subTable' | 'relation';
+
+    /** 主表的关联字段编码 */
+    field: string;
+
+    /** 子表标签或目标表名 */
+    label: string;
+
+    /** relation 关联的目标表逻辑编码 */
+    targetTableCode?: string;
+  }
+
+  /** 数据集快照里的关联段：服务端在保存/刷新时按意图重解析落定 */
+  interface DatasetJoinMeta {
+    type: 'subTable' | 'relation';
+
+    field: string;
+
+    label: string;
+  }
+
   interface Dataset {
     id?: string;
 
@@ -37,7 +64,24 @@ declare namespace ReportDatasetNamespace {
 
     appId?: string;
 
-    columnSnapshot?: { columns: DatasetColumn[] } | null;
+    columnSnapshot?:
+      | {
+          columns: DatasetColumn[];
+          /**
+           * 读取时是服务端落定的解析值（带 label/physicalTable/columns）；保存时提交的是
+           * 意图（带 tableCode）——服务端不信任提交值，保存/刷新都会按登记关系重解析。
+           * columns 是关联表列清单（fieldCode 已带「{field}_{列}」前缀），图表可直接选作维度/度量。
+           */
+          joins?: Array<{
+            type: 'subTable' | 'relation';
+            field: string;
+            label?: string;
+            tableCode?: string;
+            physicalTable?: string;
+            columns?: Array<DatasetColumn & { column?: string }>;
+          }> | null;
+        }
+      | null;
 
     defaultFilter?: { filters: ReportFilter[] } | null;
   }
@@ -143,6 +187,21 @@ declare namespace ReportChartNamespace {
 
     /** TopN 与「其他」归并（M4.4） */
     topN?: TopNConfig | null;
+
+    /**
+     * 下钻配置（R2-12）：点击图表维度值跳到底层表列表页（dynamic-data-list 支持
+     * f_字段=值 初始过滤）。config 里没有 drill 键时按旧行为处理（可下钻、第一维度、
+     * 目标=lookup||数据集主表）；配了 drill 就以 enabled 为准——关闭即禁用。
+     */
+    drill?: {
+      enabled: boolean;
+
+      /** 下钻维度下标，缺省第一个维度 */
+      dimensionIndex?: number;
+
+      /** 目标表逻辑编码，留空 = 维度 lookup 的目标表 || 数据集主表 */
+      targetTableCode?: string | null;
+    } | null;
   }
 
   /** 过滤条件树节点：组有 op + when，叶子有 field + op + value */
