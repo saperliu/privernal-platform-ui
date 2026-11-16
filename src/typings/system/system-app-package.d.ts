@@ -8,6 +8,25 @@ declare namespace AppPackageNamespace {
 
     exportedAt?: string;
 
+    /** specVersion 1.5 起：模板市场元数据（官方模板包必填，普通应用包为空） */
+    template?: TemplateMeta;
+
+    /** specVersion 1.5 起：包内引用的字典类型+数据项（导入按 dictType 幂等补缺） */
+    dicts?: DictTypePackage[];
+
+    /** specVersion 1.5 起：源环境角色菜单绑定（按 roleKey 匹配目标环境角色重挂） */
+    roleBindings?: RoleBinding[];
+
+    /** specVersion 1.5 起：包体校验和 sha256(canonical) */
+    checksum?: string;
+
+    signatureAlgorithm?: string;
+
+    signedAt?: string;
+
+    /** specVersion 1.5 起：HMAC-SHA256 包签名（密钥随环境主密钥走） */
+    signature?: string;
+
     app: App;
 
     forms: Form[];
@@ -142,17 +161,76 @@ declare namespace AppPackageNamespace {
     sort?: number;
   }
 
+  interface TemplateMeta {
+    /** 模板编码（模板列表主键） */
+    code: string;
+
+    name?: string;
+
+    /** 行业/场景分类 */
+    category?: string;
+
+    description?: string;
+
+    /** 模板自身版本（独立于包结构 specVersion） */
+    version?: string;
+
+    /** official=官方内置，custom=客户沉淀 */
+    author?: string;
+  }
+
+  interface DictTypePackage {
+    dictType: string;
+
+    dictName?: string;
+
+    status?: number;
+
+    dataList?: DictDataPackage[];
+  }
+
+  interface DictDataPackage {
+    dictValue: string;
+
+    dictLabel?: string;
+
+    dictSort?: number;
+
+    cssClass?: string;
+
+    listClass?: string;
+
+    isDefault?: string;
+
+    status?: number;
+  }
+
+  interface RoleBinding {
+    /** 角色编码（跨环境业务键） */
+    roleKey: string;
+
+    roleName?: string;
+
+    /** 该角色在源环境被授权的应用菜单编码清单 */
+    menuCodes?: string[];
+  }
+
   interface ImportResult {
     appCode?: string;
 
     /** 应用本身是新建还是复用 */
     appAction?: string;
 
+    /** 签名回执（1.5 起）：已验签/验签失败/未签名/无法验签（未配主密钥） */
+    signatureStatus?: string;
+
+    signatureDetail?: string;
+
     items: ImportItem[];
   }
 
   interface ImportItem {
-    /** app / form / flow / flowForm */
+    /** app / form / flow / flowForm / dataset / report / dashboard / datavScreen / datavAsset / schedule / docTemplate / dict / roleBinding */
     type: string;
 
     code: string;
@@ -161,5 +239,71 @@ declare namespace AppPackageNamespace {
     action: string;
 
     message?: string;
+  }
+
+  /** dry-run 预检报告（1.5 起）：解析包并比对目标环境后的「将发生什么」，全程只读 */
+  interface DryRunResult {
+    appCode?: string;
+
+    appName?: string;
+
+    specVersion?: string;
+
+    /** verified / mismatch / notSigned / keyMissing */
+    signatureStatus?: string;
+
+    signatureDetail?: string;
+
+    checksumMatch?: boolean;
+
+    signatureKeyConfigured?: boolean;
+
+    overwrite?: boolean;
+
+    items: DryRunItem[];
+
+    warnings: string[];
+  }
+
+  interface DryRunItem {
+    type: string;
+
+    code: string;
+
+    name?: string;
+
+    /** create / update / skip / reuse / conflict */
+    predicted: string;
+
+    message?: string;
+  }
+
+  /** 官方模板列表行（manifest 展示面，不解析包体） */
+  interface TemplateSummary {
+    code: string;
+
+    name?: string;
+
+    category?: string;
+
+    description?: string;
+
+    version?: string;
+
+    author?: string;
+
+    appCode?: string;
+
+    appName?: string;
+
+    formCount?: number;
+
+    flowCount?: number;
+
+    screenCount?: number;
+
+    dictCount?: number;
+
+    specVersion?: string;
   }
 }

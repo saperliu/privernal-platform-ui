@@ -55,6 +55,7 @@ declare module "@elegant-router/types" {
     "flow_done": "/flow/done";
     "flow_form-config": "/flow/form-config";
     "flow_instance": "/flow/instance";
+    "flow_stats": "/flow/stats";
     "flow_todo": "/flow/todo";
     "home": "/home";
     "iframe-page": "/iframe-page/:url";
@@ -86,6 +87,7 @@ declare module "@elegant-router/types" {
     "system_app-info": "/system/app-info";
     "system_app-menu": "/system/app-menu";
     "system_app-path": "/system/app-path";
+    "system_app-template-market": "/system/app-template-market";
     "system_app-workflow": "/system/app-workflow";
     "system_common-group": "/system/common-group";
     "system_common-group-menu": "/system/common-group-menu";
@@ -100,6 +102,7 @@ declare module "@elegant-router/types" {
     "system_openapi-app": "/system/openapi-app";
     "system_organization": "/system/organization";
     "system_organization-app": "/system/organization-app";
+    "system_permission-audit": "/system/permission-audit";
     "system_position": "/system/position";
     "system_role": "/system/role";
     "system_role-group": "/system/role-group";
@@ -226,6 +229,7 @@ declare module "@elegant-router/types" {
     | "flow_done"
     | "flow_form-config"
     | "flow_instance"
+    | "flow_stats"
     | "flow_todo"
     | "home"
     | "job_alarm"
@@ -248,6 +252,7 @@ declare module "@elegant-router/types" {
     | "system_app-info"
     | "system_app-menu"
     | "system_app-path"
+    | "system_app-template-market"
     | "system_app-workflow"
     | "system_common-group-menu"
     | "system_common-group"
@@ -262,6 +267,7 @@ declare module "@elegant-router/types" {
     | "system_openapi-app"
     | "system_organization-app"
     | "system_organization"
+    | "system_permission-audit"
     | "system_position"
     | "system_role-group"
     | "system_role"

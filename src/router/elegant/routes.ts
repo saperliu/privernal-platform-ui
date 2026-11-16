@@ -233,6 +233,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'flow_stats',
+        path: '/flow/stats',
+        component: 'view.flow_stats',
+        meta: {
+          title: 'flow_stats',
+          i18nKey: 'route.flow_stats'
+        }
+      },
+      {
         name: 'flow_todo',
         path: '/flow/todo',
         component: 'view.flow_todo',
@@ -531,6 +540,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'system_app-template-market',
+        path: '/system/app-template-market',
+        component: 'view.system_app-template-market',
+        meta: {
+          title: 'system_app-template-market',
+          i18nKey: 'route.system_app-template-market'
+        }
+      },
+      {
         name: 'system_app-workflow',
         path: '/system/app-workflow',
         component: 'view.system_app-workflow',
@@ -654,6 +672,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'system_organization-app',
           i18nKey: 'route.system_organization-app'
+        }
+      },
+      {
+        name: 'system_permission-audit',
+        path: '/system/permission-audit',
+        component: 'view.system_permission-audit',
+        meta: {
+          title: 'system_permission-audit',
+          i18nKey: 'route.system_permission-audit'
         }
       },
       {
