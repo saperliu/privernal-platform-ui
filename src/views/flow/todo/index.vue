@@ -10,6 +10,7 @@ import {
   ElForm as __forwarded_ElForm,
   ElFormItem as __forwarded_ElFormItem,
   ElInput as __forwarded_ElInput,
+  ElOption as __forwarded_ElOption,
   ElRadioButton as __forwarded_ElRadioButton,
   ElRadioGroup as __forwarded_ElRadioGroup,
   ElSelect as __forwarded_ElSelect,
@@ -18,14 +19,17 @@ import {
 import {
   addSignFlowTask,
   approveFlowTask,
+  batchApproveFlowTask,
   delegateFlowTask,
   findFlowTaskOptions,
   findFlowTodoList,
+  findSystemDictionaryDataList,
   findSystemUserList,
   jumpFlowTask,
   reduceSignFlowTask,
   rejectFlowTask,
-  transferFlowTask
+  transferFlowTask,
+  urgeFlowTask
 } from '@/service';
 import { useLoading } from '@/hooks';
 import { formatDateTime } from '@/utils';
@@ -53,6 +57,8 @@ const ElRadioButton = __forwarded_ElRadioButton;
 const ElRadioGroup = __forwarded_ElRadioGroup;
 // 模板绑定显式转发（规避编译产物 setup 绑定缺失）
 const ElSelect = __forwarded_ElSelect;
+// 模板绑定显式转发（规避编译产物 setup 绑定缺失）
+const ElOption = __forwarded_ElOption;
 // 模板绑定显式转发（规避编译产物 setup 绑定缺失）
 const ElSpace = __forwarded_ElSpace;
 
@@ -122,6 +128,82 @@ const gatewayNodeTypes = [3, 4];
 
 const { loading, startLoading, endLoading } = useLoading(false);
 const tableData = ref<FlowNamespace.Task[]>([]);
+
+/** R2-17 批量通过：勾选任务 */
+const checkedRowKeys = ref<string[]>([]);
+const batchApproving = ref(false);
+
+async function handleBatchApprove() {
+  if (!checkedRowKeys.value.length) {
+    window.$message?.warning('请先勾选待办任务');
+    return;
+  }
+  batchApproving.value = true;
+  try {
+    const { data, error } = await batchApproveFlowTask({ taskIds: checkedRowKeys.value, message: '' });
+    if (error !== null) return;
+    const ok = data?.filter(item => item.ok) ?? [];
+    const failed = data?.filter(item => !item.ok) ?? [];
+    if (failed.length) {
+      window.$message?.warning(`批量通过完成：成功 ${ok.length} 条，失败 ${failed.length} 条（${failed[0].message ?? '办理失败'}）`);
+    } else {
+      window.$message?.success(`批量通过完成：成功 ${ok.length} 条`);
+    }
+    checkedRowKeys.value = [];
+    getTableData();
+  } finally {
+    batchApproving.value = false;
+  }
+}
+
+/** R2-17 催办：行内催办（说明可空），同任务同催办人 10 分钟限频由后端控制 */
+const showUrge = ref(false);
+const urgeTask = ref<FlowNamespace.Task | null>(null);
+const urgeComment = ref('');
+const urging = ref(false);
+
+function openUrge(task: FlowNamespace.Task) {
+  urgeTask.value = task;
+  urgeComment.value = '';
+  showUrge.value = true;
+}
+
+async function submitUrge() {
+  if (!urgeTask.value) return;
+  urging.value = true;
+  try {
+    const { error } = await urgeFlowTask(urgeTask.value.id, urgeComment.value);
+    if (error !== null) return;
+    window.$message?.success('催办已发送');
+    showUrge.value = false;
+  } finally {
+    urging.value = false;
+  }
+}
+
+/** R2-17 意见模板：审批意见弹窗快捷填充（字典 flow_opinion_template，管理入口=字典管理） */
+const opinionTemplates = ref<Array<{ label: string; value: string }>>([]);
+let opinionLoaded = false;
+
+async function loadOpinionTemplates() {
+  if (opinionLoaded) return;
+  const { data, error } = await findSystemDictionaryDataList({
+    pageNum: 1,
+    pageSize: 100,
+    dictType: 'flow_opinion_template',
+    dictLabel: null,
+    dictValue: null
+  } as any);
+  if (error === null && data?.list) {
+    opinionTemplates.value = data.list.map(item => ({ label: item.dictLabel, value: item.dictValue }));
+    opinionLoaded = true;
+  }
+}
+
+function applyOpinionTemplate(value: string) {
+  if (!value) return;
+  actionForm.message = value;
+}
 
 const defaultPageNum = 1;
 const defaultPageSize = 20;
@@ -307,6 +389,8 @@ function openActionModal(task: FlowNamespace.Task, type: ActionType) {
   if (needSystemUserActions.includes(type) && !userOptions.value.length) {
     searchUsers('');
   }
+  // R2-17 意见模板（审批/驳回弹窗的快捷意见）
+  loadOpinionTemplates();
 }
 
 /** 待办操作列按钮项（来自按钮配置或内置回退集）；viewForm 为只读查看，不触发任务办理 */
@@ -427,6 +511,11 @@ function handleShowForm(row: FlowNamespace.Task) {
 
 const columns: Ref<DataTable.Column<FlowNamespace.Task>[]> = ref([
   {
+    type: 'selection',
+    width: 42,
+    align: 'center'
+  },
+  {
     key: 'flowName',
     title: '标题',
     minWidth: 180,
@@ -508,6 +597,10 @@ const columns: Ref<DataTable.Column<FlowNamespace.Task>[]> = ref([
               {btn.label}
             </ElButton>
           ))}
+          {/* R2-17 催办：始终可用（同任务同催办人 10 分钟限频由后端控制） */}
+          <ElButton size="small" type="warning" plain onClick={() => openUrge(row)}>
+            催办
+          </ElButton>
         </ElSpace>
       );
     }
@@ -551,9 +644,20 @@ getTableData();
           <span class="whitespace-nowrap text-13px color-gray">接收时间</span>
           <ElDatePicker v-model="timeRange" type="daterange" value-format="YYYY-MM-DD" clearable class="w-280px" />
         </div>
+        <div class="ml-auto flex items-center gap-8px">
+          <ElButton
+            type="success"
+            :disabled="!checkedRowKeys.length"
+            :loading="batchApproving"
+            @click="handleBatchApprove"
+          >
+            批量通过{{ checkedRowKeys.length ? `（${checkedRowKeys.length}）` : '' }}
+          </ElButton>
+        </div>
       </template>
 
       <DataTable
+        v-model:checked-row-keys="checkedRowKeys"
         :columns="columns"
         :data="tableData"
         :loading="loading"
@@ -564,6 +668,20 @@ getTableData();
         remote
       />
     </FlowListLayout>
+
+    <ElDialog v-model="showUrge" title="催办" class="w-480px" :close-on-click-modal="false">
+      <ElForm label-position="left" :label-width="90">
+        <ElFormItem label="催办说明">
+          <ElInput v-model="urgeComment" type="textarea" :rows="3" placeholder="留空使用默认催办文案" />
+        </ElFormItem>
+      </ElForm>
+      <template #footer>
+        <ElSpace alignment="end">
+          <ElButton @click="showUrge = false">取消</ElButton>
+          <ElButton type="primary" :loading="urging" @click="submitUrge">发送</ElButton>
+        </ElSpace>
+      </template>
+    </ElDialog>
 
     <FlowFormModal
       v-model:show="showForm"
@@ -652,7 +770,19 @@ getTableData();
           </ElSelect>
         </ElFormItem>
         <ElFormItem label="审批意见" path="message">
-          <ElInput v-model="actionForm.message" type="textarea" :rows="3" placeholder="请输入审批意见" />
+          <div class="w-full">
+            <ElSelect
+              v-if="opinionTemplates.length"
+              class="mb-8px w-full"
+              placeholder="选择意见模板快捷填充"
+              clearable
+              filterable
+              @change="applyOpinionTemplate"
+            >
+              <ElOption v-for="tpl in opinionTemplates" :key="tpl.value" :label="tpl.label" :value="tpl.value" />
+            </ElSelect>
+            <ElInput v-model="actionForm.message" type="textarea" :rows="3" placeholder="请输入审批意见" />
+          </div>
         </ElFormItem>
       </ElForm>
       <template #footer>

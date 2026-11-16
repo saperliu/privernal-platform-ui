@@ -274,3 +274,95 @@ export function restartFlowInstance(instanceId: string, targetNodeCode?: string,
 export function getFlowInstanceNodes(instanceId: string) {
   return request.get<FlowNamespace.FlowNodeInfoDTO[]>(`/system/back/flow/instance/nodes/${instanceId}`);
 }
+
+// ==================== R2-17 流程运营（催办/批量审批/离职移交/代理/评论/绩效/预测） ====================
+
+// 手动催办（同任务同催办人 10 分钟限频）
+export function urgeFlowTask(taskId: string, comment?: string) {
+  return request.post<Record<string, number>>(`/system/back/flow/task/urge/${taskId}`, { comment: comment ?? '' });
+}
+
+// 批量审批通过（逐条独立执行互不影响，结果按任务回带）
+export function batchApproveFlowTask(data: FlowNamespace.TaskHandle) {
+  return request.put<FlowNamespace.BatchApproveItem[]>('/system/back/flow/task/batch-approve', data);
+}
+
+// 离职移交：把移交人名下全部待办转办给接收人
+export function handoverFlowTasks(fromUserId: string, toUserId: string, message?: string) {
+  return request.post<FlowNamespace.HandoverResult>('/system/back/flow/task/handover', {
+    fromUserId,
+    toUserId,
+    message: message ?? ''
+  });
+}
+
+// ==================== 流程代理规则 ====================
+
+// 代理规则列表（userId 空=当前组织全部）
+export function findFlowDelegateList(params: { userId?: string }) {
+  return request.get<FlowNamespace.UserDelegate[]>('/system/back/flow/delegate/list', { params });
+}
+
+// 新增代理规则
+export function saveFlowDelegate(data: FlowNamespace.UserDelegate) {
+  return request.post<FlowNamespace.UserDelegate>('/system/back/flow/delegate/save', data);
+}
+
+// 修改代理规则
+export function updateFlowDelegate(data: FlowNamespace.UserDelegate) {
+  return request.put<FlowNamespace.UserDelegate>('/system/back/flow/delegate/edit', data);
+}
+
+// 删除代理规则（按 id 批量）
+export function delFlowDelegate(ids: string[]) {
+  return request.delete<number>(`/system/back/flow/delegate/${ids.join(',')}`, {});
+}
+
+// ==================== 流程实例评论 ====================
+
+// 评论分页（按实例，最新在前）
+export function findFlowCommentList(instanceId: string, pageNum = 1, pageSize = 20) {
+  return request.get<FlowNamespace.Page<FlowNamespace.TaskComment>>(
+    `/system/back/flow/comment/list/${instanceId}`,
+    { params: { pageNum, pageSize } }
+  );
+}
+
+// 发表评论
+export function saveFlowComment(data: FlowNamespace.TaskComment) {
+  return request.post<FlowNamespace.TaskComment>('/system/back/flow/comment/save', data);
+}
+
+// 删除评论（本人或超管）
+export function delFlowComment(id: string) {
+  return request.delete<number>(`/system/back/flow/comment/${id}`, {});
+}
+
+// ==================== 流程绩效统计 ====================
+
+// 实例总览
+export function findFlowStatsOverview(params?: { timeStart?: string; timeEnd?: string }) {
+  return request.get<Record<string, number>>('/system/back/flow/stats/overview', { params });
+}
+
+// 按流程定义统计
+export function findFlowStatsByDefinition(params?: { timeStart?: string; timeEnd?: string; limit?: number }) {
+  return request.get<FlowNamespace.StatsRow[]>('/system/back/flow/stats/definition', { params });
+}
+
+// 按节点统计历史停留
+export function findFlowStatsByNode(definitionId: string) {
+  return request.get<FlowNamespace.StatsRow[]>('/system/back/flow/stats/node', {
+    params: { definitionId }
+  });
+}
+
+// 在办负载 TOP N
+export function findFlowStatsHandlerWorkload(params?: { limit?: number }) {
+  return request.get<FlowNamespace.StatsRow[]>('/system/back/flow/stats/handler', { params });
+}
+
+// 流程预测（历史平均停留 → 剩余流转时间）
+export function predictFlowInstance(instanceId: string) {
+  return request.get<Record<string, any>>(`/system/back/flow/stats/predict/${instanceId}`);
+}

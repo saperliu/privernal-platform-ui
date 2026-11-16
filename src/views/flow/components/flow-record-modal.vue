@@ -2,8 +2,10 @@
 import type { Component } from 'vue';
 import { computed, ref, watch } from 'vue';
 import {
+  ElButton as __forwarded_ElButton,
   ElDialog as __forwarded_ElDialog,
   ElIcon as __forwarded_ElIcon,
+  ElInput as __forwarded_ElInput,
   ElTabPane as __forwarded_ElTabPane,
   ElTabs as __forwarded_ElTabs,
   ElTag as __forwarded_ElTag,
@@ -20,7 +22,17 @@ import {
   TimeOutline,
   GitNetworkOutline as __forwarded_GitNetworkOutline
 } from '@vicons/ionicons5';
-import { findFlowInstanceSubflowRels, findFlowRecordByInstanceId, findFlowStatusByBusinessId, findSystemUserList } from '@/service';
+import {
+  delFlowComment,
+  findFlowCommentList,
+  findFlowInstanceSubflowRels,
+  findFlowRecordByInstanceId,
+  findFlowStatusByBusinessId,
+  findSystemUserList,
+  predictFlowInstance,
+  saveFlowComment
+} from '@/service';
+import { useAuthStore } from '@/store';
 import { formatDateTime, getCnDate } from '@/utils';
 import { cooperateTypeLabels, flowStatusLabels, flowStatusTones, skipTypeLabels, skipTypeTones } from './flow-labels';
 import type { FlowTone } from './flow-labels';
@@ -313,9 +325,116 @@ watch(
     if (records.value.some(row => /^\d{3,}$/.test(String(row.approver || '')))) {
       userNames.value = await loadUserNames();
     }
+    // 评论与预测：随实例切换重置（页签懒加载后拉数据）
+    comments.value = [];
+    commentsTotal.value = 0;
+    commentsLoaded.value = false;
+    predict.value = null;
   },
   { immediate: true }
 );
+
+/** ===== R2-17 评论与附件 ===== */
+const authStore = useAuthStore();
+const selfUserId = computed(() => authStore.userInfo.userId);
+const comments = ref<FlowNamespace.TaskComment[]>([]);
+const commentsTotal = ref(0);
+const commentsLoading = ref(false);
+const commentsLoaded = ref(false);
+const commentContent = ref('');
+const commentSubmitting = ref(false);
+
+async function loadComments() {
+  if (!resolvedInstanceId.value || commentsLoading.value) return;
+  commentsLoading.value = true;
+  try {
+    const { data, error } = await findFlowCommentList(resolvedInstanceId.value);
+    if (error === null && data) {
+      comments.value = (data as any).list ?? (Array.isArray(data) ? data : []);
+      commentsTotal.value = comments.value.length;
+      commentsLoaded.value = true;
+    }
+  } finally {
+    commentsLoading.value = false;
+  }
+}
+
+async function submitComment() {
+  if (!resolvedInstanceId.value || !commentContent.value.trim()) {
+    window.$message?.warning('请输入评论内容');
+    return;
+  }
+  commentSubmitting.value = true;
+  try {
+    const { error } = await saveFlowComment({
+      instanceId: resolvedInstanceId.value,
+      content: commentContent.value.trim()
+    });
+    if (error !== null) return;
+    window.$message?.success('评论已发送');
+    commentContent.value = '';
+    loadComments();
+  } finally {
+    commentSubmitting.value = false;
+  }
+}
+
+async function deleteComment(id: string) {
+  const { error } = await delFlowComment(id);
+  if (error !== null) return;
+  window.$message?.success('已删除');
+  loadComments();
+}
+
+function parseAttachments(comment: FlowNamespace.TaskComment): Array<{ name: string; url: string }> {
+  try {
+    const list = comment.attachments ? JSON.parse(comment.attachments) : [];
+    return Array.isArray(list) ? list : [];
+  } catch {
+    return [];
+  }
+}
+
+/** ===== R2-17 流程预测（历史平均停留 → 预计剩余时长） ===== */
+const predict = ref<Record<string, any> | null>(null);
+const predictLoading = ref(false);
+
+function formatDuration(seconds: number): string {
+  if (!seconds || seconds <= 0) return '0 分钟';
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  const minutes = Math.max(1, Math.round((seconds % 3600) / 60));
+  if (days > 0) return `${days} 天 ${hours} 小时`;
+  if (hours > 0) return `${hours} 小时 ${minutes} 分钟`;
+  return `${minutes} 分钟`;
+}
+
+const predictText = computed(() => {
+  const p = predict.value;
+  if (!p) return '';
+  if (!p.running) return '流程已结束';
+  if (!p.sampled) {
+    return '历史样本不足，暂无法预测剩余时长';
+  }
+  return `按历史平均停留预计还需 ${formatDuration(Number(p.predictedSeconds))}，预计完成 ${formatDateTime(p.predictedTime)}`;
+});
+
+watch(activeTab, tab => {
+  if (tab === 'comments') {
+    if (!commentsLoaded.value) loadComments();
+    if (!predict.value && resolvedInstanceId.value) {
+      predictLoading.value = true;
+      predictFlowInstance(resolvedInstanceId.value)
+        .then(({ data }) => {
+          predict.value = data;
+        })
+        .catch(() => {})
+        .finally(() => {
+          predictLoading.value = false;
+        });
+    }
+  }
+});
 
 // 模板绑定显式转发（规避编译产物 setup 绑定缺失）
 const ElIcon = __forwarded_ElIcon;
@@ -337,6 +456,12 @@ const ElTabs = __forwarded_ElTabs;
 
 // 模板绑定显式转发（规避编译产物 setup 绑定缺失）
 const ElTabPane = __forwarded_ElTabPane;
+
+// 模板绑定显式转发（规避编译产物 setup 绑定缺失）
+const ElButton = __forwarded_ElButton;
+
+// 模板绑定显式转发（规避编译产物 setup 绑定缺失）
+const ElInput = __forwarded_ElInput;
 
 // 模板绑定显式转发（规避编译产物 setup 绑定缺失）
 const GitNetworkOutline = __forwarded_GitNetworkOutline;
@@ -467,6 +592,65 @@ const GitNetworkOutline = __forwarded_GitNetworkOutline;
 
         <ElTabPane v-if="resolvedInstanceId && flowCode" label="流程图" name="graph" lazy>
           <FlowGraphPanel :instance-id="resolvedInstanceId" :flow-code="flowCode" :flow-status="statusValue" />
+        </ElTabPane>
+
+        <!-- R2-17 流程预测 + 评论与附件 -->
+        <ElTabPane v-if="resolvedInstanceId" label="讨论" name="comments" lazy>
+          <div class="flow-record-body">
+            <div v-loading="predictLoading" class="flow-record-predict">
+              <span class="flow-record-predict__icon">⏱</span>
+              <span>{{ predictText || '预测加载中…' }}</span>
+            </div>
+
+            <div class="flow-record-comment-editor">
+              <ElInput
+                v-model="commentContent"
+                type="textarea"
+                :rows="3"
+                placeholder="发表评论（过程沟通记录，与审批意见相互独立）"
+                maxlength="2000"
+                show-word-limit
+              />
+              <div class="flow-record-comment-editor__actions">
+                <ElButton type="primary" size="small" :loading="commentSubmitting" @click="submitComment">
+                  发表评论
+                </ElButton>
+              </div>
+            </div>
+
+            <div v-loading="commentsLoading" class="flow-record-comments">
+              <div v-for="comment in comments" :key="comment.id" class="flow-record-comment">
+                <div class="flow-record-comment__head">
+                  <span class="flow-record-comment__user">{{ comment.userName || comment.userId }}</span>
+                  <span class="flow-record-comment__time">{{ formatDateTime(comment.createdTime) }}</span>
+                  <ElButton
+                    v-if="comment.userId && comment.userId === selfUserId"
+                    text
+                    type="danger"
+                    size="small"
+                    @click="deleteComment(String(comment.id))"
+                  >
+                    删除
+                  </ElButton>
+                </div>
+                <div class="flow-record-comment__content">{{ comment.content }}</div>
+                <div v-if="parseAttachments(comment).length" class="flow-record-comment__files">
+                  <a
+                    v-for="(file, idx) in parseAttachments(comment)"
+                    :key="idx"
+                    :href="file.url"
+                    target="_blank"
+                    class="flow-record-comment__file"
+                  >
+                    📎 {{ file.name }}
+                  </a>
+                </div>
+              </div>
+              <div v-if="commentsLoaded && !comments.length" class="flow-record-empty">
+                暂无评论，发起第一条讨论
+              </div>
+            </div>
+          </div>
         </ElTabPane>
       </ElTabs>
     </div>
@@ -801,5 +985,85 @@ const GitNetworkOutline = __forwarded_GitNetworkOutline;
 .flow-record-subflow__name {
   color: #5b21b6;
   font-weight: 500;
+}
+
+/* R2-17 预测横幅 */
+.flow-record-predict {
+  align-items: center;
+  background: #f0f9eb;
+  border: 1px solid #d1edc4;
+  border-radius: 8px;
+  color: #529b2e;
+  display: flex;
+  font-size: 12px;
+  gap: 8px;
+  line-height: 20px;
+  margin-bottom: 12px;
+  padding: 6px 12px;
+}
+
+.flow-record-predict__icon {
+  font-size: 13px;
+}
+
+/* R2-17 评论与附件 */
+.flow-record-comment-editor {
+  margin-bottom: 12px;
+}
+
+.flow-record-comment-editor__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.flow-record-comments {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flow-record-comment {
+  background: #fafafa;
+  border: 1px solid #ebeef5;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.flow-record-comment__head {
+  align-items: center;
+  display: flex;
+  font-size: 12px;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.flow-record-comment__user {
+  color: #4e5969;
+  font-weight: 500;
+}
+
+.flow-record-comment__time {
+  color: #a8abb2;
+}
+
+.flow-record-comment__content {
+  color: #303133;
+  font-size: 13px;
+  line-height: 20px;
+  white-space: pre-wrap;
+}
+
+.flow-record-comment__files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.flow-record-comment__file {
+  color: #409eff;
+  font-size: 12px;
+  text-decoration: none;
 }
 </style>

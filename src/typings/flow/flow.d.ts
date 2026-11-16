@@ -179,9 +179,10 @@ declare namespace FlowNamespace {
     timeEnd?: string;
   }
 
-  /** 任务操作参数（通过/驳回/委托/转办/加减签/跳转等） */
+  /** 任务操作参数（通过/驳回/委托/转办/加减签/跳转等；批量通过传 taskIds） */
   interface TaskHandle {
-    taskId: string;
+    taskId?: string;
+    taskIds?: string[];
     message?: string;
     variable?: Record<string, unknown>;
     /** LAST 上一节点 / START 发起节点 / TARGET 指定节点 */
@@ -191,6 +192,58 @@ declare namespace FlowNamespace {
     skipType?: string;
     userIds?: string[];
   }
+
+  /** 批量审批单条结果 */
+  interface BatchApproveItem {
+    taskId: string;
+    ok: boolean;
+    message?: string;
+  }
+
+  /** 离职移交结果 */
+  interface HandoverResult {
+    total: number;
+    success: number;
+    failed: number;
+    instanceCount: number;
+  }
+
+  /** 流程代理规则（R2-17） */
+  interface UserDelegate {
+    id?: string;
+    organizationId?: string;
+    departmentId?: string;
+    /** 被代理人用户id */
+    userId: string;
+    /** 代理人用户id */
+    agentId: string;
+    /** 代理开始时间（空=立即生效），yyyy-MM-dd HH:mm:ss */
+    startTime?: string;
+    /** 代理结束时间（空=长期有效） */
+    endTime?: string;
+    /** 1启用 0停用 */
+    status?: string;
+    remark?: string;
+    createdBy?: string;
+    createdTime?: string;
+  }
+
+  /** 流程实例评论（R2-17 评论与附件） */
+  interface TaskComment {
+    id?: string;
+    instanceId: string;
+    taskId?: string;
+    userId?: string;
+    userName?: string;
+    content: string;
+    /** 附件 JSON 数组文本（[{fileId,name,url}]） */
+    attachments?: string;
+    createdTime?: string;
+  }
+
+  /** 流程绩效统计行（总览/按定义/按节点/在办负载通用 Map 行） */
+  type StatsRow = Record<string, unknown>;
+
 
   /** 数量统计 */
   interface Count {

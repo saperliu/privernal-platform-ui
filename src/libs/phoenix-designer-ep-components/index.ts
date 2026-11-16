@@ -9,6 +9,7 @@ import textLabelConfig from './text-label';
 import inputNumberConfig from './input-number';
 import { relationAttrConfig, relationBackfillConfig } from './relation/config';
 import subTableConfig from './sub-table';
+import formulaConfig from './formula';
 
 /**
  * phoenix-designer Element Plus 适配缺失的业务扩展组件注册。
@@ -31,7 +32,9 @@ const componentConfigs: ComponentConfigModel[] = [
   relationAttrConfig,
   relationBackfillConfig,
   subTableConfig,
-  textLabelConfig
+  textLabelConfig,
+  // R2-11 公式字段：服务端权威求值 + 渲染端实时预览
+  formulaConfig
 ];
 
 export function setupPhoenixDesignerEpComponents() {
@@ -56,6 +59,9 @@ export function setupPhoenixDesignerEpComponents() {
   // 字典数据源编辑器：select/radio/checkbox 属性面板的「字典类型」控件
   // （phoenix EP 包 select/radio/checkbox 的 dataSource/dictType 属性条目引用此编辑器）
   pluginManager.component.add('EDictTypeEditor', async () => (await import('./dict-type/dict-type.vue')).default);
+
+  // R2-11 公式编辑器：formula 组件属性面板的「计算公式」配置项
+  pluginManager.component.add('EFormulaEditor', async () => (await import('./formula/formula-editor.vue')).default);
 
   // EP 版 form 组件的 attribute 列表缺「数据标题」条目（naiveUi 版有：
   // props.titleFields → ETitleFieldsEditor，选择可输入字段拼接列表页数据标题）。

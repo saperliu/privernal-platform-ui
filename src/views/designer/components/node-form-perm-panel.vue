@@ -71,6 +71,9 @@ const EXT_NODE_KIND = 'nodeKind';
 const EXT_NO_FOUND = 'wfsNoFoundUser';
 const EXT_TIMEOUT_HOURS = 'wfTimeoutHours';
 const EXT_TIMEOUT_ACTION = 'wfTimeoutAction';
+/** R2-17 重复催办：间隔分钟（>0 启用）与最大次数（0=不限，办结自动取消） */
+const EXT_URGE_MINUTES = 'wfUrgeMinutes';
+const EXT_URGE_MAX_TIMES = 'wfUrgeMaxTimes';
 
 function parseExt(val: any): Record<string, any> {
   if (!val) return {};
@@ -406,6 +409,37 @@ function persistTimeout() {
   form.ext = ext;
 }
 
+/** ===== 重复催办（R2-17，随节点 ext 落库；运行时由调度任务按固定间隔催办直到办结/达上限） ===== */
+const nodeUrge = ref<{ minutes: number | null; maxTimes: number | null }>({ minutes: null, maxTimes: null });
+
+function syncUrgeFromForm() {
+  const ext = parseExt(props.form?.ext);
+  const minutes = Number(ext[EXT_URGE_MINUTES]);
+  const maxTimes = Number(ext[EXT_URGE_MAX_TIMES]);
+  nodeUrge.value = {
+    minutes: Number.isFinite(minutes) && minutes > 0 ? minutes : null,
+    maxTimes: Number.isFinite(maxTimes) && maxTimes > 0 ? maxTimes : null
+  };
+}
+
+function persistUrge() {
+  const form = props.form;
+  if (!form) return;
+  const ext = parseExt(form.ext);
+  if (nodeUrge.value.minutes && nodeUrge.value.minutes > 0) {
+    ext[EXT_URGE_MINUTES] = String(nodeUrge.value.minutes);
+    if (nodeUrge.value.maxTimes && nodeUrge.value.maxTimes > 0) {
+      ext[EXT_URGE_MAX_TIMES] = String(nodeUrge.value.maxTimes);
+    } else {
+      Reflect.deleteProperty(ext, EXT_URGE_MAX_TIMES);
+    }
+  } else {
+    Reflect.deleteProperty(ext, EXT_URGE_MINUTES);
+    Reflect.deleteProperty(ext, EXT_URGE_MAX_TIMES);
+  }
+  form.ext = ext;
+}
+
 /** ===== 节点规则（找不到审批人时） ===== */
 // 两种策略互斥，后端 FlowNoHandlerTaskHandler 按此分流；未配置按 MANAGE（交给组织管理员）处理
 const noFoundUserOptions = [
@@ -669,10 +703,11 @@ const activePermTab = ref('person');
 watch(
   () => [props.form, props.tableCode, props.flowCode],
   () => {
-    // form 引用随选中节点切换而重建：切换节点时同步人员/超时/规则并重载该节点的权限明细
+    // form 引用随选中节点切换而重建：切换节点时同步人员/超时/催办/规则并重载该节点的权限明细
     activePermTab.value = 'person';
     syncPersonFromForm();
     syncTimeoutFromForm();
+    syncUrgeFromForm();
     syncRuleFromForm();
     loadPerm();
   },
@@ -899,6 +934,38 @@ async function initDraft() {
           <div class="perm-tip">
             未配置超时的节点不会自动处置：待办会一直挂起等待办理（不存在隐藏的默认超时自动通过）。
             需要超时提醒/自动通过/自动驳回的节点请在此显式配置
+          </div>
+        </ElForm>
+
+        <ElDivider title-placement="left">重复催办</ElDivider>
+        <ElForm :label-width="110" size="small" :show-feedback="false" label-position="left">
+          <ElFormItem label="催办间隔(分)">
+            <ElInputNumber
+              v-model="nodeUrge.minutes"
+              :min="1"
+              :precision="0"
+              clearable
+              placeholder="留空不启用周期催办"
+              style="width: 100%"
+              :disabled="disabled"
+              @change="persistUrge"
+            />
+          </ElFormItem>
+          <ElFormItem label="催办上限(次)">
+            <ElInputNumber
+              v-model="nodeUrge.maxTimes"
+              :min="1"
+              :precision="0"
+              clearable
+              placeholder="留空=不限次数，办结后自动停止"
+              style="width: 100%"
+              :disabled="disabled"
+              @change="persistUrge"
+            />
+          </ElFormItem>
+          <div class="perm-tip">
+            配置间隔后，任务到达本节点即按固定间隔给办理人发催办提醒（站内信），办结后自动取消；
+            达上限或未配置时行为不同：上限留空=一直催到办结，间隔留空=不启用周期催办（仍可手动催办）
           </div>
         </ElForm>
 

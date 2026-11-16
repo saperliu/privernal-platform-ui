@@ -135,8 +135,8 @@ importers:
         specifier: 0.2.0
         version: 0.2.0
       phoenix-designer:
-        specifier: file:../phoenix-designer/packages/phoenix-designer/phoenix-designer-1.3.15.tgz
-        version: file:../phoenix-designer/packages/phoenix-designer/phoenix-designer-1.3.15.tgz(@types/sortablejs@1.15.8)(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(element-plus@2.13.6(typescript@5.9.3)(vue@3.5.31(typescript@5.9.3)))(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(monaco-editor@0.56.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.4)(vue@3.5.31(typescript@5.9.3))
+        specifier: file:../phoenix-designer/packages/phoenix-designer/phoenix-designer-1.3.16.tgz
+        version: file:../phoenix-designer/packages/phoenix-designer/phoenix-designer-1.3.16.tgz(@types/sortablejs@1.15.8)(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(element-plus@2.13.6(typescript@5.9.3)(vue@3.5.31(typescript@5.9.3)))(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(monaco-editor@0.56.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.4)(vue@3.5.31(typescript@5.9.3))
       pinia:
         specifier: 3.0.4
         version: 3.0.4(typescript@5.9.3)(vue@3.5.31(typescript@5.9.3))
@@ -4634,9 +4634,9 @@ packages:
   perfect-debounce@2.0.0:
     resolution: {integrity: sha512-fkEH/OBiKrqqI/yIgjR92lMfs2K8105zt/VT6+7eTjNwisrsh47CeIED9z58zI7DfKdH3uHAn25ziRZn3kgAow==}
 
-  phoenix-designer@file:../phoenix-designer/packages/phoenix-designer/phoenix-designer-1.3.15.tgz:
-    resolution: {integrity: sha512-ui7Y71GYxY+sqwImd/mA7YSOimMVfQoZGWRLl4fsEmqcq5zWuGZp/0WU8rlCraA7R37oKeWg3DakjSOgqNhHFg==, tarball: file:../phoenix-designer/packages/phoenix-designer/phoenix-designer-1.3.15.tgz}
-    version: 1.3.15
+  phoenix-designer@file:../phoenix-designer/packages/phoenix-designer/phoenix-designer-1.3.16.tgz:
+    resolution: {integrity: sha512-AVs/Ar/QNgntpRdkX91r+HoRNm7M+HE54N1Qcsla4GzkwHGpLeozPxNgAmFs4fNlGSmK07rqlqvQdsPhwdUbqg==, tarball: file:../phoenix-designer/packages/phoenix-designer/phoenix-designer-1.3.16.tgz}
+    version: 1.3.16
     peerDependencies:
       ant-design-vue: ^4.0.0
       element-plus: ^2.4.0
@@ -10578,7 +10578,7 @@ snapshots:
 
   perfect-debounce@2.0.0: {}
 
-  phoenix-designer@file:../phoenix-designer/packages/phoenix-designer/phoenix-designer-1.3.15.tgz(@types/sortablejs@1.15.8)(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(element-plus@2.13.6(typescript@5.9.3)(vue@3.5.31(typescript@5.9.3)))(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(monaco-editor@0.56.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.4)(vue@3.5.31(typescript@5.9.3)):
+  phoenix-designer@file:../phoenix-designer/packages/phoenix-designer/phoenix-designer-1.3.16.tgz(@types/sortablejs@1.15.8)(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(element-plus@2.13.6(typescript@5.9.3)(vue@3.5.31(typescript@5.9.3)))(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(monaco-editor@0.56.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.4)(vue@3.5.31(typescript@5.9.3)):
     dependencies:
       '@wangeditor/core': 1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.11)(slate@0.72.8)(snabbdom@3.6.4)
       '@wangeditor/editor': 5.1.23
