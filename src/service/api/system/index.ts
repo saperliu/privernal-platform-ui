@@ -13,6 +13,7 @@ export * from './system-position';
 export * from './system-role-menu';
 export * from './system-role-user';
 export * from './system-role-user-dept';
+export * from './permission-audit';
 export * from './system-social-app-config';
 export * from './system-social-user';
 export * from './system-user-position';

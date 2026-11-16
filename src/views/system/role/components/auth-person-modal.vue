@@ -4,12 +4,14 @@ import { computed, reactive, ref, watch } from 'vue';
 import { ElPopconfirm, ElTag, ElButton as __forwarded_ElButton, ElSpace as __forwarded_ElSpace } from 'element-plus';
 import { PlusOutlined as __forwarded_PlusOutlined } from '@vicons/antd';
 import { userStatusColors, userStatusLabels } from '@/constants';
+import { formatDateTime } from '@/utils/common';
 import {
   delSystemRoleUser,
   findSystemRoleUserDeptList,
   findSystemUserByRole,
   saveSystemRoleUserBatch,
-  saveSystemRoleUserDeptBatch
+  saveSystemRoleUserDeptBatch,
+  updateSystemRoleUserExpire
 } from '@/service';
 import { useBoolean, useLoading } from '@/hooks';
 import TransferPerson from '@/components/business/transfer-person.vue';
@@ -124,6 +126,54 @@ function rowKey(rowData: any) {
   return rowData.id;
 }
 
+// ---- R1-8 授权有效期 ----
+const expireDialogVisible = ref(false);
+const expireEditRow = ref<SystemRoleUserNamespace.SystemRoleUserTable | null>(null);
+/** 日期选择器绑定值（yyyy-MM-dd HH:mm:ss 字符串；保存时转 epoch 毫秒上送） */
+const expireEditValue = ref<string>('');
+
+function parseExpireMs(expireTime?: number | string | null) {
+  if (expireTime === null || expireTime === undefined || expireTime === '') return null;
+  if (typeof expireTime === 'number') return expireTime;
+  const s = String(expireTime);
+  // 先按 ISO 解析（后端 Date 序列化形如 2027-01-03T22:21:01.000+08:00），失败再按 yyyy-MM-dd HH:mm:ss（连字符转斜杠）兜底
+  let ms = new Date(s).getTime();
+  if (Number.isNaN(ms)) ms = new Date(s.replace(/-/g, '/')).getTime();
+  return Number.isNaN(ms) ? null : ms;
+}
+
+function isExpired(expireTime?: number | string | null) {
+  const ms = parseExpireMs(expireTime);
+  return ms !== null && ms < Date.now();
+}
+
+function formatExpire(expireTime?: number | string | null) {
+  const ms = parseExpireMs(expireTime);
+  if (ms === null) return '永久';
+  return `${formatDateTime(ms)}${ms < Date.now() ? '（已到期）' : ''}`;
+}
+
+function openExpireDialog(row: SystemRoleUserNamespace.SystemRoleUserTable) {
+  expireEditRow.value = row;
+  const ms = parseExpireMs(row.expireTime);
+  expireEditValue.value = ms === null ? '' : formatDateTime(ms);
+  expireDialogVisible.value = true;
+}
+
+async function saveExpire(clear: boolean) {
+  const row = expireEditRow.value;
+  if (!row) return;
+  const ms = clear || !expireEditValue.value ? null : parseExpireMs(expireEditValue.value);
+  const { error } = await updateSystemRoleUserExpire({ id: row.id, expireTime: ms });
+  if (error === null) {
+    window.$message?.success(ms !== null ? '有效期已设置' : '已恢复为永久授权');
+    expireDialogVisible.value = false;
+    findAuthAllUser(formFilter);
+  } else {
+    window.$message?.error('有效期设置失败');
+  }
+}
+
 async function findAuthAllUser(dataQuery: SystemRoleUserNamespace.SystemRoleUserQuery) {
   startLoading();
   let result: SystemRoleUserNamespace.SystemRoleUserPage = { list: [], total: 0 };
@@ -202,15 +252,35 @@ const columns: Ref<DataTable.Column<SystemRoleUserNamespace.SystemRoleUserTable>
     }
   },
   {
+    key: 'expireTime',
+    title: '授权有效期',
+    align: 'left',
+    ellipsis: true,
+    width: 160,
+    render: row => {
+      if (isExpired(row.expireTime)) {
+        return <ElTag type="danger">{formatExpire(row.expireTime)}</ElTag>;
+      }
+      if (row.expireTime) {
+        return <ElTag type="warning">{formatExpire(row.expireTime)}</ElTag>;
+      }
+      return <span class="text-13px text-gray-400">永久</span>;
+    }
+  },
+  {
     key: 'actions',
     title: '操作',
     align: 'left',
     ellipsis: true,
     fixed: 'right',
     className: 'table-action-title',
+    width: 230,
     render: row => {
       return (
         <ElSpace>
+          <ElButton text size={'small'} type="primary" onClick={() => openExpireDialog(row)}>
+            有效期
+          </ElButton>
           <ElButton text size={'small'} type="primary" onClick={() => handleAuthDept(row)}>
             添加服务部门
           </ElButton>
@@ -419,6 +489,27 @@ watch(
     :multiple="true"
     @closed="saveSelectDept"
   ></TransferDepartment>
+
+  <!-- R1-8 授权有效期：设置到期时间（到期后装配即过滤+回收扫描软删）或恢复永久 -->
+  <ElDialog v-model="expireDialogVisible" title="设置授权有效期" width="420px" :close-on-click-modal="false">
+    <div class="flex-col gap-12px">
+      <div class="text-13px text-gray-500">
+        成员：{{ expireEditRow?.nickName }}；到期后将自动失去该角色权限（在线会话即时刷新），到期行由回收扫描清理。
+      </div>
+      <PrivernalDatepicker
+        v-model:value="expireEditValue"
+        clearable
+        type="datetime"
+        value-format="yyyy-MM-dd HH:mm:ss"
+        placeholder="选择到期时间（留空保存=永久）"
+      />
+    </div>
+    <template #footer>
+      <ElButton @click="saveExpire(true)">恢复永久</ElButton>
+      <ElButton @click="expireDialogVisible = false">取消</ElButton>
+      <ElButton type="primary" @click="saveExpire(false)">保存</ElButton>
+    </template>
+  </ElDialog>
 </template>
 
 <style lang="scss" scoped>

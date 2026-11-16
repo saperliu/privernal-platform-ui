@@ -24,6 +24,9 @@ declare namespace SystemRoleUserNamespace {
     /** 用户ID */
     userId: string;
 
+    /** R1-8 授权有效期（null=永久；接口回传/上送均为 epoch 毫秒，与 openapi credential 口径一致） */
+    expireTime?: number | string | null;
+
     /**
      * 登录名
      */
