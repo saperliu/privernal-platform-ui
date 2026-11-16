@@ -6,6 +6,7 @@ import { EBuilder as __forwarded_EBuilder } from 'phoenix-designer';
 import { findDynamicFormByCode } from '@/service';
 import { delDynamicFormData, findDynamicFormData, saveDynamicFormData } from '@/service/api/dynamic/dynamic-common';
 import { useBodyLoading } from '@/hooks';
+import { useAppStore } from '@/store/modules/app';
 import { getQueryString } from '@/utils';
 import { buildCustomViewPageApi } from '@/utils/custom-view/page-api';
 import { applyDictOptions } from '@/libs/dict-options';
@@ -43,6 +44,8 @@ interface Emits {
 
 const { startBodyLoading, endBodyLoading } = useBodyLoading();
 const drawerWidth = ref('90%');
+// R1-10 H5：移动端填报抽屉直接全屏（手动全屏切换仍以 fullScreen 为准）
+const appStore = useAppStore();
 const formType = ref<ModalType>('add');
 const emit = defineEmits<Emits>();
 const modalVisible = computed({
@@ -188,6 +191,10 @@ function fullScreen(value: boolean) {
   } else {
     drawerWidth.value = '90%';
   }
+  // 恢复非全屏时移动端仍保持全屏（全屏按钮在移动端布局已隐藏，此处兜底）
+  if (!value && appStore.isMobile) {
+    drawerWidth.value = '100%';
+  }
 }
 
 watch(
@@ -195,6 +202,10 @@ watch(
   async newValue => {
     if (newValue) {
       formType.value = props.type;
+      // 移动端打开即全屏（可拖拽调整被忽略，H5 下全屏才是可用形态）
+      if (appStore.isMobile) {
+        drawerWidth.value = '100%';
+      }
 
       // pageManager.setFormData 是合并语义、resetData 只重置 schema 输入字段，
       // 上一条数据的 id/status 等残留键都清不掉；每次打开用 :key 重建 EBuilder
@@ -323,14 +334,10 @@ const EBuilder = __forwarded_EBuilder;
         ></FormOperation>
       </template>
       <!-- 自定义编辑页启用时替换 EBuilder 渲染；宿主兼容 validate/getData/setData，提交链零改动 -->
-      <EBuilder
-        v-if="!customEditView"
-        ref="ebRef"
-        :key="ebKey"
-        :page-schema="pageSchema"
-        :form-data="ebFormData"
-        :disabled="formType === 'view'"
-      />
+      <!-- h5-form-host：R1-10 移动端单列与触控目标的样式宿主（全局 h5-responsive.css） -->
+      <div v-if="!customEditView" class="h5-form-host w-full">
+        <EBuilder ref="ebRef" :key="ebKey" :page-schema="pageSchema" :form-data="ebFormData" :disabled="formType === 'view'" />
+      </div>
       <CustomViewHost v-else ref="ebRef" :key="ebKey" :source="customEditView.source" :context="customEditContext" />
       <template #footer>
         <ElSpace v-if="formType !== 'view'" class="w-full pt-16px" :size="24" justify="end">

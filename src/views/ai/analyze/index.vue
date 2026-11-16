@@ -13,7 +13,7 @@ defineOptions({ name: 'AiAnalyze' });
 const ElButton = __forwarded_ElButton;
 
 // ---------------- 窄屏适配（M3-4 一期：APP webview bare 模式 ≈ 400px 视口） ----------------
-// isMobile 走全局断点（<640px）：侧栏收进抽屉，聊天区独占整行；桌面端布局不变
+// isMobile 走全局断点（<768px，R1-10 对齐）：侧栏收进抽屉，聊天区独占整行；桌面端布局不变
 const appStore = useAppStore();
 const isMobile = computed(() => appStore.isMobile);
 const sessionDrawerVisible = ref(false);

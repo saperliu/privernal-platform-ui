@@ -184,7 +184,8 @@ const ElSelect = __forwarded_ElSelect;
 }
 
 .form-card {
-  width: 640px;
+  /* R1-10 H5：窄屏撑满容器，桌面端保持 640px 居中 */
+  width: min(640px, 100%);
 }
 
 .full {
@@ -196,7 +197,7 @@ const ElSelect = __forwarded_ElSelect;
 }
 
 .pwd-input {
-  width: 280px;
+  width: min(280px, 100%);
 }
 
 .submit-row {
@@ -209,6 +210,13 @@ const ElSelect = __forwarded_ElSelect;
   color: #b3261e;
   background: #fdeceb;
   border-radius: 4px;
+}
+
+/* R1-10 H5：免登填报页窄屏收紧留白、提交按钮触控加高 */
+@media (max-width: 768px) {
+  .public-page {
+    padding: 24px 12px;
+  }
 }
 
 .receipt-box {

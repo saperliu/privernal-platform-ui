@@ -119,7 +119,7 @@ const ArrowLeft = __forwarded_ArrowLeft;
             </ElTabPane>
           </ElTabs>
         </div>
-        <div class="w-80px"></div>
+        <div class="flow-header-spacer w-80px"></div>
       </div>
     </ElCard>
 
@@ -216,5 +216,17 @@ const ArrowLeft = __forwarded_ArrowLeft;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
+}
+
+/* R1-10 H5：窄屏隐藏右侧占位、压缩标题留白，避免头部与页签挤压换行 */
+@media (max-width: 768px) {
+  .flow-header-spacer {
+    display: none;
+  }
+
+  .flow-title {
+    width: auto;
+    margin-right: 8px;
+  }
 }
 </style>

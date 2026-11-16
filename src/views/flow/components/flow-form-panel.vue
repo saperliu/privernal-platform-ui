@@ -109,7 +109,8 @@ const EBuilder = __forwarded_EBuilder;
 <template>
   <div class="flow-form-panel">
     <div v-loading="loading" class="panel-spin">
-      <div v-if="pageSchema" class="panel-body">
+      <!-- h5-form-host：R1-10 移动端单列与触控目标的样式宿主（全局 h5-responsive.css） -->
+      <div v-if="pageSchema" class="panel-body h5-form-host">
         <EBuilder ref="ebRef" :key="ebKey" :page-schema="pageSchema" :field-states="fieldStates" :readonly="formReadonly" />
       </div>
       <ElEmpty v-else-if="!loading" :description="tip" class="panel-empty" />

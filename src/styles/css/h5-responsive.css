@@ -1,0 +1,83 @@
+/* ===== R1-10 移动端 H5 响应式统一层（≤768px） =====
+   口径与 appStore.isMobile（vueuse breakpointsTailwind 的 md=768）对齐：
+   1) 触控目标加大：默认控件 32px→38px（Element Plus 尺寸变量 + 按钮覆盖）；
+   2) 动态表单填报单列：phoenix EBuilder 的栅格 col 降级整行（宿主挂 .h5-form-host）；
+   3) 固定宽度弹窗兜底收缩，防横向溢出；
+   4) 流程列表筛选行纵向堆叠（.flow-filter-row 定义于 flow-list-layout.vue）。
+   仅媒体查询内生效，桌面端零影响。 */
+@media (max-width: 768px) {
+  /* ---- 触控目标加大 ---- */
+  :root {
+    /* 输入框/选择器/日期等默认尺寸组件统一增高（el-input 高度取该变量） */
+    --el-component-size: 38px;
+  }
+
+  /* 按钮高度为硬编码像素，需单独覆盖；排除 large（40px）与 small（单独调） */
+  .el-button:not(.el-button--large):not(.el-button--small) {
+    height: 38px;
+  }
+
+  /* 表格操作列等密集场景的小按钮 24px→30px，保点击命中率又不撑爆行高 */
+  .el-button--small {
+    --el-button-size: 30px;
+    height: var(--el-button-size);
+  }
+
+  /* ---- 弹窗/消息框兜底：固定 px 宽度（480/560/920/1200…）收缩防溢出 ---- */
+  .el-dialog,
+  .el-message-box {
+    max-width: calc(100vw - 16px);
+  }
+
+  /* 分页条在窄屏溢出，允许换行（移动端 pageSlot 已由 table.ts 钳到 3） */
+  .el-pagination {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    row-gap: 8px;
+  }
+
+  /* 单选按钮组（如审批弹窗"驳回方式"三选）窄屏换行 */
+  .el-radio-group {
+    flex-wrap: wrap;
+  }
+
+  /* ---- 流程列表筛选行：横向流式 → 纵向单列，控件撑满 ---- */
+  .flow-filter-row {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .flow-filter-row > * {
+    flex-shrink: 1;
+    width: 100%;
+  }
+
+  .flow-filter-row .el-input,
+  .flow-filter-row .el-date-editor {
+    flex: 1;
+    width: 100% !important;
+  }
+
+  /* ---- 动态表单填报单列（EBuilder 宿主）----
+     栅格 col 的 span 全部降级整行；表单项标签从侧置改为顶置，
+     避免 label-width 内联样式把窄屏输入区挤没。 */
+  .h5-form-host .el-row > .el-col {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+
+  .h5-form-host .el-form-item {
+    display: block;
+  }
+
+  .h5-form-host .el-form-item__label {
+    display: block;
+    height: auto;
+    justify-content: flex-start;
+    line-height: 22px;
+    margin-bottom: 4px;
+    text-align: left;
+    width: auto !important;
+  }
+}

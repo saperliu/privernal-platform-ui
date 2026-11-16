@@ -29,8 +29,8 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     toggle: toggleMixSiderFixed
   } = useBoolean(localStg.get('mixSiderFixed') === 'Y');
 
-  /** Is mobile layout */
-  const isMobile = breakpoints.smaller('sm');
+  /** Is mobile layout（R1-10 对齐 ≤768px：640–768 平板竖屏也走移动抽屉布局） */
+  const isMobile = breakpoints.smaller('md');
 
   /** socket.io 实例 */
   const socket = ref<Socket | null>(null);
