@@ -6,8 +6,10 @@ import type { FlowDefDiff } from '@/utils/flow-def-diff';
 
 /**
  * 流程定义版本对比抽屉（R2-18 ①）：同一 flowCode 的两个版本各取一份 DefJson
- * （GET /definition/{id} 的 flowDefinition），纯前端语义 diff——
- * 定义级字段 / 节点增删改（含变化区域）/ 连线增删改。骨架照 datav version-panel。
+ * （GET /definition/{id} 响应：flowDefinition 字段优先，缺失时用响应整体——
+ * warm-flow Definition 无 flowDefinition 列，getAllDataDefinition 返回的顶层
+ * nodeList（节点带 skipList）+ 定义级字段即 DefJson 等构，设计器 dataProvider 同口径回退），
+ * 纯前端语义 diff——定义级字段 / 节点增删改（含变化区域）/ 连线增删改。骨架照 datav version-panel。
  */
 defineOptions({ name: 'FlowVersionDiff' });
 
@@ -81,8 +83,8 @@ async function onCompare() {
       findFlowDefinitionDetail(baseId.value),
       findFlowDefinitionDetail(targetId.value)
     ]);
-    const baseRaw = (baseRes.data as any)?.flowDefinition;
-    const targetRaw = (targetRes.data as any)?.flowDefinition;
+    const baseRaw = (baseRes.data as any)?.flowDefinition ?? baseRes.data;
+    const targetRaw = (targetRes.data as any)?.flowDefinition ?? targetRes.data;
     if (baseRes.error !== null || targetRes.error !== null) {
       diffError.value = baseRes.error?.message || targetRes.error?.message || '版本内容加载失败';
       return;

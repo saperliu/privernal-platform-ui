@@ -2,7 +2,9 @@
  * 动态表单字段翻译层（公共）
  *
  * 所有展示表单存储值的列表统一走这里：把 id / 选项 value / 状态码翻译为展示文案：
- *  - select / radio / checkbox / cascader：组件 options（label/value）映射，纯内存零请求
+ *  - select / radio / checkbox / cascader：组件 options（label/value）映射，纯内存零请求；
+ *    选项数据源=字典（props.dataSource==='dict' + dictType，R2-15）时按字典项翻译
+ *    （dictValue→dictLabel，按 dictType 模块级缓存，字典缺失回退静态 options/原值）
  *  - switch：ON/OFF 布尔值 → 是/否
  *  - user-select / user-multi-select：用户 id → 昵称（全量字典，模块级缓存）
  *  - dept-select / dept-multi-select：部门 id → 名称（全量字典，模块级缓存）
@@ -22,6 +24,7 @@ import { h } from 'vue';
 import { ElTag } from 'element-plus';
 import { dataStatusBgColors, dataStatusColors, dataStatusLabels } from '@/constants';
 import { findSystemDepartmentList, findSystemUserList } from '@/service';
+import { findSystemDictionaryDataList } from '@/service/api';
 import { findDynamicRelationDataList } from '@/service/api/dynamic/dynamic-common';
 
 type DictMap = Map<string, string>;
@@ -107,6 +110,40 @@ export function loadDeptDict(): Promise<DictMap> {
       });
   }
   return deptDictPromise;
+}
+
+/** 字典类型 → value→label 映射缓存（与渲染端 applyDictOptions 同一数据口径，按 dictType 共享） */
+const dictTypePromises = new Map<string, Promise<DictMap>>();
+
+/** 拉取一个字典类型的 value→label 映射；失败清缓存允许下次构建重试，字典缺失返回空表（回退原值） */
+function loadDictTypeMap(dictType: string): Promise<DictMap> {
+  let promise = dictTypePromises.get(dictType);
+  if (!promise) {
+    promise = findSystemDictionaryDataList({ dictType, pageNum: 1, pageSize: 500 } as any)
+      .then(res => {
+        const map: DictMap = new Map();
+        pickPageRows(res.data).forEach((item: any) =>
+          map.set(String(item.dictValue), String(item.dictLabel ?? item.dictValue))
+        );
+        return map;
+      })
+      .catch(() => {
+        dictTypePromises.delete(dictType);
+        return new Map();
+      });
+    dictTypePromises.set(dictType, promise);
+  }
+  return promise;
+}
+
+/** 选项数据源=字典的组件配置（props/componentProps 两种键都兜，与 applyDictOptions 读取口径一致） */
+function pickDictSource(comp: any | null): string | null {
+  if (!comp) return null;
+  const props = comp.props ?? {};
+  const componentProps = comp.componentProps ?? {};
+  const dataSource = props.dataSource ?? componentProps.dataSource;
+  const dictType = props.dictType ?? componentProps.dictType;
+  return dataSource === 'dict' && dictType ? String(dictType) : null;
 }
 
 /** 关联表单组件 schema 里的 relation 配置（props/componentProps 两种键都兜）；无 formCode 视为未配置 */
@@ -284,6 +321,7 @@ export async function createFieldTranslators(
   const dictLoaders = new Set<() => Promise<DictMap>>();
   const relationCodes: string[] = [];
   const relationFields = new Map<string, { formCode: string; displayField?: string }>();
+  const dictTypeFields = new Map<string, string>();
   entries.forEach(({ filedCode, comp }) => {
     const loader = comp && REMOTE_DICT_COMPONENTS[String(comp.type)];
     if (loader) dictLoaders.add(loader);
@@ -294,12 +332,23 @@ export async function createFieldTranslators(
         relationFields.set(filedCode, relation);
       }
     }
+    if (comp && OPTION_COMPONENTS.has(String(comp.type))) {
+      const dictType = pickDictSource(comp);
+      if (dictType) dictTypeFields.set(filedCode, dictType);
+    }
   });
   // 字典缓存已在上面预热，这里并发取回结果，构建翻译器时不再在循环里 await
   const dictMaps = new Map<() => Promise<DictMap>, DictMap>();
   await Promise.all(
     [...dictLoaders].map(async loader => {
       dictMaps.set(loader, await loader());
+    })
+  );
+  // 字典数据源选项：按 dictType 并发拉取（同类型多列共享一份）
+  const dictTypeMaps = new Map<string, DictMap>();
+  await Promise.all(
+    [...new Set(dictTypeFields.values())].map(async dictType => {
+      dictTypeMaps.set(dictType, await loadDictTypeMap(dictType));
     })
   );
   const relationRows = await loadRelationRows(relationCodes, fromTableCode);
@@ -353,11 +402,15 @@ export async function createFieldTranslators(
       };
     }
     if (OPTION_COMPONENTS.has(type)) {
-      const map = buildOptionMap(comp?.componentProps?.options);
+      // 选项数据源=字典：字典项映射优先（与渲染端 applyDictOptions 注入的 options 同源），
+      // 未命中回退设计器静态 options，再回退原值（字典删除项的历史数据兜底）
+      const dictType = dictTypeFields.get(filedCode);
+      const dict = dictType ? dictTypeMaps.get(dictType) : undefined;
+      const staticMap = buildOptionMap(comp?.componentProps?.options);
       return value => {
         if (value === null || value === undefined || value === '') return '';
         return splitMultiValue(value)
-          .map(v => mapSingle(map, v))
+          .map(v => (dict && dict.has(String(v)) ? mapSingle(dict, v) : mapSingle(staticMap, v)))
           .join('、');
       };
     }
