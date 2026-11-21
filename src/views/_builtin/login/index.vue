@@ -32,18 +32,26 @@ const moduleMap: Record<UnionKey.LoginModule, LoginModule> = {
 
 const activeModule = computed(() => moduleMap[props.module || 'pwd-login']);
 
-/** 登录框标题：背景图上用白色（暗色模式不变），不再用主题色渐变（图上不可读） */
-const titleStyle = computed(() => ({ color: '#fff', textShadow: '0 2px 12px rgba(15, 30, 70, 0.45)' }));
+/**
+ * 登录框标题配色：背景图左侧为插画、右侧留白浅色——浅色模式标题用深海军蓝直接可读，
+ * 暗色模式压暗蒙层后保持白色。
+ */
+const titleStyle = computed(() =>
+  themeStore.darkMode
+    ? { color: '#fff', textShadow: '0 2px 12px rgba(15, 30, 70, 0.45)' }
+    : { color: '#1d3a6d', textShadow: '0 1px 10px rgba(255, 255, 255, 0.65)' }
+);
 </script>
 
 <template>
-  <div class="relative size-full flex-center overflow-auto bg-layout">
-    <!-- 背景图：AI 生成的抽象科技风插画（淡雅晨曦光 + 神经网络/数据流线条），中央留白保证登录卡片可读 -->
+  <div class="relative size-full flex items-center justify-center overflow-auto bg-layout lg:justify-end lg:pr-[10vw]">
+    <!-- 背景图：左侧等距插画（数据/流程/春祈 logo 卡片）+ 右侧留白——登录框落在留白区。
+         浅色模式只加极淡白纱保持插画通透，暗色模式加深蒙层保证对比 -->
     <div
       class="absolute inset-0 bg-cover bg-center"
       :style="{
         backgroundImage: `url(${loginBg})`,
-        boxShadow: `inset 0 0 0 100vmax ${themeStore.darkMode ? 'rgba(10, 16, 32, 0.55)' : 'rgba(30, 45, 90, 0.28)'}`
+        boxShadow: `inset 0 0 0 100vmax ${themeStore.darkMode ? 'rgba(10, 16, 32, 0.55)' : 'rgba(255, 255, 255, 0.08)'}`
       }"
     ></div>
     <div class="absolute right-15px top-15px z-20 flex-col gap-8px">
@@ -81,7 +89,12 @@ const titleStyle = computed(() => ({ color: '#fff', textShadow: '0 2px 12px rgba
         </div>
       </main>
     </div>
-    <div class="absolute bottom-15px z-10 text-14px text-#f8fafc/85 dark:text-#cbd5e1/80">{{ $t('system.title') }}</div>
+    <div
+      class="absolute bottom-15px z-10 text-14px"
+      :class="themeStore.darkMode ? 'text-#cbd5e1/80' : 'text-#475569/75'"
+    >
+      {{ $t('system.title') }}
+    </div>
   </div>
 </template>
 
