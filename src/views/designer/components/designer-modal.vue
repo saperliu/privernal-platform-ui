@@ -14,6 +14,7 @@ import FormDesigner from '@/views/designer/components/form-designer.vue';
 import ListDesign from '@/views/designer/components/list-design.vue';
 import FlowDesignPanel from '@/views/designer/components/flow-design-panel.vue';
 import AdvancedPanel from '@/views/designer/components/advanced/advanced-panel.vue';
+import type { CompositeUniqueGroupConfig } from '@/views/designer/components/advanced/composite-unique-panel.vue';
 import CustomViewPanel from '@/views/designer/components/custom-view-panel.vue';
 /**
  * 后端代码（Groovy 后台脚本）默认样例：以注释形式内置在编辑器中，
@@ -88,6 +89,27 @@ const BACK_SCRIPT_SAMPLE = `// ========== 后端代码样例（Groovy，随表�
 `;
 
 const backScript = ref({ script: BACK_SCRIPT_SAMPLE, transactional: true });
+
+/**
+ * 复合唯一组配置（metaData 根节点 compositeUnique，5.9）：设计器保存产出会整体重建
+ * metaData（backScript/customView 同因），这里独立持有、加载时读入、保存/存草稿时回注。
+ */
+const compositeUnique = ref<CompositeUniqueGroupConfig[]>([]);
+
+/** metaData 里的 compositeUnique 归一：只收 {name, fields:[…]} 形状的合法组（后端对非法组静默跳过，这里读入时就剥掉） */
+function normalizeCompositeGroups(raw: unknown): CompositeUniqueGroupConfig[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter(
+      (item): item is CompositeUniqueGroupConfig =>
+        !!item &&
+        typeof item === 'object' &&
+        typeof (item as any).name === 'string' &&
+        Array.isArray((item as any).fields) &&
+        (item as any).fields.length >= 2
+    )
+    .map(item => ({ name: item.name, fields: [...item.fields] }));
+}
 
 const code = getQueryString(window.location.search, 'code');
 
@@ -202,6 +224,15 @@ function alignIdentityBeforeSave(): boolean {
   return true;
 }
 
+/** 把复合唯一组配置回注进 metaData（空配置时剥键，避免残留空数组） */
+function applyCompositeGroupsTo(metaData: Record<string, any>) {
+  if (compositeUnique.value.length) {
+    metaData.compositeUnique = compositeUnique.value.map(group => ({ name: group.name, fields: [...group.fields] }));
+  } else {
+    delete metaData.compositeUnique;
+  }
+}
+
 /**
  * 点击保存按钮操作
  *
@@ -211,6 +242,7 @@ async function handleSubmit(e: Record<string, any>) {
   dynamicForm.metaData = e;
   dynamicForm.metaData.backScript = backScript.value;
   dynamicForm.metaData.customView = customView.value;
+  applyCompositeGroupsTo(dynamicForm.metaData);
 
   if (!alignIdentityBeforeSave()) return;
 
@@ -258,6 +290,7 @@ async function handleSaveDraft(e: Record<string, any>) {
   dynamicForm.metaData.customView = customView.value;
   // 与保存同口径：草稿的根节点同步权威名称/编码（再次编辑回填靠它）
   syncRootSchemaIdentity(dynamicForm.metaData);
+  applyCompositeGroupsTo(dynamicForm.metaData);
 
   draftSaving.value = true;
   try {
@@ -282,6 +315,7 @@ function findForm(codeForm: string) {
     if (res.error === null && res.data) {
       backScript.value = res.data.metaData?.backScript ?? { script: BACK_SCRIPT_SAMPLE, transactional: true };
       customView.value = normalizeCustomView(res.data.metaData?.customView);
+      compositeUnique.value = normalizeCompositeGroups(res.data.metaData?.compositeUnique);
       dynamicForm.metaData = res.data.metaData ?? {};
       designerRef.value?.setData(res.data.metaData);
       dynamicForm.id = res.data.id;
@@ -316,6 +350,7 @@ function loadDraftIfPresent() {
       onPositiveClick: () => {
         backScript.value = draft.metaData?.backScript ?? { script: BACK_SCRIPT_SAMPLE, transactional: true };
         customView.value = normalizeCustomView(draft.metaData?.customView);
+        compositeUnique.value = normalizeCompositeGroups(draft.metaData?.compositeUnique);
         dynamicForm.metaData = draft.metaData;
         designerRef.value?.setData(draft.metaData);
         window.$message?.success('已载入草稿');
@@ -477,7 +512,10 @@ onMounted(() => {
         />
       </div>
       <div v-if="visited.advanced" v-show="activeTab === 'advanced'" class="workbench-pane is-padded">
-        <AdvancedPanel :dynamic-form="dynamicForm" />
+        <AdvancedPanel
+          :dynamic-form="dynamicForm"
+          v-model:composite-unique="compositeUnique"
+        />
       </div>
     </section>
   </div>

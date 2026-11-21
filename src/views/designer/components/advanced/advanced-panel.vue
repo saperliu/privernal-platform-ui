@@ -11,6 +11,8 @@ import SharePanel from './share-panel.vue';
 import LinkagePanel from './linkage-panel.vue';
 import DocTemplatePanel from './doc-template-panel.vue';
 import ScriptPanel from './script-panel.vue';
+import CompositeUniquePanel from './composite-unique-panel.vue';
+import type { CompositeUniqueGroupConfig } from './composite-unique-panel.vue';
 
 const props = defineProps<{
   dynamicForm: {
@@ -19,7 +21,11 @@ const props = defineProps<{
     tableName: string;
     metaData?: Record<string, any> | null;
   };
+  /** 复合唯一组配置（宿主持有 ref，保存表单时回注 metaData；面板只编辑不落库） */
+  compositeUnique?: CompositeUniqueGroupConfig[];
 }>();
+
+const emit = defineEmits<{ (e: 'update:compositeUnique', value: CompositeUniqueGroupConfig[]): void }>();
 
 const activeTab = ref('linkage');
 
@@ -68,6 +74,13 @@ const ElTabs = __forwarded_ElTabs;
       </ElTabPane>
       <ElTabPane name="docTemplate" label="单据模板">
         <DocTemplatePanel :form="formRef" />
+      </ElTabPane>
+      <ElTabPane name="compositeUnique" label="复合唯一">
+        <CompositeUniquePanel
+          :field-options="fieldOptions"
+          :groups="compositeUnique ?? []"
+          @update:groups="value => emit('update:compositeUnique', value)"
+        />
       </ElTabPane>
       <ElTabPane name="io" label="导入/导出设置">
         <IoPanel :form="formRef" />
